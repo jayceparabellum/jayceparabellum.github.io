@@ -18,5 +18,8 @@ Lean Six Sigma Black Belt in Information Technology (2020) and Green Belt (2019)
 ## Other credentials
 Life and annuities insurance licensing (Virginia, Maryland, Pennsylvania, Colorado). DHS Federal Protective Service weapons detection training (2013).
 
+## Awards
+Jayce's most recent award is the Toastmasters Ice Breaker Award (2026), earned at the LoDo Toastmasters club in Denver, Colorado for delivering a first prepared speech. Military awards and decorations include the Air and Space Achievement Medal (2019), Air and Space Outstanding Unit Award (2018), Humanitarian Service Medal (2018), Army Commendation Medal (2017), the Golden Bolt Award (2016, 213th Maintenance Squadron), the Air Force Longevity Service Award, the NCO Professional Military Education Graduate Ribbon (2015), the Small Arms Expert Marksmanship Ribbon (2014), the Global War on Terrorism Service Medal (2014), the Selected Marine Corps Reserve Medal, the Marine Corps Rifle Expert Badge, and the National Defense Service Medal (2009). The full list is in the Credentials section of this website.
+
 ## Clearance
 Jayce is Top Secret (TS) clearance eligible. For anything more specific about clearance status, contact Jayce directly.

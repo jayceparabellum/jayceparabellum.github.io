@@ -28,6 +28,7 @@ const GOLDEN = [
   ['What AWS certifications does Jayce have?', '07-education-certs'],
   ['How can I verify Jayce\'s certifications?', '07-education-certs'],
   ['What jet engine training courses did Jayce complete?', '06-military'],
+  ['Has Jayce won a Toastmasters Ice Breaker award?', '07-education-certs'],
   ['What unit was Jayce in as a Marine?', '06-military'],
   ['Where is Jayce getting a masters degree?', '07-education-certs'],
   ['Does Jayce have a security clearance?', '07-education-certs'],

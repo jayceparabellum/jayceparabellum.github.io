@@ -1,5 +1,5 @@
 {
- "version": "5c0762425968",
+ "version": "b021929ae4f2",
  "built": "2026-11-15",
  "chunks": [
   {
@@ -278,6 +278,13 @@
   {
    "id": "07-education-certs#5",
    "title": "Education and certifications",
+   "section": "Awards",
+   "url": "#credentials",
+   "text": "Jayce's most recent award is the Toastmasters Ice Breaker Award (2026), earned at the LoDo Toastmasters club in Denver, Colorado for delivering a first prepared speech. Military awards and decorations include the Air and Space Achievement Medal (2019), Air and Space Outstanding Unit Award (2018), Humanitarian Service Medal (2018), Army Commendation Medal (2017), the Golden Bolt Award (2016, 213th Maintenance Squadron), the Air Force Longevity Service Award, the NCO Professional Military Education Graduate Ribbon (2015), the Small Arms Expert Marksmanship Ribbon (2014), the Global War on Terrorism Service Medal (2014), the Selected Marine Corps Reserve Medal, the Marine Corps Rifle Expert Badge, and the National Defense Service Medal (2009). The full list is in the Credentials section of this website."
+  },
+  {
+   "id": "07-education-certs#6",
+   "title": "Education and certifications",
    "section": "Clearance",
    "url": "#credentials",
    "text": "Jayce is Top Secret (TS) clearance eligible. For anything more specific about clearance status, contact Jayce directly."
@@ -336,7 +343,7 @@
    "title": "Off the clock - community and interests",
    "section": "Community",
    "url": "#life",
-   "text": "Jayce lives in Denver, Colorado. Jayce is a member of the LoDo Toastmasters club in Denver, where Jayce earned the Ice Breaker ribbon for a first speech (and was earlier a member of NOVA Toastmasters in Falls Church, VA), a member of American Legion Post 1 in Denver, and a member of Guitars for Veterans. Jayce served as an instructor with the U.S. Naval Sea Cadet Corps (Alamo Battalion, San Antonio, 2023), volunteered with the Phil Grove Big Dog Program in Austin (2022), and was a range safety officer at the Quantico Shooters Club (2020)."
+   "text": "Jayce lives in Denver, Colorado. Jayce is a member of the LoDo Toastmasters club in Denver, where Jayce earned the Ice Breaker ribbon for a first speech (and was earlier a member of NOVA Toastmasters in Falls Church, VA), a member of American Legion Post 1 in Denver, and a member of Guitars for Veterans. Jayce served as a United States Naval Sea Cadets Instructor (Alamo Battalion, San Antonio, 2023), volunteered with the Phil Grove Big Dog Program in Austin (2022), and was a range safety officer at the Quantico Shooters Club (2020)."
   },
   {
    "id": "09-life#1",
@@ -357,7 +364,7 @@
    "title": "Off the clock - community and interests",
    "section": "Photos on this website",
    "url": "#life",
-   "text": "The headshot at the top of the site shows Jayce in a dark suit and red tie. The service photos show Jayce in Marine Corps dress blues, as a Sergeant in the Marine Corps service uniform, and as a Lance Corporal in the field; an LAV-25 with its 25mm gun from Jayce's Marine unit, Delta Company, 4th LAR (Light Armored Reconnaissance); Light Armored Reconnaissance Marines on their vehicles; Jayce as a Staff Sergeant in Air Force service dress; and Jayce in OCPs as an instructor with the U.S. Naval Sea Cadet Corps in San Antonio (2023). The \"Off the clock\" gallery shows the LoDo Toastmasters Ice Breaker ribbon, a Habitat for Humanity veterans build, the Lambda Phi Epsilon Theta Class at Virginia Commonwealth University, Jayce's 2019 University of Maryland graduation, the 2022 Joint Base San Antonio Air Force Ball, biking the Rocky Mountain backcountry, the Rockies with a friend, Griffith Observatory, BMX in Philadelphia, Jayce's built 2017 Subaru STI, Jayce next to a statue of Ace from One Piece, and cards from Jayce's One Piece trading card collection."
+   "text": "The headshot at the top of the site shows Jayce in a dark suit and red tie. The service photos show Jayce in Marine Corps dress blues, as a Sergeant in the Marine Corps service uniform, and as a Lance Corporal in the field; an LAV-25 with its 25mm gun from Jayce's Marine unit, Delta Company, 4th LAR (Light Armored Reconnaissance); Light Armored Reconnaissance Marines on their vehicles; Jayce as a Staff Sergeant in Air Force service dress; and Jayce in OCPs as a United States Naval Sea Cadets Instructor in San Antonio (2023). The \"Off the clock\" gallery shows the LoDo Toastmasters Ice Breaker ribbon, a Habitat for Humanity veterans build, the Lambda Phi Epsilon Theta Class at Virginia Commonwealth University, Jayce's 2019 University of Maryland graduation, the 2022 Joint Base San Antonio Air Force Ball, biking the Rocky Mountain backcountry, the Rockies with a friend, Griffith Observatory, BMX in Philadelphia, Jayce's built 2017 Subaru STI, Jayce next to a statue of Ace from One Piece, and cards from Jayce's One Piece trading card collection."
   },
   {
    "id": "10-this-assistant#0",
