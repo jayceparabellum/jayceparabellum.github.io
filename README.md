@@ -15,7 +15,7 @@ Design adapted, with permission, from [charlieevert.github.io](https://charlieev
 | `assets/rag-core.js` | BM25, RRF and the markdown chunker, shared by the browser and the Worker. |
 | `knowledge/*.md` | **The chatbot's knowledge base.** Public, curated facts, one `## section` per chunk. |
 | `assets/kb.json` | Built from `knowledge/` (don't edit by hand). |
-| `chat-worker/` | Cloudflare Worker: query rewrite → hybrid retrieval → rerank → Claude. See its README. |
+| `chat-worker/` | Cloudflare Worker: query rewrite → hybrid retrieval → rerank → Llama 3.3 on Workers AI (Claude if a key is set), plus the contact form. See its README. |
 | `scripts/build-kb.mjs` | Rebuilds `assets/kb.json` and `chat-worker/src/kb.generated.json`. Refuses to build if it finds phone numbers, addresses or credential IDs. |
 | `tools/add-photo.py` | Resizes a photo and strips all metadata (iPhone GPS included) before it goes in `images/`. |
 | `Jayce-Parabellum-Resume.pdf` | Web copy of the AI Engineering résumé (phone number removed). |

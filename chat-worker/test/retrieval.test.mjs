@@ -40,6 +40,10 @@ const GOLDEN = [
   ['What car does Jayce drive?', '09-life'],
   ['Does Jayce collect One Piece trading cards?', '09-life'],
   ['How does this chatbot work?', '10-this-assistant'],
+  ['How do I send Jayce a hiring inquiry?', '10-this-assistant'],
+  ['Who designed this website?', '10-this-assistant'],
+  ['Is Jayce open to freelance or consulting work?', '01-profile'],
+  ["What are Jayce's engineering principles for building AI?", '01-profile'],
   ['How can I contact Jayce?', '01-profile'],
   ['What kind of roles is Jayce looking for?', '01-profile'],
 ];

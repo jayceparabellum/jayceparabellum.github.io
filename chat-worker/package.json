@@ -7,7 +7,8 @@
     "dev": "npm run kb && wrangler dev --port 8787",
     "dev:local": "npm run kb && wrangler dev --config wrangler.local.toml --port 8787",
     "deploy": "npm run kb && wrangler deploy",
-    "test": "npm run kb && node --test test/"
+    "test": "npm run kb && node --test test/",
+    "redteam": "node scripts/redteam.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.8.0"

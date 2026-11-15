@@ -1,5 +1,5 @@
 {
- "version": "b021929ae4f2",
+ "version": "f32e593c377e",
  "built": "2026-11-15",
  "chunks": [
   {
@@ -26,16 +26,23 @@
   {
    "id": "01-profile#3",
    "title": "Profile and overview",
-   "section": "What Jayce is looking for",
+   "section": "How Jayce builds AI systems",
    "url": "#top",
-   "text": "Jayce is interested in AI engineer, applied AI, and AI platform roles, especially ones that combine LLM applications with secure cloud infrastructure, regulated environments (healthcare, government, finance), and production evaluation. Jayce also has a strong DevOps / cloud architecture background for senior DevOps and cloud roles. For specifics about availability, compensation, or relocation, contact Jayce directly."
+   "text": "Jayce's engineering approach comes from the flight line, where a 7-level signs for every job against technical data before an aircraft flies: nothing leaves the shop without a sign-off. Jayce builds AI systems the same way, measured, traceable and honest about what they don't know, around three principles. Ground every answer: retrieval over the real source material (regulations, protocols, patient records) with citations required, and the system says so when the sources don't cover a question instead of guessing; the TTB label verification tool and the clinical co-pilot work this way. Gate every release: versioned prompts, golden datasets, regression replay and canary rollouts with automatic rollback, so a change ships when the evals say so, not when the demo looks good; this is the release process Jayce uses at Teos. Secure by default: PHI de-identified at ingest, tenant-scoped retrieval, audit logs, authentication on every endpoint and STIG-hardened hosts, a habit from six years of NIST and RMF work on federal cloud systems."
   },
   {
    "id": "01-profile#4",
    "title": "Profile and overview",
+   "section": "What Jayce is looking for",
+   "url": "#top",
+   "text": "Jayce is interested in AI engineer, applied AI, and AI platform roles, especially ones that combine LLM applications with secure cloud infrastructure, regulated environments (healthcare, government, finance), and production evaluation. Jayce also has a strong software engineering and cloud solutions architecture background, which suits solutions architect and cloud architecture roles. Jayce is open to three kinds of work: freelance or contract projects, full-time corporate roles, and consulting engagements. For specifics about availability, compensation, or relocation, contact Jayce directly."
+  },
+  {
+   "id": "01-profile#5",
+   "title": "Profile and overview",
    "section": "How to contact Jayce",
    "url": "#top",
-   "text": "Email jayce.n.parabellum@gmail.com, LinkedIn linkedin.com/in/jayce-parabellum, or GitHub github.com/jayceparabellum. Jayce's resume PDF is linked on this site. Phone number and home address are not published on this site."
+   "text": "The quickest way is the Contact Jayce form in this website's chat assistant: choose freelance, corporate or consulting, and the message goes straight to Jayce's inbox. You can also email jayce.n.parabellum@gmail.com, LinkedIn linkedin.com/in/jayce-parabellum, or GitHub github.com/jayceparabellum. Jayce's resume PDF is linked on this site. Phone number and home address are not published on this site."
   },
   {
    "id": "02-teos#0",
@@ -203,7 +210,7 @@
    "title": "Military service - USMC, D.C. Air National Guard, USAF Reserve",
    "section": "U.S. Marine Corps (2008-2014)",
    "url": "#service",
-   "text": "Recruit training with Platoon 3010, Quebec Company, 3rd Recruit Training Battalion, Parris Island, SC; Marine Combat Training at the School of Infantry, Camp Lejeune, NC; then the 1316 Metal Worker MOS course at Aberdeen Proving Ground, MD (welding: oxy-acetylene, stick, flux-cored, GTAW/TIG, MIG). Assigned to Delta Company, 4th Light Armored Reconnaissance Battalion (4th LAR) at Marine Corps Base Quantico, VA, Jayce served as a maintenance shop welder and was promoted to Lance Corporal (2009), Corporal (2012) and Sergeant (2014), serving as Tactical Welding Shop Chief and Infantry Training NCO. Jayce took part in the \"Shared Accord\" exercise in South Africa (2011) and earned the Rifle Expert badge twice."
+   "text": "Recruit training with Platoon 3010, Quebec Company, 3rd Recruit Training Battalion, Parris Island, SC; Marine Combat Training at the School of Infantry, Camp Lejeune, NC; then the 1316 Metal Worker MOS course at Aberdeen Proving Ground, MD (welding: oxy-acetylene, stick, flux-cored, GTAW/TIG, MIG). Assigned to Delta Company, 4th Light Armored Reconnaissance Battalion (4th LAR) at Marine Corps Base Quantico, VA, Jayce served as a maintenance shop welder and was promoted to Lance Corporal (2009), Corporal (2012) and Sergeant (2014), so his final rank with the Marines was Sergeant (E-5), serving as Tactical Welding Shop Chief and Infantry Training NCO. Jayce took part in the \"Shared Accord\" exercise in South Africa (2011) and earned the Rifle Expert badge twice."
   },
   {
    "id": "06-military#2",
@@ -371,7 +378,7 @@
    "title": "About this AI assistant",
    "section": "How this chatbot works",
    "url": "#ask",
-   "text": "This site's assistant is a retrieval-augmented generation (RAG) system that Jayce built to showcase his AI engineering. The knowledge base is a set of curated markdown files about Jayce's career, chunked by section. For each question, a Cloudflare Worker (1) rewrites follow-up questions into standalone search queries with Claude, (2) runs hybrid retrieval: BM25 keyword search plus dense vector search with BGE embeddings on Cloudflare Workers AI, (3) merges both rankings with reciprocal rank fusion, (4) reranks the candidates with a BGE cross-encoder reranker, and (5) streams a grounded answer from Claude Haiku that cites its sources and declines when the knowledge base doesn't cover the question. Rate limiting, input limits, an origin allowlist and prompt-injection rules protect the endpoint, and the API key never reaches the browser. The code is public in the site's GitHub repository under chat-worker/."
+   "text": "This site's assistant is a retrieval-augmented generation (RAG) system that Jayce built to showcase his AI engineering. The knowledge base is a set of curated markdown files about Jayce's career, chunked by section. For each question, a Cloudflare Worker (1) rewrites follow-up questions into standalone search queries with Llama 3.1 8B, (2) runs hybrid retrieval: BM25 keyword search plus dense vector search with BGE embeddings on Cloudflare Workers AI, (3) merges both rankings with reciprocal rank fusion, (4) reranks the candidates with a BGE cross-encoder reranker, and (5) streams a grounded answer from Meta's Llama 3.3 70B model, running on Cloudflare Workers AI, that cites its sources and declines when the knowledge base doesn't cover the question. Rate limiting, input limits, an origin allowlist, prompt-injection rules and signed conversation history protect the endpoint, and everything runs on Cloudflare's free tier with no third-party API keys. The code is public in the site's GitHub repository under chat-worker/."
   },
   {
    "id": "10-this-assistant#1",
@@ -379,6 +386,20 @@
    "section": "What it will not do",
    "url": "#ask",
    "text": "The assistant only answers questions about Jayce Nhan Parabellum's career, skills, projects, service and public interests. It will not share private details such as phone number, home address, or credential numbers, it won't speculate about salary expectations, and it doesn't make up facts that aren't in its sources."
+  },
+  {
+   "id": "10-this-assistant#2",
+   "title": "About this AI assistant",
+   "section": "Contact form in the chat",
+   "url": "#ask",
+   "text": "The chat has a Contact Jayce form for hiring inquiries. Visitors choose freelance or contract work, a full-time corporate role, or consulting, add their name, email, optional company and a message, and can include the chat so far for context. The Worker emails it straight to Jayce's inbox through the FormSubmit relay, with the visitor's address set as the reply-to, so Jayce answers by email. The form is rate-limited and filters spam bots. If it is ever unavailable, visitors can email jayce.n.parabellum@gmail.com."
+  },
+  {
+   "id": "10-this-assistant#3",
+   "title": "About this AI assistant",
+   "section": "About this website",
+   "url": "#ask",
+   "text": "This is Jayce Nhan Parabellum's personal website, jayceparabellum.github.io, a static site hosted on GitHub Pages. Its sections are: the summary at the top; How I build (Jayce's engineering principles); the career story, from military service through federal IT to AI engineering; Builds (public GitHub repositories); Credentials (education, certifications with Credly proof links, awards and decorations, military and technical training, and the toolset); Off the clock (life in Denver, community work and photos); this AI assistant; and Contact. The site design was adapted, with permission, from Charlie Evert's website. A QR code on Jayce's resume and CV opens this assistant directly. The resume PDF linked on the site is a web copy of Jayce's AI Engineering resume."
   }
  ]
 }

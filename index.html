@@ -8,7 +8,7 @@
 <title>Jayce Parabellum | AI Software Engineer</title>
 <meta content="Jayce Nhan Parabellum: AI Software Engineer, cloud systems architect, and USMC / USAF veteran. LLM applications, RAG, evals, and secure cloud infrastructure. Ask the AI assistant anything about his career." name="description"/>
 <!-- Chat backend (Cloudflare Worker). Replace after `wrangler deploy`; see chat-worker/README.md -->
-<meta name="chat-endpoint" content="https://jayce-chat.YOUR-SUBDOMAIN.workers.dev/chat"/>
+<meta name="chat-endpoint" content="https://jayce-chat.jayce-chat.workers.dev/chat"/>
 <link href="favicon.png" rel="icon" type="image/png"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -249,7 +249,7 @@
   <h2>Code you can read.</h2>
   <p class="live-builds-intro">Public repositories from my fellowship work and the assistant on this page. The AI on this site is itself a portfolio piece: hybrid retrieval, reranking and grounded generation behind a hardened edge function.</p>
   <div class="live-builds-grid">
-    <article><p class="build-type">RAG · this site</p><h3>Ask my AI about my career.</h3><p>Hybrid BM25 + embedding search, reciprocal rank fusion, cross-encoder reranking, and Claude answers with citations, streamed from a Cloudflare Worker.</p><a href="#ask">Try it below ↓</a></article>
+    <article><p class="build-type">RAG · this site</p><h3>Ask my AI about my career.</h3><p>Hybrid BM25 + embedding search, reciprocal rank fusion, cross-encoder reranking, and Llama 3.3 answers with citations, streamed from a Cloudflare Worker.</p><a href="#ask">Try it below ↓</a></article>
     <article><p class="build-type">Compliance AI · LangGraph</p><h3>TTB Label Verification Tool.</h3><p>27 CFR label checks with grounded RAG, human hand-off and a 446-test release gate.</p><a href="https://github.com/jayceparabellum/TTB_AI_Label_Verification_Tool" target="_blank" rel="noopener">View on GitHub ↗</a></article>
     <article><p class="build-type">AI security · multi-agent</p><h3>AgentForge AI Security Platform.</h3><p>Five agents red-teaming a clinical LLM app, with an independent judge and a hard cost ceiling.</p><a href="https://github.com/jayceparabellum/agentforge-ai-security-platform" target="_blank" rel="noopener">View on GitHub ↗</a></article>
     <article><p class="build-type">DevSecOps</p><h3>Secure CI/CD demo.</h3><p>A FastAPI security-header auditor whose real subject is the pipeline: tests, static analysis, dependency audit, CodeQL, Dependabot and GHCR container releases in GitHub Actions.</p><a href="https://github.com/jayceparabellum/secure-cicd-demo" target="_blank" rel="noopener">View on GitHub ↗</a></article>
@@ -403,13 +403,13 @@
       <aside class="pipeline">
         <p class="cred-k">How it works</p>
         <ol>
-          <li><b>Rewrite</b><span>Follow-ups become standalone queries (Claude Haiku).</span></li>
+          <li><b>Rewrite</b><span>Follow-ups become standalone queries (Llama 3.1 8B).</span></li>
           <li><b>Hybrid retrieve</b><span>BM25 keywords + BGE embeddings on Workers AI.</span></li>
           <li><b>Fuse</b><span>Reciprocal rank fusion merges both rankings.</span></li>
           <li><b>Rerank</b><span>BGE cross-encoder picks the best passages.</span></li>
-          <li><b>Generate</b><span>Claude streams a cited answer, or declines if the sources don’t cover it.</span></li>
+          <li><b>Generate</b><span>Llama 3.3 70B on Workers AI streams a cited answer, or declines if the sources don’t cover it.</span></li>
         </ol>
-        <p class="small-note">Rate-limited Cloudflare Worker; the API key never touches your browser. <a href="https://github.com/jayceparabellum/jayceparabellum.github.io/tree/main/chat-worker" target="_blank" rel="noopener">Source ↗</a></p>
+        <p class="small-note">Rate-limited Cloudflare Worker with signed chat history; no keys or models run in your browser. <a href="https://github.com/jayceparabellum/jayceparabellum.github.io/tree/main/chat-worker" target="_blank" rel="noopener">Source ↗</a></p>
       </aside>
     </div>
   </div>

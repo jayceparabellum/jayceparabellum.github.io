@@ -6,9 +6,16 @@
   const core = await import('./rag-core.js');
   const metaEndpoint = document.querySelector('meta[name="chat-endpoint"]')?.content || '';
   const local = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-  const override = new URLSearchParams(location.search).get('chat');
+  const params = new URLSearchParams(location.search);
+  // ?chat=<url> points the UI at another backend, for local testing only (never on the live site).
+  const override = local ? params.get('chat') : null;
   const ENDPOINT = override || (local ? 'http://127.0.0.1:8787/chat' : metaEndpoint);
   const CONFIGURED = ENDPOINT && !/YOUR-SUBDOMAIN/.test(ENDPOINT);
+  const CONTACT_ENDPOINT = CONFIGURED ? ENDPOINT.replace(/\/chat\/?$/, '/contact') : '';
+  const EMAIL = 'jayce.n.parabellum@gmail.com';
+  const TYPES = { freelance: 'Freelance / contract', corporate: 'Full-time / corporate', consulting: 'Consulting' };
+  const MARKER = /\s*\[\[contact\]\]\s*/i;
+  const HIRE_RE = /\b(hire|hiring|recruit|interview|freelanc|contract(or|ing)?\b|consult|reach (out|him|jayce)|contact|get in touch|email (him|jayce)|work with (him|jayce)|(talk|speak|chat|meet) (to|with) (him|jayce)|connect with|full[- ]time|part[- ]time|opportunit|opening|job offer|position|(a|an|our|my|this) [\w -]{0,40}\b(role|job)\b|role for|(we|i)('re| are| am) looking|my team|our team)/i;
 
   const SUGGESTIONS = [
     'What does Jayce do at Teos Technology?',
@@ -16,17 +23,22 @@
     'What was Jayce’s military service?',
     'Which AWS certifications does Jayce hold?',
     'How was this chatbot built?',
+    'I’d like to hire Jayce',
   ];
 
-  const state = { messages: [], busy: false, controller: null };
+  const state = { messages: [], busy: false, controller: null,
+    contact: { open: false, sending: false, sent: false, error: '', fallback: false, openedAt: 0,
+      draft: { type: '', name: '', email: '', company: '', message: '', transcript: true, website: '' } } };
   const views = [];
   let kbIndex = null;
 
   const esc = s => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
   // Minimal, safe formatter: escape first, then **bold**, "- " bullets, [n] citations, paragraphs.
+  // Hide the [[contact]] marker, including a half-streamed one at the end of the text.
+  const visible = t => t.replace(/\s*\[\[contact\]\]\s*/gi, '\n').replace(/\s*\[(\[(c(o(n(t(a(c(t(\](\])?)?)?)?)?)?)?)?)?)?$/i, '').trim();
   function format(text, sources = []) {
-    const lines = esc(text.trim()).split('\n');
+    const lines = esc(visible(text)).split('\n');
     let html = '', inList = false;
     for (const raw of lines) {
       const line = raw.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
@@ -67,15 +79,19 @@
         <textarea id="${host.id}-input" rows="1" maxlength="600" placeholder="Ask about Jayce’s work…"></textarea>
         <button type="submit" class="chat-send">Ask</button>
       </form>
-      <p class="chat-foot">AI answers can be wrong. Check the cited sources. <button type="button" class="chat-clear">Clear chat</button></p>`;
+      <p class="chat-foot"><button type="button" class="chat-contact-btn">✉ Contact Jayce</button><span>AI answers can be wrong. Check the cited sources.</span><button type="button" class="chat-clear">Clear chat</button></p>
+      <section class="chat-contact" hidden aria-label="Contact Jayce"></section>`;
     const v = { host, log: host.querySelector('.chat-log'), suggest: host.querySelector('.chat-suggest'),
-      input: host.querySelector('textarea'), send: host.querySelector('.chat-send') };
+      input: host.querySelector('textarea'), send: host.querySelector('.chat-send'), panel: host.querySelector('.chat-contact') };
+    host.querySelector('.chat-contact-btn').addEventListener('click', () => openContact());
+    v.log.addEventListener('click', e => { if (e.target.closest('.open-contact')) openContact(); });
+    wirePanel(v);
     v.suggest.innerHTML = SUGGESTIONS.map(s => `<button type="button">${esc(s)}</button>`).join('');
     v.suggest.addEventListener('click', e => { const b = e.target.closest('button'); if (b) ask(b.textContent); });
     host.querySelector('.chat-form').addEventListener('submit', e => { e.preventDefault(); if (state.busy) return stop(); ask(v.input.value); });
     v.input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); host.querySelector('.chat-form').requestSubmit(); } });
     v.input.addEventListener('input', () => { v.input.style.height = 'auto'; v.input.style.height = Math.min(v.input.scrollHeight, 140) + 'px'; });
-    host.querySelector('.chat-clear').addEventListener('click', () => { stop(); state.messages = []; render(); });
+    host.querySelector('.chat-clear').addEventListener('click', () => { stop(); state.messages = []; Object.assign(state.contact, { sent: false, error: '' }); render(); renderPanels(); });
     views.push(v);
   }
 
@@ -98,7 +114,8 @@
     const q = (text || '').trim();
     if (!q || state.busy) return;
     views.forEach(v => { v.input.value = ''; v.input.style.height = 'auto'; });
-    const history = state.messages.filter(m => !m.offline && !m.error).map(m => ({ role: m.role, content: m.content }));
+    const history = state.messages.filter(m => !m.offline && !m.error && !m.local && !m.pending)
+      .map(m => (m.role === 'assistant' ? { role: m.role, content: m.content, sig: m.sig || '' } : { role: m.role, content: m.content }));
     state.messages.push({ role: 'user', content: q });
     const bot = { role: 'assistant', content: '', pending: true, html: '' };
     state.messages.push(bot);
@@ -114,18 +131,25 @@
         throw Object.assign(new Error(err.error || `HTTP ${res.status}`), { status: res.status, offline: res.status >= 500 });
       }
       let meta = null, done = null;
-      const paint = () => { bot.html = format(bot.content, meta?.sources) + (done ? sourceList(meta?.sources) + traceView(meta, done) : ''); render(); };
+      const paint = () => { bot.html = format(bot.content, meta?.sources) + (bot.contact ? contactCta() : '') + (done ? sourceList(meta?.sources) + traceView(meta, done) : ''); render(); };
       await readSSE(res.body, (event, data) => {
         if (event === 'meta') meta = data;
         else if (event === 'delta') { bot.content += data.t; paint(); }
-        else if (event === 'done') { done = data; }
+        else if (event === 'done') { done = data; bot.sig = data.sig; }
         else if (event === 'error') throw new Error(data.message);
       });
       if (!bot.content) throw new Error('No answer came back. Please try again.');
-      bot.pending = false; paint();
+      bot.pending = false;
+      if (MARKER.test(bot.content) && HIRE_RE.test(q)) { bot.contact = true; preselect(q); openContact(false); }
+      paint();
     } catch (e) {
       bot.pending = false;
       if (e.name === 'AbortError') { bot.status = 'Stopped.'; if (!bot.content) bot.html = '<p>Stopped.</p>'; bot.error = !bot.content; }
+      else if (HIRE_RE.test(q) && !bot.content) {
+        bot.local = true;
+        bot.html = `<p>Jayce would be glad to hear from you. He’s open to freelance or contract work, full-time corporate roles and consulting. Use the contact form and your message goes straight to his inbox.</p>${contactCta()}`;
+        preselect(q); openContact(false);
+      }
       else if (e.offline || e instanceof TypeError) await offlineAnswer(q, bot);
       else { bot.error = true; bot.html = `<p>${esc(e.message)}</p>`; }
     } finally {
@@ -175,6 +199,131 @@
     }
   }
 
+  // ---- Contact Jayce: a form that opens over the chat log (so streaming answers never wipe what's typed) ----
+  const contactCta = () => `<p class="contact-cta"><button type="button" class="open-contact">✉ Open the contact form</button></p>`;
+
+  function preselect(q) {
+    const d = state.contact.draft;
+    if (d.type) return;
+    if (/freelanc|contract|gig|part[- ]time/i.test(q)) d.type = 'freelance';
+    else if (/consult|advis/i.test(q)) d.type = 'consulting';
+    else if (/full[- ]time|corporate|permanent|salar|position|role|job|recruit|interview/i.test(q)) d.type = 'corporate';
+  }
+
+  function openContact(focus = true) {
+    const c = state.contact;
+    if (c.sent) { c.sent = false; c.error = ''; }
+    if (!c.open) { c.open = true; c.openedAt = Date.now(); }
+    renderPanels();
+    if (focus) {
+      const v = views.find(v => v.host.offsetParent) || views[0];
+      v?.panel.querySelector('input[name="type"]:checked, input[name="type"]')?.focus();
+    }
+  }
+  function closeContact() { state.contact.open = false; state.contact.error = ''; renderPanels(); }
+
+  function transcriptText() {
+    return state.messages.filter(m => m.role === 'user' || (m.content && !m.pending && !m.error))
+      .map(m => `${m.role === 'user' ? 'Visitor' : 'Assistant'}: ${visible(m.content)}`).join('\n\n').slice(-6000);
+  }
+
+  function mailtoHref() {
+    const d = state.contact.draft;
+    const subject = `Hiring inquiry · ${TYPES[d.type] || 'General'} · ${d.name}`.trim();
+    const body = `${d.message}\n\n${d.name}${d.company ? `, ${d.company}` : ''}\n${d.email}`;
+    return `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  function panelHtml(v) {
+    const c = state.contact, d = c.draft, id = v.host.id + '-cc';
+    if (c.sent) return `<div class="cc-done" role="status"><p class="cc-title">Message sent ✓</p>
+      <p>Thanks, ${esc(d.name.split(' ')[0] || 'there')}. Your note is in Jayce’s inbox, and he’ll reply to <b>${esc(d.email)}</b>.</p>
+      <div class="cc-actions"><button type="button" class="cc-close cc-secondary">Back to the chat</button></div></div>`;
+    const hasChat = state.messages.some(m => m.role === 'user');
+    return `<form class="cc-form" novalidate>
+      <div class="cc-head"><p class="cc-title">Contact Jayce</p><button type="button" class="cc-close cc-x" aria-label="Close the contact form">✕</button></div>
+      <p class="cc-sub">Goes straight to Jayce’s inbox. He replies by email.</p>
+      <fieldset class="cc-types"><legend>I’m reaching out about</legend>
+        ${Object.entries(TYPES).map(([k, label]) => `<label><input type="radio" name="type" value="${k}"${d.type === k ? ' checked' : ''}/><span>${label}</span></label>`).join('')}
+      </fieldset>
+      <div class="cc-row">
+        <label for="${id}-name">Name<input id="${id}-name" name="name" autocomplete="name" maxlength="100" value="${esc(d.name)}"/></label>
+        <label for="${id}-email">Email<input id="${id}-email" name="email" type="email" autocomplete="email" maxlength="200" value="${esc(d.email)}"/></label>
+      </div>
+      <label for="${id}-company">Company <span class="cc-opt">(optional)</span><input id="${id}-company" name="company" autocomplete="organization" maxlength="120" value="${esc(d.company)}"/></label>
+      <label for="${id}-message">Message<textarea id="${id}-message" name="message" rows="4" maxlength="4000" placeholder="The role or project, the timeline, and how Jayce could help">${esc(d.message)}</textarea></label>
+      ${hasChat ? `<label class="cc-check"><input type="checkbox" name="transcript"${d.transcript ? ' checked' : ''}/> Include this chat so Jayce has context</label>` : ''}
+      <div class="cc-hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"/></label></div>
+      ${c.error ? `<p class="cc-error" role="alert">${esc(c.error)}${c.fallback ? ` <a href="${esc(mailtoHref())}">Open it in your email app instead</a>, or write to ${EMAIL}.` : ''}</p>` : ''}
+      <div class="cc-actions"><button type="submit" class="cc-send"${c.sending ? ' disabled' : ''}>${c.sending ? 'Sending…' : 'Send to Jayce'}</button>
+        <button type="button" class="cc-close cc-secondary">Cancel</button></div>
+    </form>`;
+  }
+
+  function renderPanels() {
+    for (const v of views) {
+      v.panel.hidden = !state.contact.open;
+      v.host.classList.toggle('contact-open', state.contact.open);
+      if (state.contact.open) v.panel.innerHTML = panelHtml(v);
+    }
+  }
+
+  function wirePanel(v) {
+    v.panel.addEventListener('input', e => {
+      const f = e.target;
+      if (f.name && f.name in state.contact.draft) state.contact.draft[f.name] = f.type === 'checkbox' ? f.checked : f.type === 'radio' ? f.value : f.value;
+    });
+    v.panel.addEventListener('click', e => { if (e.target.closest('.cc-close')) { closeContact(); v.input.focus(); } });
+    v.panel.addEventListener('keydown', e => { if (e.key === 'Escape') { e.stopPropagation(); closeContact(); v.input.focus(); } });
+    v.panel.addEventListener('submit', e => { e.preventDefault(); submitContact(e.target); });
+  }
+
+  async function submitContact(form) {
+    const c = state.contact, d = c.draft;
+    if (c.sending) return;
+    for (const k of ['name', 'email', 'company', 'message']) d[k] = form.elements[k].value.trim();
+    d.type = form.querySelector('input[name="type"]:checked')?.value || '';
+    d.website = form.elements.website.value;
+    if (form.elements.transcript) d.transcript = form.elements.transcript.checked;
+    const problem = !d.type ? 'Please choose freelance, corporate or consulting.'
+      : d.name.length < 2 ? 'Please enter your name.'
+      : !/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(d.email) ? 'Please enter a valid email address so Jayce can reply.'
+      : d.message.length < 10 ? 'Please add a short message (at least a sentence).' : '';
+    c.fallback = false;
+    if (problem) { c.error = problem; renderPanels(); return; }
+    if (!CONTACT_ENDPOINT) { c.error = 'The contact form is offline right now.'; c.fallback = true; renderPanels(); return; }
+    c.sending = true; c.error = ''; renderPanels();
+    try {
+      const payload = { type: d.type, name: d.name, email: d.email, company: d.company, message: d.message,
+        transcript: d.transcript ? transcriptText() : '', website: d.website, elapsed_ms: Date.now() - c.openedAt };
+      let res = await fetch(CONTACT_ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) })
+        .catch(() => null);
+      let out = res ? await res.json().catch(() => ({})) : {};
+      // The Worker's relay can be throttled (FormSubmit limits shared server IPs); then send from this browser instead.
+      if (!res || res.status >= 500) ({ res, out } = await sendDirect(payload));
+      if (!res.ok) throw Object.assign(new Error(out.error || 'Your message couldn’t be sent right now.'), { fallback: res.status !== 400 && res.status !== 429 });
+      c.sent = true;
+      state.messages.push({ role: 'assistant', local: true, content: '', html: `<p>✓ Your message is on its way to Jayce. He’ll reply to <b>${esc(d.email)}</b>.</p>` });
+      render();
+    } catch (e) {
+      c.error = e instanceof TypeError ? 'Your message couldn’t be sent (network error).' : e.message;
+      c.fallback = e instanceof TypeError || !!e.fallback;
+    } finally { c.sending = false; renderPanels(); }
+  }
+
+  // Direct FormSubmit post from the visitor's browser (same fields the Worker sends).
+  async function sendDirect(p) {
+    if (p.website) return { res: { ok: true }, out: {} }; // honeypot: pretend success
+    const r = await fetch(`https://formsubmit.co/ajax/${EMAIL}`, { method: 'POST', headers: { 'content-type': 'application/json', accept: 'application/json' },
+      body: JSON.stringify({ _subject: `Hiring inquiry · ${TYPES[p.type]} · ${p.name}${p.company ? ` (${p.company})` : ''}`.slice(0, 180),
+        _template: 'table', _captcha: 'false', _honey: '', _replyto: p.email, Engagement: TYPES[p.type], Name: p.name, email: p.email,
+        Company: p.company || '—', Message: p.message, ...(p.transcript ? { 'Chat before the form': p.transcript } : {}),
+        Sent: `${new Date().toUTCString()} · website chat (direct)` }) }).catch(() => null);
+    const o = r ? await r.json().catch(() => ({})) : {};
+    const ok = !!r && r.ok && (String(o.success) === 'true' || /activat/i.test(o.message || ''));
+    return { res: { ok, status: ok ? 200 : (r?.status || 0) || 502 }, out: ok ? {} : { error: 'Your message couldn’t be sent right now. Please email Jayce directly.' } };
+  }
+
   // Floating launcher
   const launcher = document.getElementById('chat-launcher'), dialog = document.getElementById('chat-dialog');
   const setOpen = open => {
@@ -190,4 +339,12 @@
 
   document.querySelectorAll('.chat-host').forEach(mount);
   render();
+
+  // Deep links (the résumé QR code uses ?ask): ?ask opens the assistant, ?ask=contact opens the contact form.
+  if (dialog && (params.has('ask') || location.hash === '#chat')) {
+    const touch = matchMedia('(pointer:coarse)').matches;
+    setOpen(true);
+    if (touch) document.activeElement?.blur();
+    if (params.get('ask') === 'contact') openContact(!touch);
+  }
 })();

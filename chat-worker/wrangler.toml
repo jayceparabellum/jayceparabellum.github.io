@@ -13,7 +13,24 @@ name = "RATE_LIMITER"
 namespace_id = "1001"
 simple = { limit = 12, period = 60 }
 
+# Site-wide cap across all visitors: 60 questions per minute (protects the API bill).
+[[ratelimits]]
+name = "GLOBAL_LIMITER"
+namespace_id = "1003"
+simple = { limit = 60, period = 60 }
+
+# Contact form: 3 messages per minute per IP.
+[[ratelimits]]
+name = "CONTACT_LIMITER"
+namespace_id = "1002"
+simple = { limit = 3, period = 60 }
+
 [vars]
+# Hiring inquiries from the chat's contact form go here (via FormSubmit, or Resend if RESEND_API_KEY is set; never taken from requests).
+CONTACT_TO = "jayce.n.parabellum@gmail.com"
 ALLOWED_ORIGINS = "https://jayceparabellum.github.io,http://localhost:8000,http://127.0.0.1:8000"
 
-# Secret (never committed):  npx wrangler secret put ANTHROPIC_API_KEY
+# Secrets (never committed):
+#   HISTORY_SECRET     required: random string that signs chat answers (see src/history.js)
+#   ANTHROPIC_API_KEY  optional: use Claude Haiku instead of Llama on Workers AI
+#   RESEND_API_KEY     optional: send contact mail through Resend instead of FormSubmit
