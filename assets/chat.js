@@ -42,6 +42,8 @@
     let html = '', inList = false;
     for (const raw of lines) {
       const line = raw.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        // Only allowlisted sites become links, so the model can't hand visitors an arbitrary URL.
+        .replace(/\b(?:https?:\/\/)?((?:www\.)?(?:thirdeyehealth\.net|jayceparabellum\.github\.io)(?:\/[^\s<)\]]*)?)/gi, (m, u) => `<a href="https://${u.replace(/[.,;]+$/, '')}" target="_blank" rel="noopener">${u.replace(/[.,;]+$/, '')}</a>${(u.match(/[.,;]+$/) || [''])[0]}`)
         .replace(/\[(\d+)\]/g, (m, n) => {
           const s = sources[n - 1];
           return s ? `<a class="cite" href="${esc(s.url)}" title="${esc(s.title + ' — ' + s.section)}">${n}</a>` : '';
