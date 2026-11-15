@@ -1,5 +1,5 @@
 {
- "version": "18aeaeae8cd6",
+ "version": "7cba9e4ba472",
  "built": "2026-11-15",
  "chunks": [
   {
@@ -399,7 +399,7 @@
    "title": "About this AI assistant",
    "section": "About this website",
    "url": "#ask",
-   "text": "This is Jayce Nhan Parabellum's personal website, jayceparabellum.github.io, a static site hosted on GitHub Pages. Its sections are: the summary at the top; How I build (Jayce's engineering principles); the career story, from military service through federal IT to AI engineering; Builds (public GitHub repositories); Credentials (education, certifications with Credly proof links, awards and decorations, military and technical training, and the toolset); Off the clock (life in Denver, community work and photos); this AI assistant; and Contact. The site design was adapted, with permission, from Charlie Evert's website. A QR code on Jayce's resume and CV opens this assistant directly. The resume PDF linked on the site is a web copy of Jayce's AI Engineering resume."
+   "text": "This is Jayce Nhan Parabellum's personal website, jayceparabellum.github.io, a static site hosted on GitHub Pages. Its sections are: the summary at the top; How I build (Jayce's engineering principles); the career story, from military service through federal IT to AI engineering; Builds (public GitHub repositories); Credentials (education, certifications with Credly proof links, awards and decorations, military and technical training, and the toolset); Off the clock (life in Denver, community work and photos); this AI assistant; and Contact. Jayce designed and built the site. A QR code on Jayce's resume and CV opens this assistant directly. The resume PDF linked on the site is a web copy of Jayce's AI Engineering resume."
   }
  ]
 }

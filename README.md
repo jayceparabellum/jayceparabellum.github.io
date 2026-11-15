@@ -2,7 +2,6 @@
 
 Personal site for Jayce Nhan Parabellum: AI Software Engineer, cloud architect, USMC/USAF veteran.
 Static HTML/CSS/JS served by GitHub Pages from `main`, plus a RAG chat assistant backed by a Cloudflare Worker.
-Design adapted, with permission, from [charlieevert.github.io](https://charlieevert.github.io/).
 
 ## Layout
 

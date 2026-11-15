@@ -133,13 +133,13 @@
 
   /* ---------- click-to-copy email ---------- */
   function copyEmail() {
-    document.querySelectorAll('a[href^="mailto:charlieevert"]').forEach((a) => {
+    document.querySelectorAll('a[href^="mailto:jayce.n.parabellum"]').forEach((a) => {
       if (a.dataset.cp || a.href.indexOf('?') > -1) return;
       a.dataset.cp = '1';
       a.addEventListener('contextmenu', (e) => {
         if (!navigator.clipboard) return;
         e.preventDefault();
-        navigator.clipboard.writeText('charlieevert@gmail.com');
+        navigator.clipboard.writeText('jayce.n.parabellum@gmail.com');
         const old = a.textContent;
         a.textContent = 'Copied to clipboard';
         setTimeout(() => { a.textContent = old; }, 1400);
