@@ -132,3 +132,18 @@ footer{border-top:1px solid #D7DBE2;background:#EFF3F9}
 @media (max-width:700px){
   .field-grid{grid-template-columns:1fr}
 }
+/* Certifications + training lists */
+.cred-lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;margin-top:20px}
+.cred-list{background:#fff;border:1px solid #D7DBE2;border-radius:10px;padding:22px 24px;min-width:0}
+.cert-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.9rem}
+.cert-table th{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:#8A909C;text-align:left;font-weight:500;padding:6px 8px 8px 0;border-bottom:1px solid #D7DBE2}
+.cert-table td{padding:10px 8px 10px 0;border-bottom:1px solid #EEF0F4;vertical-align:top;color:#4A5161;line-height:1.45}
+.cert-table b,.train-list b{color:#181B22;font-weight:600}
+.cl-sub{display:block;font-size:.8rem;color:#6B7280;margin-top:2px}
+.cl-yr{white-space:nowrap;font-size:.82rem;color:#4A5161}
+.cl-proof a{white-space:nowrap;font-weight:600;color:#1A56B0}
+.train-list{list-style:none;margin:12px 0 0;padding:0}
+.train-list li{padding:9px 0;border-bottom:1px solid #EEF0F4;font-size:.9rem;line-height:1.45;color:#4A5161}
+.train-list li .cl-yr{display:block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.06em;color:#8A909C;margin-top:2px}
+.cred-list .small-note{margin-top:14px;font-size:.82rem;color:#6B7280;line-height:1.55}
+@media (max-width:520px){.cert-table th:nth-child(2),.cert-table td.cl-yr{display:none}}

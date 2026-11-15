@@ -1,5 +1,5 @@
 {
- "version": "d4db6ad3ec86",
+ "version": "5c0762425968",
  "built": "2026-11-15",
  "chunks": [
   {
@@ -203,7 +203,7 @@
    "title": "Military service - USMC, D.C. Air National Guard, USAF Reserve",
    "section": "U.S. Marine Corps (2008-2014)",
    "url": "#service",
-   "text": "Recruit training with Platoon 3010, Quebec Company, 3rd Recruit Training Battalion, Parris Island, SC; Marine Combat Training at the School of Infantry, Camp Lejeune, NC; then the 1316 Metal Worker MOS course at Aberdeen Proving Ground, MD (welding: oxy-acetylene, stick, flux-cored, GTAW/TIG, MIG). Based at Marine Corps Base Quantico, VA, Jayce was promoted to Lance Corporal (2009), Corporal (2012) and Sergeant (2014), serving as Tactical Welding Shop Chief and Infantry Training NCO. Jayce took part in the \"Shared Accord\" exercise in South Africa (2011) and earned the Rifle Expert badge twice."
+   "text": "Recruit training with Platoon 3010, Quebec Company, 3rd Recruit Training Battalion, Parris Island, SC; Marine Combat Training at the School of Infantry, Camp Lejeune, NC; then the 1316 Metal Worker MOS course at Aberdeen Proving Ground, MD (welding: oxy-acetylene, stick, flux-cored, GTAW/TIG, MIG). Assigned to Delta Company, 4th Light Armored Reconnaissance Battalion (4th LAR) at Marine Corps Base Quantico, VA, Jayce served as a maintenance shop welder and was promoted to Lance Corporal (2009), Corporal (2012) and Sergeant (2014), serving as Tactical Welding Shop Chief and Infantry Training NCO. Jayce took part in the \"Shared Accord\" exercise in South Africa (2011) and earned the Rifle Expert badge twice."
   },
   {
    "id": "06-military#2",
@@ -234,6 +234,13 @@
    "text": "On the flight line, nothing leaves the shop without a qualified sign-off against technical data. Jayce applies the same discipline to AI systems: eval gates and regression harnesses before release, audit logs, human review when confidence is low, and refusing to guess when the source material doesn't cover a question."
   },
   {
+   "id": "06-military#6",
+   "title": "Military service - USMC, D.C. Air National Guard, USAF Reserve",
+   "section": "Complete military and technical training",
+   "url": "#service",
+   "text": "Jayce's military and technical training, newest first: Associate in Applied Science in Aviation Maintenance Technology, Community College of the Air Force (2021); Boeing Avionics, Airframe, Powerplant and Electrical Line and Base Maintenance course, Tukwila, WA (2018); Garrett 85-129[H] Auxiliary Power Unit course, FlightSafety International, Wichita, KS (2017); C-40 Airplane General Duty Position Training Phases I and II, 360 hours, 932d Maintenance Group, Scott AFB, IL (2016); C-40B/C Engine Operator's Course, 24 hours, Scott AFB (2016); C-40B/C APU Operator's Course, 8 hours, Scott AFB (2016); GE CFM56-7 Line Maintenance course and CFM56-7 Borescope for Inspectors course, GE Customer Technical Education Center, Cincinnati, OH (2016); Boeing 7X7 Introduction to Boeing Aircraft Manuals and 7X7 Human Factors Awareness Training for Technicians, Joint Base Andrews, MD (2016); Airman Leadership School, Joint Base Andrews (2016); Aerospace Propulsion Apprentice TF34 jet engine course, 424 hours, 82nd Training Wing, Sheppard AFB, TX (2015); Marine Corps University Corporal Course by distance education, Quantico (2014); 1316 Metal Worker MOS course, Aberdeen Proving Ground, MD (2009); Marine Combat Training, School of Infantry, Camp Lejeune, NC (2009); and recruit training with Platoon 3010, Quebec Company, 3rd Recruit Training Battalion, Parris Island, SC (2009). Jayce also completed the DHS Federal Protective Service National Weapons Detection Training Program (8 hours) and DHS Orientation Course (2013). The full list is in the Credentials section of this website; training records are available from Jayce on request."
+  },
+  {
    "id": "07-education-certs#0",
    "title": "Education and certifications",
    "section": "Education",
@@ -245,24 +252,31 @@
    "title": "Education and certifications",
    "section": "Cloud and security certifications",
    "url": "#credentials",
-   "text": "AWS Certified Solutions Architect - Professional (2025). AWS Certified Security - Specialty (2025). AWS Certified Solutions Architect - Associate (2019). CompTIA SecurityX (formerly CASP+). CompTIA Security+ (2025; first earned 2016). Cisco CCNA Routing and Switching (2019). Microsoft 70-410 Installing and Configuring Windows Server 2012 (2017)."
+   "text": "AWS Certified Solutions Architect - Professional (2025). AWS Certified Security - Specialty (2025). AWS Certified Solutions Architect - Associate (issued January 2020, expired 2023). CompTIA SecurityX (formerly CASP+). CompTIA Security+ (first earned 2016, kept current through continuing education until 2028). Cisco CCNA Routing and Switching (2019, expired 2023). Cisco \"Understanding of Cisco Network Devices\" training badge (2020). Microsoft 70-410 Installing and Configuring Windows Server 2012 (2017)."
   },
   {
    "id": "07-education-certs#2",
+   "title": "Education and certifications",
+   "section": "Verifying certifications",
+   "url": "#credentials",
+   "text": "Every AWS, CompTIA, Cisco and Microsoft certification on this website links to its public Credly badge, which is the issuer's own proof of the certification. Jayce's full Credly profile is https://www.credly.com/users/jayce-parabellum.3ea32e84. Lean Six Sigma Black Belt and Green Belt (Aveta Business Institute) are not on Credly; employers can email Jayce at jayce.n.parabellum@gmail.com for those certificates."
+  },
+  {
+   "id": "07-education-certs#3",
    "title": "Education and certifications",
    "section": "Process certifications",
    "url": "#credentials",
    "text": "Lean Six Sigma Black Belt in Information Technology (2020) and Green Belt (2019), Aveta Business Institute."
   },
   {
-   "id": "07-education-certs#3",
+   "id": "07-education-certs#4",
    "title": "Education and certifications",
    "section": "Other credentials",
    "url": "#credentials",
    "text": "Life and annuities insurance licensing (Virginia, Maryland, Pennsylvania, Colorado). DHS Federal Protective Service weapons detection training (2013)."
   },
   {
-   "id": "07-education-certs#4",
+   "id": "07-education-certs#5",
    "title": "Education and certifications",
    "section": "Clearance",
    "url": "#credentials",
@@ -343,7 +357,7 @@
    "title": "Off the clock - community and interests",
    "section": "Photos on this website",
    "url": "#life",
-   "text": "The headshot at the top of the site shows Jayce in a dark suit and red tie. The service photos show Jayce in Marine Corps dress blues, as a Sergeant in the Marine Corps service uniform, and as a Lance Corporal in the field; a 4th LAR (Light Armored Reconnaissance) Delta Company LAV-25 with its 25mm gun; Light Armored Reconnaissance Marines on their vehicles; Jayce as a Staff Sergeant in Air Force service dress; and Jayce in OCPs as an instructor with the U.S. Naval Sea Cadet Corps in San Antonio (2023). The \"Off the clock\" gallery shows the LoDo Toastmasters Ice Breaker ribbon, a Habitat for Humanity veterans build, the Lambda Phi Epsilon Theta Class at Virginia Commonwealth University, Jayce's 2019 University of Maryland graduation, the 2022 Joint Base San Antonio Air Force Ball, biking the Rocky Mountain backcountry, the Rockies with a friend, Griffith Observatory, BMX in Philadelphia, Jayce's built 2017 Subaru STI, Jayce next to a statue of Ace from One Piece, and cards from Jayce's One Piece trading card collection."
+   "text": "The headshot at the top of the site shows Jayce in a dark suit and red tie. The service photos show Jayce in Marine Corps dress blues, as a Sergeant in the Marine Corps service uniform, and as a Lance Corporal in the field; an LAV-25 with its 25mm gun from Jayce's Marine unit, Delta Company, 4th LAR (Light Armored Reconnaissance); Light Armored Reconnaissance Marines on their vehicles; Jayce as a Staff Sergeant in Air Force service dress; and Jayce in OCPs as an instructor with the U.S. Naval Sea Cadet Corps in San Antonio (2023). The \"Off the clock\" gallery shows the LoDo Toastmasters Ice Breaker ribbon, a Habitat for Humanity veterans build, the Lambda Phi Epsilon Theta Class at Virginia Commonwealth University, Jayce's 2019 University of Maryland graduation, the 2022 Joint Base San Antonio Air Force Ball, biking the Rocky Mountain backcountry, the Rockies with a friend, Griffith Observatory, BMX in Philadelphia, Jayce's built 2017 Subaru STI, Jayce next to a statue of Ace from One Piece, and cards from Jayce's One Piece trading card collection."
   },
   {
    "id": "10-this-assistant#0",
