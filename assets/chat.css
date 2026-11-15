@@ -92,3 +92,13 @@
 .cc-secondary{font:600 .86rem Archivo,system-ui,sans-serif;background:none;border:1px solid #D7DBE2;color:#2C3240;border-radius:8px;padding:0 14px;min-height:44px;cursor:pointer}
 .cc-done{padding-top:10px}.cc-done p{margin-bottom:12px;font-size:.92rem;line-height:1.6;color:#2C3240}
 @media(max-width:560px){.cc-row{grid-template-columns:1fr}}
+/* Web context (general explanations, never facts about Jayce) */
+.chat-sources.web{border-top-style:dashed}
+.chat-sources.web a{color:#4A5361;border-style:dashed}
+.chat-sources.web a b{background:#6B7280}
+.cite.web{background:#ECEEF1;color:#4A5361}
+/* Feedback */
+.chat-vote{display:flex;gap:6px;align-items:center;margin-top:8px;font-size:.74rem;color:#5B6270}
+.chat-vote button{background:none;border:1px solid #D7DBE2;border-radius:999px;padding:1px 8px;cursor:pointer;font-size:.8rem;line-height:1.5}
+.chat-vote button:hover{border-color:#1A56B0}
+.chat-vote.done{font-style:italic}

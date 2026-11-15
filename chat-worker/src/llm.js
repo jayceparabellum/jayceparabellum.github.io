@@ -24,8 +24,8 @@ function claude(env) {
   const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY, maxRetries: 1 });
   return {
     name: CLAUDE_MODEL,
-    async complete(system, user) {
-      const r = await client.messages.create({ model: CLAUDE_MODEL, max_tokens: 200, output_config: { effort: 'low' }, system, messages: [{ role: 'user', content: user }] });
+    async complete(system, user, { max_tokens = 200 } = {}) {
+      const r = await client.messages.create({ model: CLAUDE_MODEL, max_tokens, output_config: { effort: 'low' }, system, messages: [{ role: 'user', content: user }] });
       return r.content.find(b => b.type === 'text')?.text || '';
     },
     async stream(system, messages, onText) {
@@ -44,8 +44,9 @@ function workersAI(env) {
   const rewriteModel = env.REWRITE_MODEL || WORKERS_REWRITE_MODEL;
   return {
     name: chatModel.split('/').pop(),
-    async complete(system, user) {
-      const r = await env.AI.run(rewriteModel, { messages: [{ role: 'system', content: system }, { role: 'user', content: user }], max_tokens: 80, temperature: 0 });
+    // Small, fast model for control decisions (orchestrator, supervisor, summaries); big: true uses the writer model.
+    async complete(system, user, { max_tokens = 80, big = false } = {}) {
+      const r = await env.AI.run(big ? chatModel : rewriteModel, { messages: [{ role: 'system', content: system }, { role: 'user', content: user }], max_tokens, temperature: 0 });
       return r?.response ?? r?.choices?.[0]?.message?.content ?? '';
     },
     async stream(system, messages, onText) {

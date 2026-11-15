@@ -2,15 +2,14 @@
 // Every stage degrades gracefully: without the AI binding (e.g. plain local dev) it runs BM25-only.
 import { buildBm25, searchBm25, rrf, cosine } from '../../assets/rag-core.js';
 
-export const EMBED_MODEL = '@cf/baai/bge-base-en-v1.5';
-export const RERANK_MODEL = '@cf/baai/bge-reranker-base';
+import { CONFIG } from './config.js';
+
+export const EMBED_MODEL = CONFIG.EMBED_MODEL;
+export const RERANK_MODEL = CONFIG.RERANK_MODEL;
 // BGE v1.5 recommends this instruction on short retrieval queries (not on passages).
 const QUERY_INSTRUCTION = 'Represent this sentence for searching relevant passages: ';
 
-const CANDIDATES = 12;     // fused candidates sent to the reranker
-const FINAL_K = 5;         // passages given to the LLM
-const MIN_RERANK = 0.02;   // drop passages the reranker considers irrelevant...
-const MIN_KEEP = 3;        // ...but always keep the top few, so broad questions get more than one source
+const { RETRIEVAL_TOP_K: CANDIDATES, RERANK_TOP_N: FINAL_K, MIN_RERANK, MIN_KEEP } = CONFIG;
 // Broad "what's his stack / which tools" questions should always see the skills inventory.
 export const SKILLS_QUERY = /\b(tech(nical)?[- ]?stack|stack|tools?|toolset|skills?|languages?|frameworks?|technologies|proficien\w*|expertise)\b/i;
 
@@ -23,32 +22,48 @@ export function createRetriever(kb) {
   function passageVectors(ai, kv) {
     return (vectors ??= loadVectors(ai, kv).catch(e => { vectors = null; throw e; }));
   }
+  // Incremental: vectors are stored per KB version; on a new version, chunks whose content hash is
+  // unchanged reuse the previous version's vectors and only edited or new chunks are embedded.
   async function loadVectors(ai, kv) {
     const key = `emb:${kb.version}:${EMBED_MODEL}`;
+    const unpack = (buf, n) => { const all = new Float32Array(buf), dim = all.length / n; return Array.from({ length: n }, (_, i) => all.subarray(i * dim, (i + 1) * dim)); };
     if (kv) {
       try {
         const buf = await kv.get(key, 'arrayBuffer');
-        if (buf && buf.byteLength % (4 * chunks.length) === 0) {
-          const all = new Float32Array(buf), dim = all.length / chunks.length;
-          return chunks.map((_, i) => all.subarray(i * dim, (i + 1) * dim));
-        }
-      } catch { /* fall through to computing */ }
+        if (buf && buf.byteLength === 4 * CONFIG.EMBED_DIM * chunks.length) return unpack(buf, chunks.length);
+      } catch { /* fall through */ }
     }
-    const texts = chunks.map(c => `${c.title}. ${c.section}. ${c.text}`);
-    const out = [];
-    for (let i = 0; i < texts.length; i += 50) {
-      const r = await ai.run(EMBED_MODEL, { text: texts.slice(i, i + 50) });
-      out.push(...r.data);
+    const out = new Array(chunks.length);
+    let reused = 0;
+    if (kv) {
+      try {
+        const prev = await kv.get(`emb:latest:${EMBED_MODEL}`, 'json');
+        const buf = prev && await kv.get(prev.key, 'arrayBuffer');
+        if (buf) {
+          const old = unpack(buf, prev.hashes.length), byHash = new Map(prev.hashes.map((h, i) => [h, old[i]]));
+          chunks.forEach((c, i) => { const v = byHash.get(c.hash); if (v) { out[i] = v; reused++; } });
+        }
+      } catch { /* embed everything */ }
+    }
+    const todo = chunks.map((c, i) => i).filter(i => !out[i]);
+    for (let i = 0; i < todo.length; i += 50) {
+      const batch = todo.slice(i, i + 50);
+      const r = await ai.run(EMBED_MODEL, { text: batch.map(j => `${chunks[j].title}. ${chunks[j].section}. ${chunks[j].text}`) });
+      batch.forEach((j, k) => { out[j] = r.data[k]; });
     }
     if (kv) {
-      const dim = out[0].length, all = new Float32Array(out.length * dim);
-      out.forEach((v, i) => all.set(v, i * dim));
-      try { await kv.put(key, all.buffer, { expirationTtl: 60 * 60 * 24 * 30 }); } catch { /* cache is best-effort */ }
+      const all = new Float32Array(chunks.length * CONFIG.EMBED_DIM);
+      out.forEach((v, i) => all.set(v, i * CONFIG.EMBED_DIM));
+      try {
+        await kv.put(key, all.buffer, { expirationTtl: 60 * 60 * 24 * 30 });
+        await kv.put(`emb:latest:${EMBED_MODEL}`, JSON.stringify({ key, hashes: chunks.map(c => c.hash) }));
+      } catch { /* cache is best-effort */ }
     }
+    console.log(JSON.stringify({ node: 'embed', kb: kb.version, reused, embedded: todo.length }));
     return out;
   }
 
-  const retrieve = async function retrieve(query, env) {
+  const retrieve = async function retrieve(query, env, opts = {}) {
     const t0 = Date.now();
     const trace = { mode: 'bm25', timings: {} };
     const lexical = searchBm25(bm25, query).slice(0, 20);
@@ -58,8 +73,9 @@ export function createRetriever(kb) {
       try {
         const [pv, qv] = await Promise.all([
           passageVectors(env.AI, env.CHAT_CACHE),
-          env.AI.run(EMBED_MODEL, { text: [QUERY_INSTRUCTION + query] }).then(r => r.data[0]),
+          opts.qv || embedQuery(env.AI, query),
         ]);
+        trace.qv = qv;
         dense = pv.map((v, index) => ({ index, score: cosine(qv, v) })).sort((a, b) => b.score - a.score).slice(0, 20);
         fused = rrf([lexical, dense]);
         trace.mode = 'hybrid';
@@ -91,7 +107,7 @@ export function createRetriever(kb) {
     const sources = ranked.map(x => {
       const c = chunks[x.index];
       return {
-        id: c.id, title: c.title, section: c.section, url: c.url, text: c.text,
+        id: c.id, kind: 'site', hash: c.hash, title: c.title, section: c.section, url: c.url, text: c.text,
         scores: { bm25_rank: lexRank.get(x.index) ?? null, dense_rank: denseRank.get(x.index) ?? null,
           rrf: dense.length ? +x.fused.toFixed(4) : null, rerank: x.rerank != null ? +x.rerank.toFixed(3) : null },
       };
@@ -102,3 +118,5 @@ export function createRetriever(kb) {
   retrieve.warm = env => (env.AI ? passageVectors(env.AI, env.CHAT_CACHE).then(v => v.length) : Promise.resolve(0));
   return retrieve;
 }
+
+export const embedQuery = (ai, query) => ai.run(EMBED_MODEL, { text: [QUERY_INSTRUCTION + query] }).then(r => r.data[0]);

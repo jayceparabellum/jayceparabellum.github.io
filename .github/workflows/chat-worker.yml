@@ -1,0 +1,40 @@
+# Ingestion + deploy for the chat Worker (Build Plan §2, Phase 1).
+# On a push to main that touches the knowledge base or the Worker: rebuild the KB (section-aware chunks with
+# content hashes), run the tests, apply D1 migrations and deploy. On the first request after deploy the Worker
+# re-embeds only chunks whose hash changed, and cached answers citing a changed chunk are dropped automatically.
+#
+# Needs two repository secrets (Settings > Secrets and variables > Actions). Without them the job tests only:
+#   CLOUDFLARE_API_TOKEN   API token with "Workers Scripts: Edit", "Workers KV Storage: Edit", "D1: Edit"
+#   CLOUDFLARE_ACCOUNT_ID  the Cloudflare account id
+name: Chat Worker
+on:
+  push:
+    branches: [main]
+    paths: ['knowledge/**', 'chat-worker/**', 'scripts/build-kb.mjs', 'assets/rag-core.js', '.github/workflows/chat-worker.yml']
+  workflow_dispatch:
+concurrency: { group: chat-worker, cancel-in-progress: false }
+permissions: { contents: read }
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: chat-worker } }
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: chat-worker/package-lock.json }
+      - run: npm ci
+      - run: npm test
+      - name: Check the committed browser KB matches the sources
+        run: git diff --exit-code ../assets/kb.json || echo "::warning::assets/kb.json is stale; run npm run kb and commit it"
+      - name: Apply D1 migrations
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npx wrangler d1 migrations apply jayce-chat --remote
+      - name: Deploy
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npx wrangler deploy
+      - name: Smoke test
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: curl -fsS "https://jayce-chat.jayce-chat.workers.dev/health?warm=1"

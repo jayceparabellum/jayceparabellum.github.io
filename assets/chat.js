@@ -12,6 +12,13 @@
   const ENDPOINT = override || (local ? 'http://127.0.0.1:8787/chat' : metaEndpoint);
   const CONFIGURED = ENDPOINT && !/YOUR-SUBDOMAIN/.test(ENDPOINT);
   const CONTACT_ENDPOINT = CONFIGURED ? ENDPOINT.replace(/\/chat\/?$/, '/contact') : '';
+  const FEEDBACK_ENDPOINT = CONFIGURED ? ENDPOINT.replace(/\/chat\/?$/, '/feedback') : '';
+  // One id per browser visit (sessionStorage): scopes the Worker's memory and semantic cache to this visit only.
+  const THREAD_ID = (() => {
+    const make = () => Array.from(crypto.getRandomValues(new Uint8Array(16)), b => b.toString(16).padStart(2, '0')).join('');
+    try { let t = sessionStorage.getItem('chatThread'); if (!t) { t = make(); sessionStorage.setItem('chatThread', t); } return t; } catch { return make(); }
+  })();
+  let turnCount = 0;
   const EMAIL = 'jayce.n.parabellum@gmail.com';
   const TYPES = { freelance: 'Freelance / contract', corporate: 'Full-time / corporate', consulting: 'Consulting' };
   const MARKER = /\s*\[\[contact\]\]\s*/i;
@@ -46,7 +53,10 @@
         .replace(/\b(?:https?:\/\/)?((?:www\.)?jayceparabellum\.github\.io(?:\/[^\s<)\]]*)?)/gi, (m, u) => `<a href="https://${u.replace(/[.,;]+$/, '')}" target="_blank" rel="noopener">${u.replace(/[.,;]+$/, '')}</a>${(u.match(/[.,;]+$/) || [''])[0]}`)
         .replace(/\[(\d+)\]/g, (m, n) => {
           const s = sources[n - 1];
-          return s ? `<a class="cite" href="${esc(s.url)}" title="${esc(s.title + ' — ' + s.section)}">${n}</a>` : '';
+          if (!s) return '';
+          return s.kind === 'web'
+            ? `<a class="cite web" href="${esc(safeHttps(s.url))}" target="_blank" rel="noopener noreferrer" title="${esc('Web: ' + s.title)}">${n}</a>`
+            : `<a class="cite" href="${esc(s.url)}" title="${esc(s.title + ' — ' + s.section)}">${n}</a>`;
         });
       if (/^\s*[-•]\s+/.test(raw)) { if (!inList) { html += '<ul>'; inList = true; } html += `<li>${line.replace(/^\s*[-•]\s+/, '')}</li>`; continue; }
       if (inList) { html += '</ul>'; inList = false; }
@@ -55,10 +65,29 @@
     return html + (inList ? '</ul>' : '');
   }
 
+  const safeHttps = u => { try { const x = new URL(u); return x.protocol === 'https:' ? x.href : '#'; } catch { return '#'; } };
   function sourceList(sources) {
     if (!sources?.length) return '';
-    return `<div class="chat-sources"><span>Sources</span>${sources.map((s, i) =>
-      `<a href="${esc(s.url)}" title="${esc(s.section)}"><b>${i + 1}</b>${esc(s.title.split(' - ')[0])} · ${esc(s.section)}</a>`).join('')}</div>`;
+    const site = sources.map((s, i) => [s, i]).filter(([s]) => s.kind !== 'web');
+    const web = sources.map((s, i) => [s, i]).filter(([s]) => s.kind === 'web');
+    return `<div class="chat-sources"><span>From the site</span>${site.map(([s, i]) =>
+      `<a href="${esc(s.url)}" title="${esc(s.section)}"><b>${i + 1}</b>${esc(s.title.split(' - ')[0])} · ${esc(s.section)}</a>`).join('')}</div>` +
+      (web.length ? `<div class="chat-sources web"><span>General context from the web</span>${web.map(([s, i]) =>
+        `<a href="${esc(safeHttps(s.url))}" target="_blank" rel="noopener noreferrer" title="${esc(s.title)}"><b>${i + 1}</b>${esc(s.section)} · ${esc(s.title.slice(0, 70))}</a>`).join('')}</div>` : '');
+  }
+
+  function feedbackBar(m) {
+    if (!FEEDBACK_ENDPOINT || !m.sig || m.local || m.offline) return '';
+    if (m.vote) return `<p class="chat-vote done">${m.vote === 1 ? 'Thanks for the feedback.' : 'Thanks. This helps improve the assistant.'}</p>`;
+    return `<p class="chat-vote" data-id="${esc(m.sig.slice(0, 32))}"><span>Was this helpful?</span><button type="button" data-vote="1" aria-label="Helpful">👍</button><button type="button" data-vote="-1" aria-label="Not helpful">👎</button></p>`;
+  }
+  async function vote(id, rating) {
+    const i = state.messages.findIndex(m => m.role === 'assistant' && m.sig?.slice(0, 32) === id);
+    if (i < 0) return;
+    const m = state.messages[i];
+    m.vote = rating; m.html = m.html.replace(/<p class="chat-vote"[\s\S]*?<\/p>$/, '') + feedbackBar(m); render();
+    fetch(FEEDBACK_ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ thread_id: THREAD_ID, message_id: id, rating, question: rating === -1 ? state.messages[i - 1]?.content : undefined }) }).catch(() => {});
   }
 
   function traceView(meta, done) {
@@ -67,6 +96,7 @@
     const rows = meta.sources.map((s, i) => `<tr><td>${i + 1}</td><td>${esc(s.section)}</td><td>${s.scores.bm25_rank ?? '—'}</td><td>${s.scores.dense_rank ?? '—'}</td><td>${s.scores.rrf ?? '—'}</td><td>${s.scores.rerank ?? '—'}</td></tr>`).join('');
     return `<details class="chat-trace"><summary>How this answer was built</summary>
       <p><b>Search query:</b> ${esc(meta.query)}${meta.rewritten ? ' <em>(rewritten from your follow-up)</em>' : ''}</p>
+      ${meta.route ? `<p><b>Route:</b> site${meta.route.needs_web ? ` + web (“${esc(meta.route.web_query || '')}”: ${esc(meta.web?.status || '')}${meta.web?.cached ? ', cached' : ''})` : ''}${done?.supervisor ? ` · supervisor ${done.supervisor.pass ? 'passed' : 'failed'}${done.supervisor.attempts > 1 ? ` after ${done.supervisor.attempts} drafts` : ''}` : ''}${meta.cached ? ` · ${esc(meta.cached)} cache` : ''}</p>` : ''}
       <p><b>Pipeline:</b> ${esc(meta.trace?.mode || '')} · rewrite ${t.rewrite_ms ?? 0} ms · retrieve ${t.retrieve_ms ?? 0} ms${t.rerank_ms != null ? ` · rerank ${t.rerank_ms} ms` : ''}${done ? ` · total ${done.total_ms} ms · ${done.usage && !done.cached ? `${done.usage.input}→${done.usage.output} tokens${done.usage.cache_read ? ` (${done.usage.cache_read} cached)` : ''}` : 'cached answer'}` : ''}</p>
       <div class="trace-table"><table><thead><tr><th>#</th><th>Passage</th><th>BM25 rank</th><th>Vector rank</th><th>RRF</th><th>Rerank</th></tr></thead><tbody>${rows}</tbody></table></div>
     </details>`;
@@ -86,7 +116,11 @@
     const v = { host, log: host.querySelector('.chat-log'), suggest: host.querySelector('.chat-suggest'),
       input: host.querySelector('textarea'), send: host.querySelector('.chat-send'), panel: host.querySelector('.chat-contact') };
     host.querySelector('.chat-contact-btn').addEventListener('click', () => openContact());
-    v.log.addEventListener('click', e => { if (e.target.closest('.open-contact')) openContact(); });
+    v.log.addEventListener('click', e => {
+      if (e.target.closest('.open-contact')) openContact();
+      const b = e.target.closest('.chat-vote button');
+      if (b) vote(b.parentElement.dataset.id, +b.dataset.vote);
+    });
     wirePanel(v);
     v.suggest.innerHTML = SUGGESTIONS.map(s => `<button type="button">${esc(s)}</button>`).join('');
     v.suggest.addEventListener('click', e => { const b = e.target.closest('button'); if (b) ask(b.textContent); });
@@ -127,18 +161,19 @@
       if (!CONFIGURED) throw Object.assign(new Error('offline'), { offline: true });
       state.controller = new AbortController();
       const res = await fetch(ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ messages: [...dedupe(history), { role: 'user', content: q }] }), signal: state.controller.signal });
+        body: JSON.stringify({ messages: [...dedupe(history), { role: 'user', content: q }], thread_id: THREAD_ID, turn: ++turnCount }), signal: state.controller.signal });
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw Object.assign(new Error(err.error || `HTTP ${res.status}`), { status: res.status, offline: res.status >= 500 });
       }
       let meta = null, done = null;
-      const paint = () => { bot.html = format(bot.content, meta?.sources) + (bot.contact ? contactCta() : '') + (done ? sourceList(meta?.sources) + traceView(meta, done) : ''); render(); };
+      const paint = () => { bot.html = format(bot.content, meta?.sources) + (bot.contact ? contactCta() : '') + (done ? sourceList(meta?.sources) + traceView(meta, done) + feedbackBar(bot) : ''); render(); };
       await readSSE(res.body, (event, data) => {
         if (event === 'meta') meta = data;
         else if (event === 'delta') { bot.content += data.t; paint(); }
+        else if (event === 'replace') { bot.content = data.t; bot.status = 'Revised after a fact check.'; paint(); }
         else if (event === 'done') { done = data; bot.sig = data.sig; }
-        else if (event === 'error') throw new Error(data.message);
+        else if (event === 'error') throw Object.assign(new Error(data.message), { offline: data.code === 'quota' && !bot.content });
       });
       if (!bot.content) throw new Error('No answer came back. Please try again.');
       bot.pending = false;

@@ -12,6 +12,9 @@ const dir = join(root, 'knowledge');
 const chunks = readdirSync(dir).filter(f => f.endsWith('.md')).sort()
   .flatMap(f => chunkMarkdown(readFileSync(join(dir, f), 'utf8').replace(/\r\n/g, '\n'), f));
 
+// Content hash per chunk: unchanged chunks keep their embeddings, and cached answers citing a changed chunk are dropped.
+for (const c of chunks) c.hash = createHash('sha256').update(`${c.title}\n${c.section}\n${c.text}`).digest('hex').slice(0, 12);
+
 // Guardrail: the KB is public. Fail the build if anything that looks private slipped in.
 const PRIVATE = [/\(\d{3}\)\s?\d{3}-\d{4}/, /\b\d{3}-\d{3}-\d{4}\b/, /\b\d{3}-\d{2}-\d{4}\b/, /\b\d{3,5} [NSEW]\.? \w+ (Street|St|Avenue|Ave|Road|Rd)\b/i, /\bAPT\s?#/i, /Credential ID/i];
 for (const c of chunks) for (const re of PRIVATE) if (re.test(c.text)) throw new Error(`Private-looking data in ${c.id}: ${re}`);

@@ -30,6 +30,27 @@ simple = { limit = 3, period = 60 }
 binding = "CHAT_CACHE"
 id = "9e62c9b7b8e7440686118564efc10367"
 
+# Runtime state: semantic cache, conversation memory (one visit, 24 h) and feedback. Schema: migrations/.
+[[d1_databases]]
+binding = "DB"
+database_name = "jayce-chat"
+database_id = "ff76148e-ab7a-42a6-91eb-5bcbd31c3836"
+migrations_dir = "migrations"
+
+# Feedback buttons: 20 votes per minute per IP.
+[[ratelimits]]
+name = "FEEDBACK_LIMITER"
+namespace_id = "1004"
+simple = { limit = 20, period = 60 }
+
+# Hourly cleanup of expired cache and memory rows.
+[triggers]
+crons = ["17 * * * *"]
+
+# Workers Logs: structured JSON logs and per-request traces in the Cloudflare dashboard.
+[observability]
+enabled = true
+
 [vars]
 # Hiring inquiries from the chat's contact form go here (via FormSubmit, or Resend if RESEND_API_KEY is set; never taken from requests).
 CONTACT_TO = "jayce.n.parabellum@gmail.com"
@@ -39,3 +60,4 @@ ALLOWED_ORIGINS = "https://jayceparabellum.github.io,http://localhost:8000,http:
 #   HISTORY_SECRET     required: random string that signs chat answers (see src/history.js)
 #   ANTHROPIC_API_KEY  optional: use Claude Haiku instead of Llama on Workers AI
 #   RESEND_API_KEY     optional: send contact mail through Resend instead of FormSubmit
+#   TAVILY_API_KEY     optional: general web context for concepts the site mentions (Tavily search)
