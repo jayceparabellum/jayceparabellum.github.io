@@ -1,5 +1,5 @@
 {
- "version": "4a0d8cc2eb5e",
+ "version": "9074f1ef5b88",
  "built": "2026-11-15",
  "chunks": [
   {
@@ -19,26 +19,33 @@
   {
    "id": "01-profile#2",
    "title": "Profile and overview",
+   "section": "Jayce at a glance (summary for recruiters)",
+   "url": "#top",
+   "text": "- Now: AI Software Engineer at Teos Technology, LLC (since August 2026), building HIPAA-aligned LLM clinical documentation and triage services for skilled nursing facilities. - AI engineering: LLM applications on local or managed models, agent orchestration, retrieval-augmented generation (RAG) over vector databases, and CI evaluation gates; completed the Gauntlet AI Fellowship (Cohort 4) in 2026. - Cloud and federal IT: nearly six years at Perspecta/Peraton (December 2019 - August 2025), ending as Cloud Systems Architect, Lead Associate on the NBIS personnel-vetting platform in AWS GovCloud; earlier network and systems work for CACI at the Pentagon and Phacil (2017-2019). - Service: U.S. Marine Corps Sergeant (2008-2014), then aerospace propulsion 7-level on the C-40 (D.C. Air National Guard) and C-5M Galaxy (U.S. Air Force Reserve), reaching Staff Sergeant; Top Secret clearance eligible. - Education: pursuing an M.S. in Computer Science (Artificial Intelligence) at CU Boulder, expected June 2028. - Open to freelance or contract projects, full-time corporate roles, and consulting."
+  },
+  {
+   "id": "01-profile#3",
+   "title": "Profile and overview",
    "section": "Career in one paragraph",
    "url": "#top",
    "text": "Jayce spent six years in the U.S. Marine Corps (2008-2014) as a metal worker who made Sergeant, then served as an aerospace propulsion (jet engine) mechanic in the D.C. Air National Guard on the C-40 (2014-2022) and the U.S. Air Force Reserve on the C-5M Galaxy (2021-2024), reaching Staff Sergeant and a 7-level. In parallel Jayce moved into federal IT: network and systems work for CACI at the Pentagon and Phacil at Marine Corps Recruiting Command (2017-2019), then nearly six years at Perspecta/Peraton (December 2019 - August 2025), ending as Cloud Systems Architect, Lead Associate on the NBIS personnel-vetting platform in AWS GovCloud. In 2026 Jayce completed the Gauntlet AI Fellowship (Cohort 4) and joined Teos Technology as an AI Software Engineer. Jayce is pursuing an M.S. in Computer Science (Artificial Intelligence) at CU Boulder, expected June 2028."
   },
   {
-   "id": "01-profile#3",
+   "id": "01-profile#4",
    "title": "Profile and overview",
    "section": "How Jayce builds AI systems",
    "url": "#top",
    "text": "Jayce's engineering approach comes from the flight line, where a 7-level signs for every job against technical data before an aircraft flies: nothing leaves the shop without a sign-off. Jayce builds AI systems the same way, measured, traceable and honest about what they don't know, around three principles. Ground every answer: retrieval over the real source material (regulations, protocols, patient records) with citations required, and the system says so when the sources don't cover a question instead of guessing; the TTB label verification tool and the clinical co-pilot work this way. Gate every release: versioned prompts, golden datasets, regression replay and canary rollouts with automatic rollback, so a change ships when the evals say so, not when the demo looks good; this is the release process Jayce uses at Teos. Secure by default: PHI de-identified at ingest, tenant-scoped retrieval, audit logs, authentication on every endpoint and STIG-hardened hosts, a habit from six years of NIST and RMF work on federal cloud systems."
   },
   {
-   "id": "01-profile#4",
+   "id": "01-profile#5",
    "title": "Profile and overview",
    "section": "What Jayce is looking for",
    "url": "#top",
    "text": "Jayce is interested in AI engineer, applied AI, and AI platform roles, especially ones that combine LLM applications with secure cloud infrastructure, regulated environments (healthcare, government, finance), and production evaluation. Jayce also has a strong software engineering and cloud solutions architecture background, which suits solutions architect and cloud architecture roles. Jayce is open to three kinds of work: freelance or contract projects, full-time corporate roles, and consulting engagements. For specifics about availability, compensation, or relocation, contact Jayce directly."
   },
   {
-   "id": "01-profile#5",
+   "id": "01-profile#6",
    "title": "Profile and overview",
    "section": "How to contact Jayce",
    "url": "#top",
@@ -47,51 +54,51 @@
   {
    "id": "02-teos#0",
    "title": "Teos Technology - AI Software Engineer (Aug 2026 - present)",
-   "section": "Role summary",
+   "section": "About Teos Technology",
    "url": "#teos",
-   "text": "AI Software Engineer at Teos Technology, LLC, remote (company in Colorado Springs, CO), August 2026 to present. Teos builds telehealth and clinical software used by skilled nursing facilities. Jayce works on the AI features and on the .NET, React and SQL Server platform."
+   "text": "Teos Technology, LLC is a founder-led software and AI company in Monument, Colorado (website: teos-tech.com). Its tagline is \"Ethical AI and Custom Software for a Better Future.\" Teos designs and builds responsible AI systems, cloud-native applications and human-centered digital products, with security and privacy built in from the start, taking work from idea to prototype to production. Its services are AI consulting, custom software development, cloud architecture and DevOps, product strategy and agile delivery, and web design and hosting. Healthcare and wellness is a focus industry. Projects shown on its website include a Natural Healthcare Platform, a Life-Saving AI Application, a Civil Discourse Platform, and Let's Breathe & CheckIn. Scott J. Swindell is CEO, Chief Architect and Quality Lead."
   },
   {
    "id": "02-teos#1",
    "title": "Teos Technology - AI Software Engineer (Aug 2026 - present)",
-   "section": "Current project: 3rdEyeHealth (Third Eye Health)",
+   "section": "Jayce's role",
    "url": "#teos",
-   "text": "What is Jayce working on right now? Jayce's current project at Teos Technology is 3rdEyeHealth, also written Third Eye Health. Its website is https://www.thirdeyehealth.net. When a visitor asks about Teos, Jayce's current work or 3rdEyeHealth, share that link. Third Eye Health provides telehealth clinician coverage for after-hours care in post-acute settings, with 2 to 5 minute clinician response times, helping facilities treat residents in place and avoid unnecessary hospital transfers. It serves skilled nursing facilities, assisted living facilities, provider groups, health systems and health plans. Its board-certified physicians and advanced practice clinicians have post-acute and long-term care experience, and its platform covers clinician routing, credentialing, scheduling, EHR connectivity, quality review, billing support and analytics. Third Eye Health reports 1,500+ partner facilities, more than 1 million patient encounters, 93% of residents treated in place and a 25% average reduction in admissions (figures from its website)."
+   "text": "Jayce is an AI Software Engineer at Teos Technology (remote, August 2026 to present), working on a Teos healthcare platform with web, mobile and API clients. Tech stack: .NET 10, ASP.NET Core, EF Core, SQL Server, React 18 with TypeScript, Expo / React Native, and Azure DevOps."
   },
   {
    "id": "02-teos#2",
    "title": "Teos Technology - AI Software Engineer (Aug 2026 - present)",
-   "section": "LLM clinical documentation service",
+   "section": "Results at Teos",
    "url": "#teos",
-   "text": "Built an LLM clinical documentation service that drafts encounter notes and SBAR handoffs from telehealth sessions, using Azure OpenAI, LangGraph orchestration and pgvector retrieval over facility protocols and patient history. Average charting time fell from about 9 minutes to under 3 minutes across 40+ skilled nursing facilities."
+   "text": "- Delivered 133 merged pull requests in 8 weeks, closing 62 bugs, 24 user stories and 25 tasks, using AI coding agents (Claude Code) inside a reviewed, layered-architecture workflow. - Authored 80% of all commits to the main development branch in that period, including 19 new database tables and 14 API controllers. - Raised automated test coverage by about 1,500 unit tests (from about 1,000 to 2,640 test methods, with 3,298 test cases passing) and about 200 Cypress end-to-end tests (from 32 to 75 spec files). - Shipped about 29 security pull requests (details under Security hardening). - Wrote the project's ARCHITECTURE.md, the reference the codebase is built to. Jayce's work follows the team's process: a work item for every change, one branch and pull request per ticket, required code review, and the layering rules in the architecture guide."
   },
   {
    "id": "02-teos#3",
    "title": "Teos Technology - AI Software Engineer (Aug 2026 - present)",
-   "section": "HIPAA-aligned pipeline and services",
+   "section": "Product features Jayce built",
    "url": "#teos",
-   "text": "Designed the Python/FastAPI services and HIPAA-aligned pipeline behind the AI features: PHI de-identification at ingest, tenant-scoped retrieval, prompt and response audit logging, and streaming APIs. Held p95 latency under 800 ms at about 15,000 encounters a month with no PHI exposure incidents."
+   "text": "- Messaging: reading and sending messages, with message subject and body encrypted in the database (AES-256-GCM). - Appointment reminders: who gets reminded and when, the reminder text, cancelled-appointment handling, a shared scheduled-job mechanism, email and SMS delivery with tracking, and notifications to providers. - Sign in with Apple on web, API and iOS. - Desktop layout and accessibility: a grouped sidebar, a shared page header and table defaults, keyboard and screen-reader fixes, and confirmations before deleting records. - Provider directory: provider search, public provider profiles, and a switch that lets providers hide their profile. - Inventory and compliance: batches with unique IDs, product history and traceability, quality inspections, chain of custody, audit packages exported as CSV or zip, and license-expiry alerts. - Billing and accounting: invoicing, payments and billing pages; a tax report, outstanding balances, expenses with profit and loss, and revenue metrics; billing for products and for completed appointments. - Security monitoring: a security events log and page, recording of permission violations, account lockout, and suspicious-activity alerts. - Other features: home-page advertisements with an admin page, and remedy information covering traditional uses and research."
   },
   {
    "id": "02-teos#4",
    "title": "Teos Technology - AI Software Engineer (Aug 2026 - present)",
-   "section": "GenAI release process and evaluation",
+   "section": "Security hardening",
    "url": "#teos",
-   "text": "Set up the release process for GenAI changes: a versioned prompt registry, a golden-dataset regression harness that scores grounding and hallucination rate on every change, and CI/CD with canary rollout and automatic rollback. Clinician acceptance of drafted notes rose from 72% to 94%, and model-related incidents dropped about 60%."
+   "text": "Jayce did a round of security hardening on the platform: secret scanning that fails the build if a secret is committed, moving signing keys out of configuration and rejecting weak keys, HSTS and browser security headers, CORS limited to each environment's own site, rate limits on anonymous endpoints, no internal error details in server errors, tighter access control so records are visible only to the people who should see them, fixes for cross-site scripting and unsafe rendering of chatbot answers, keeping tokens out of logs and password hashes out of API responses, and safer registration with email confirmation and a change-password flow."
   },
   {
    "id": "02-teos#5",
    "title": "Teos Technology - AI Software Engineer (Aug 2026 - present)",
-   "section": "AI triage layer",
+   "section": "Reliability, DevOps and mobile",
    "url": "#teos",
-   "text": "Worked with clinical leadership on an AI triage layer that ranks after-hours calls by acuity signals pulled from unstructured intake notes, contributing to an 18% reduction in avoidable emergency department (ED) transfers."
+   "text": "- Deployment checks: deploys fail with the names of any missing pipeline variables, the health check verifies the database, and test environments can only email approved addresses. - Data integrity: prevented double-bookings and double-billing, made simultaneous invoice edits return a conflict instead of overwriting each other, and compared appointment times in each organization's own time zone. - Mobile: a committed lockfile, type errors fixed and type-checking in CI, and fixes to registration, sign-out and role handling. - Tests and documentation: a large batch of unit tests, Cypress end-to-end tests for most features, the project's architecture guide, and its list of reusable building blocks."
   },
   {
    "id": "02-teos#6",
    "title": "Teos Technology - AI Software Engineer (Aug 2026 - present)",
-   "section": "Platform security work",
+   "section": "How Jayce works with an AI coding agent",
    "url": "#teos",
-   "text": "Shipped 57 pull requests on the .NET, React and SQL Server platform, including security fixes that made authentication the default on every API endpoint, stopped password hashes from being exposed, and encrypted patient-provider messages at rest."
+   "text": "Jayce uses an AI coding agent inside the team's process rather than around it. After a few early stacked pull requests were merged before approval and had to be reverted and redone, the team made code review required on every pull request and added a rule that every pull request includes screenshots of passing tests and the running UI. Before starting a ticket Jayce checks whether anyone else is assigned to it or has branches touching the same files, and keeps each change within what the ticket describes."
   },
   {
    "id": "03-gauntlet#0",
@@ -406,7 +413,7 @@
    "title": "About this AI assistant",
    "section": "About this website",
    "url": "#ask",
-   "text": "This is Jayce Nhan Parabellum's personal website, jayceparabellum.github.io, a static site hosted on GitHub Pages. Its sections are: the summary at the top; How I build (Jayce's engineering principles); the career story, from military service through federal IT to AI engineering; Builds (public GitHub repositories); Credentials (education, certifications with Credly proof links, awards and decorations, military and technical training, and the toolset); Off the clock (life in Denver, community work and photos); this AI assistant; and Contact. Jayce designed and built the site. A QR code on Jayce's resume and CV opens this assistant directly. The resume PDF linked on the site is a web copy of Jayce's AI Engineering resume."
+   "text": "This is Jayce Nhan Parabellum's personal website, jayceparabellum.github.io, a static site hosted on GitHub Pages. Its sections are: the summary at the top, with links to the AI Engineering and Cloud Architecture résumés; Work (career chapters: Teos Technology, the Gauntlet AI Fellowship, Peraton, and network engineering at CACI and Phacil); Builds (public GitHub repositories, \"Code you can read\"); Credentials (education, certifications with Credly proof links, awards and decorations, and training); Service (the U.S. Marine Corps, D.C. Air National Guard and U.S. Air Force Reserve, with C-40 and C-5M aircraft photos); Life (life in Denver, community work and photos); Ask my AI (this assistant, \"Interview my résumé\"); and Contact. Jayce designed and built the site. A QR code on Jayce's resume and CV opens this assistant directly. The resume PDF linked on the site is a web copy of Jayce's AI Engineering resume."
   }
  ]
 }

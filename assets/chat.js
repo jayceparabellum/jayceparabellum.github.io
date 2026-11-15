@@ -15,7 +15,7 @@
   const EMAIL = 'jayce.n.parabellum@gmail.com';
   const TYPES = { freelance: 'Freelance / contract', corporate: 'Full-time / corporate', consulting: 'Consulting' };
   const MARKER = /\s*\[\[contact\]\]\s*/i;
-  const HIRE_RE = /\b(hire|hiring|recruit|interview|freelanc|contract(or|ing)?\b|consult|reach (out|him|jayce)|contact|get in touch|email (him|jayce)|work with (him|jayce)|(talk|speak|chat|meet) (to|with) (him|jayce)|connect with|full[- ]time|part[- ]time|opportunit|opening|job offer|position|(a|an|our|my|this) [\w -]{0,40}\b(role|job)\b|role for|(we|i)('re| are| am) looking|my team|our team)/i;
+  const HIRE_RE = /\b(hire|hiring|recruiting (for|him|jayce)|recruit (him|jayce)|interview|freelanc|contract(or|ing)?\b|consult|reach (out|him|jayce)|contact|get in touch|email (him|jayce)|work with (him|jayce)|(talk|speak|chat|meet) (to|with) (him|jayce)|connect with|full[- ]time|part[- ]time|opportunit|opening|job offer|position|(a|an|our|my|this) [\w -]{0,40}\b(role|job)\b|role for|(we|i)('re| are| am) looking|my team|our team)/i;
 
   const SUGGESTIONS = [
     'What does Jayce do at Teos Technology?',
@@ -43,7 +43,7 @@
     for (const raw of lines) {
       const line = raw.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         // Only allowlisted sites become links, so the model can't hand visitors an arbitrary URL.
-        .replace(/\b(?:https?:\/\/)?((?:www\.)?(?:thirdeyehealth\.net|jayceparabellum\.github\.io)(?:\/[^\s<)\]]*)?)/gi, (m, u) => `<a href="https://${u.replace(/[.,;]+$/, '')}" target="_blank" rel="noopener">${u.replace(/[.,;]+$/, '')}</a>${(u.match(/[.,;]+$/) || [''])[0]}`)
+        .replace(/\b(?:https?:\/\/)?((?:www\.)?jayceparabellum\.github\.io(?:\/[^\s<)\]]*)?)/gi, (m, u) => `<a href="https://${u.replace(/[.,;]+$/, '')}" target="_blank" rel="noopener">${u.replace(/[.,;]+$/, '')}</a>${(u.match(/[.,;]+$/) || [''])[0]}`)
         .replace(/\[(\d+)\]/g, (m, n) => {
           const s = sources[n - 1];
           return s ? `<a class="cite" href="${esc(s.url)}" title="${esc(s.title + ' — ' + s.section)}">${n}</a>` : '';
@@ -67,7 +67,7 @@
     const rows = meta.sources.map((s, i) => `<tr><td>${i + 1}</td><td>${esc(s.section)}</td><td>${s.scores.bm25_rank ?? '—'}</td><td>${s.scores.dense_rank ?? '—'}</td><td>${s.scores.rrf ?? '—'}</td><td>${s.scores.rerank ?? '—'}</td></tr>`).join('');
     return `<details class="chat-trace"><summary>How this answer was built</summary>
       <p><b>Search query:</b> ${esc(meta.query)}${meta.rewritten ? ' <em>(rewritten from your follow-up)</em>' : ''}</p>
-      <p><b>Pipeline:</b> ${esc(meta.trace?.mode || '')} · rewrite ${t.rewrite_ms ?? 0} ms · retrieve ${t.retrieve_ms ?? 0} ms${t.rerank_ms != null ? ` · rerank ${t.rerank_ms} ms` : ''}${done ? ` · total ${done.total_ms} ms · ${done.usage.input}→${done.usage.output} tokens${done.usage.cache_read ? ` (${done.usage.cache_read} cached)` : ''}` : ''}</p>
+      <p><b>Pipeline:</b> ${esc(meta.trace?.mode || '')} · rewrite ${t.rewrite_ms ?? 0} ms · retrieve ${t.retrieve_ms ?? 0} ms${t.rerank_ms != null ? ` · rerank ${t.rerank_ms} ms` : ''}${done ? ` · total ${done.total_ms} ms · ${done.usage && !done.cached ? `${done.usage.input}→${done.usage.output} tokens${done.usage.cache_read ? ` (${done.usage.cache_read} cached)` : ''}` : 'cached answer'}` : ''}</p>
       <div class="trace-table"><table><thead><tr><th>#</th><th>Passage</th><th>BM25 rank</th><th>Vector rank</th><th>RRF</th><th>Rerank</th></tr></thead><tbody>${rows}</tbody></table></div>
     </details>`;
   }
@@ -341,6 +341,19 @@
 
   document.querySelectorAll('.chat-host').forEach(mount);
   render();
+
+  // Warm the Worker (it loads passage embeddings) shortly after arrival and when a chat box gets focus,
+  // at most every two minutes, so the visitor's first question skips that work.
+  if (CONFIGURED) {
+    let warmedAt = 0;
+    const warm = () => {
+      if (Date.now() - warmedAt < 120000) return;
+      warmedAt = Date.now();
+      fetch(ENDPOINT.replace(/\/chat\/?$/, '/health?warm=1')).catch(() => {});
+    };
+    setTimeout(warm, params.has('ask') ? 0 : 1500);
+    document.addEventListener('focusin', e => { if (e.target.closest?.('.chat-host') || dialog?.contains(e.target)) warm(); });
+  }
 
   // Deep links (the résumé QR code uses ?ask): ?ask opens the assistant, ?ask=contact opens the contact form.
   if (dialog && (params.has('ask') || location.hash === '#chat')) {

@@ -13,18 +13,27 @@ import { SYSTEM_PROMPT, REWRITE_PROMPT, buildUserTurn } from './prompts.js';
 import { sendContact, ContactError } from './contact.js';
 import { trustedHistory, sign } from './history.js';
 import { markerFilter, CONTACT_INTENT } from './marker.js';
+import { STARTERS, hash } from './starters.js';
 
 const MAX_TURNS = 10;          // history messages kept (5 exchanges)
 const MAX_QUESTION = 600;      // chars
 const MAX_HISTORY_MSG = 2000;  // chars per earlier message
 
 const retrieve = createRetriever(KB);
+const PROMPT_VERSION = hash(SYSTEM_PROMPT);
+const STARTER_TTL = 60 * 60 * 24 * 7; // a week; a KB or prompt change also changes the key
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const cors = corsHeaders(request, env);
     if (request.method === 'OPTIONS') return new Response(null, { status: cors ? 204 : 403, headers: cors || {} });
+    if (url.pathname === '/health' && url.searchParams.has('warm')) {
+      // Called by the site when a visitor arrives, so the first question skips loading embeddings.
+      const t0 = Date.now(); let passages = 0;
+      try { passages = await retrieve.warm(env); } catch { /* the question path will retry */ }
+      return json({ ok: true, passages, ms: Date.now() - t0 }, 200, cors);
+    }
     if (url.pathname === '/health') return json({ ok: true, kb: KB.version, chunks: KB.chunks.length, model: createLLM(env)?.name || null,
       chat: !!createLLM(env), signed_history: !!env.HISTORY_SECRET || !!env.ANTHROPIC_API_KEY,
       contact: env.CONTACT_TO ? (env.RESEND_API_KEY ? 'resend' : 'formsubmit') : false }, 200, cors);
@@ -82,6 +91,20 @@ async function answer({ messages, env, llm, send }) {
   const question = messages.at(-1).content;
   const history = messages.slice(0, -1);
 
+  // Starter chips: serve a cached answer (re-signed for this request) when there is one.
+  const starterKey = !history.length && env.CHAT_CACHE && STARTERS.includes(question)
+    ? `ans:${KB.version}:${PROMPT_VERSION}:${llm.name}:${hash(question)}` : null;
+  if (starterKey) {
+    const hit = await env.CHAT_CACHE.get(starterKey, 'json').catch(() => null);
+    if (hit?.text) {
+      await send('meta', { ...hit.meta, cached: true });
+      for (let i = 0; i < hit.text.length; i += 60) await send('delta', { t: hit.text.slice(i, i + 60) });
+      await send('done', { stop_reason: 'end_turn', total_ms: Date.now() - started, model: llm.name, cached: true, sig: await sign(env, question, hit.text), usage: { input: 0, output: 0, cache_read: 0 } });
+      console.log(JSON.stringify({ model: llm.name, q: question, cached: true, ms: Date.now() - started }));
+      return;
+    }
+  }
+
   // 1. Query rewriting: make follow-ups ("what about the second one?") searchable on their own.
   let query = question;
   const t0 = Date.now();
@@ -98,18 +121,22 @@ async function answer({ messages, env, llm, send }) {
   // 2-4. Hybrid retrieval, fusion, rerank.
   const { sources, trace } = await retrieve(query, env);
   trace.timings.rewrite_ms = rewrite_ms;
-  await send('meta', {
+  const meta = {
     query, rewritten: query !== question, trace,
     sources: sources.map(({ text, ...s }) => ({ ...s, snippet: text.slice(0, 220) })),
-  });
+  };
+  await send('meta', meta);
 
   // 5. Grounded generation, streamed. Earlier turns are passed as plain text; only the newest turn carries sources.
   let full = '';
-  const filter = markerFilter(CONTACT_INTENT.test(question));
+  const wantsContact = CONTACT_INTENT.test(question);
+  const filter = markerFilter(wantsContact);
   const emit = async t => { if (t) { full += t; await send('delta', { t }); } };
-  const final = await llm.stream(SYSTEM_PROMPT, [...history, { role: 'user', content: buildUserTurn(question, sources) }],
+  const final = await llm.stream(SYSTEM_PROMPT, [...history, { role: 'user', content: buildUserTurn(question, sources, wantsContact) }],
     t => emit(filter.push(t)));
   await emit(filter.flush());
+  if (starterKey && full.trim() && !['max_tokens', 'length'].includes(final.stop_reason) && trace.mode.includes('rerank'))
+    await env.CHAT_CACHE.put(starterKey, JSON.stringify({ meta, text: full }), { expirationTtl: STARTER_TTL }).catch(() => {});
   await send('done', { stop_reason: final.stop_reason, total_ms: Date.now() - started, model: llm.name, sig: await sign(env, question, full), usage: final.usage });
   console.log(JSON.stringify({ model: llm.name, q: question.slice(0, 200), query, mode: trace.mode, top: sources.map(s => s.id), ms: Date.now() - started }));
 }

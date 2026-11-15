@@ -24,3 +24,10 @@ test('intent detection', () => {
   for (const q of ["What is Jayce's current role?", 'What did he do in the Marines?', 'Which jobs has Jayce held?', 'Tell me about his AWS certifications', 'How does this chat work?'])
     assert.ok(!CONTACT_INTENT.test(q), q);
 });
+
+test('a recruiter asking for a summary does not trigger the contact form', () => {
+  assert.ok(!CONTACT_INTENT.test('Give me a 3-bullet summary of Jayce for a recruiter'));
+  assert.ok(!CONTACT_INTENT.test("I'm a recruiter, what are his strongest skills?"));
+  assert.ok(CONTACT_INTENT.test("I'm recruiting for a platform engineer role"));
+  assert.ok(CONTACT_INTENT.test('We want to hire Jayce'));
+});

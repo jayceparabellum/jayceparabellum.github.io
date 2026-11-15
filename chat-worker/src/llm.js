@@ -7,6 +7,13 @@ export const CLAUDE_MODEL = 'claude-haiku-5-5';
 export const WORKERS_CHAT_MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 export const WORKERS_REWRITE_MODEL = '@cf/meta/llama-3.1-8b-instruct-fast';
 
+// Workers AI's stream drops the whitespace-only token that Llama emits before a number, so "June 2028"
+// arrives as "June" + "2028". Re-insert the space when a lowercase word (or , ; : ) ]) is followed by a digit.
+// Uppercase-final chunks are left alone so part numbers like "CFM56" and "TF34" stay intact.
+export function fixSpacing(prev, t) {
+  return /[a-z,;:)\]]$/.test(prev) && /^\d/.test(t) ? ' ' + t : t;
+}
+
 export function createLLM(env) {
   if (env.ANTHROPIC_API_KEY) return claude(env);
   if (env.AI) return workersAI(env);
@@ -43,7 +50,7 @@ function workersAI(env) {
     },
     async stream(system, messages, onText) {
       const body = await env.AI.run(chatModel, { messages: [{ role: 'system', content: system }, ...messages], stream: true, max_tokens: 900, temperature: 0.2 });
-      let usage = { input: 0, output: 0, cache_read: 0 }, buf = '';
+      let usage = { input: 0, output: 0, cache_read: 0 }, buf = '', prev = '';
       const reader = body.pipeThrough(new TextDecoderStream()).getReader();
       for (;;) {
         const { value, done } = await reader.read();
@@ -56,8 +63,8 @@ function workersAI(env) {
           const data = line.slice(5).trim();
           if (!data || data === '[DONE]') continue;
           let j; try { j = JSON.parse(data); } catch { continue; }
-          const t = j.response ?? j.choices?.[0]?.delta?.content;
-          if (t) await onText(t);
+          let t = j.response ?? j.choices?.[0]?.delta?.content;
+          if (t) { t = fixSpacing(prev, t); prev = t; await onText(t); }
           if (j.usage) usage = { input: j.usage.prompt_tokens || 0, output: j.usage.completion_tokens || 0, cache_read: 0 };
         }
       }

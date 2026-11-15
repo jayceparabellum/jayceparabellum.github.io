@@ -46,6 +46,8 @@ const GOLDEN = [
   ["What are Jayce's engineering principles for building AI?", '01-profile'],
   ['How can I contact Jayce?', '01-profile'],
   ['What kind of roles is Jayce looking for?', '01-profile'],
+  ['Give me a quick summary of Jayce for a recruiter', '01-profile'],
+  ["What is Jayce's tech stack?", '08-skills'],
 ];
 
 for (const [q, expected] of GOLDEN) {
@@ -80,4 +82,16 @@ test('chunker splits on ## headings and keeps front matter', () => {
 test('knowledge base contains no private contact data', () => {
   const all = JSON.stringify(kb);
   assert.doesNotMatch(all, /\(\d{3}\)\s?\d{3}-\d{4}|\bAPT\s?#|Credential ID/i);
+});
+
+test('skills questions always include the skills inventory', async () => {
+  for (const q of ["What's his tech stack?", 'Which tools does Jayce know?', 'What frameworks has he used?']) {
+    const { sources } = await retrieve(q, {});
+    assert.ok(sources.some(s => s.id.startsWith('08-skills')), `${q}: ${sources.map(s => s.id).join(', ')}`);
+  }
+});
+
+test('the company name "Teos Technology" does not pin the skills inventory', async () => {
+  const { trace } = await retrieve('What does Teos Technology do?', {});
+  assert.equal(trace.pinned, undefined);
 });

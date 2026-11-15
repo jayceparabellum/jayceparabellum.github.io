@@ -25,6 +25,11 @@ name = "CONTACT_LIMITER"
 namespace_id = "1002"
 simple = { limit = 3, period = 60 }
 
+# Cache: passage embeddings and starter-question answers, keyed by KB version (no visitor text is stored).
+[[kv_namespaces]]
+binding = "CHAT_CACHE"
+id = "9e62c9b7b8e7440686118564efc10367"
+
 [vars]
 # Hiring inquiries from the chat's contact form go here (via FormSubmit, or Resend if RESEND_API_KEY is set; never taken from requests).
 CONTACT_TO = "jayce.n.parabellum@gmail.com"
