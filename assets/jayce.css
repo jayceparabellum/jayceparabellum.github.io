@@ -126,12 +126,9 @@ footer{border-top:1px solid #D7DBE2;background:#EFF3F9}
 .alt-bar{width:1px;height:16px;background:#1A56B0;display:inline-block}
 /* Drive photo additions */
 .photo.wide{aspect-ratio:16/7}
-.field-grid{grid-template-columns:minmax(220px,1fr) minmax(0,2fr);align-items:start}
+.field-grid{grid-template-columns:1fr 1fr;align-items:start}
+.field-grid .wide{grid-column:1/-1}
 .life-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
-.contact-layout{display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:center}
-.contact-photo{margin:0}
 @media (max-width:700px){
   .field-grid{grid-template-columns:1fr}
-  .contact-layout{grid-template-columns:1fr;gap:20px}
-  .contact-photo{max-width:200px}
 }
