@@ -65,13 +65,14 @@ test('web worker: off without a key; a timeout yields no results instead of an e
   assert.equal((await webSearch('STIG', {})).skipped, 'no key');
   const realFetch = globalThis.fetch;
   globalThis.fetch = (url, { signal }) => new Promise((_, rej) => signal.addEventListener('abort', () => rej(signal.reason)));
+  const keepAlive = setInterval(() => {}, 1000); // AbortSignal.timeout's timer is unref'd; keep the loop alive
   try {
     const t0 = Date.now();
     const r = await webSearch('STIG', { TAVILY_API_KEY: 'k' });
     assert.deepEqual(r.results, []);
     assert.equal(r.error, 'timeout');
     assert.ok(Date.now() - t0 < 4000);
-  } finally { globalThis.fetch = realFetch; }
+  } finally { globalThis.fetch = realFetch; clearInterval(keepAlive); }
 });
 
 test('web excerpts are wrapped as untrusted content in the writer prompt', () => {
