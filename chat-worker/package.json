@@ -7,7 +7,7 @@
     "dev": "npm run kb && wrangler dev --port 8787",
     "dev:local": "npm run kb && wrangler dev --config wrangler.local.toml --port 8787",
     "deploy": "npm run kb && wrangler deploy",
-    "test": "npm run kb && node --test test/",
+    "test": "npm run kb && node --test \"test/*.test.mjs\"",
     "redteam": "node scripts/redteam.mjs",
     "eval": "node scripts/eval.mjs"
   },
