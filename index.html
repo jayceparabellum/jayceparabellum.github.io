@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="light" name="color-scheme"/>
+<meta content="#16305E" name="theme-color"/>
+<title>Jayce Parabellum | AI Software Engineer</title>
+<meta content="Jayce Nhan Parabellum: AI Software Engineer, cloud systems architect, and USMC / USAF veteran. LLM applications, RAG, evals, and secure cloud infrastructure. Ask the AI assistant anything about his career." name="description"/>
+<!-- Chat backend (Cloudflare Worker). Replace after `wrangler deploy`; see chat-worker/README.md -->
+<meta name="chat-endpoint" content="https://jayce-chat.YOUR-SUBDOMAIN.workers.dev/chat"/>
+<link href="favicon.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://jayceparabellum.github.io/" rel="canonical"/>
+<meta content="profile" property="og:type"/>
+<meta content="https://jayceparabellum.github.io/" property="og:url"/>
+<meta content="Jayce Parabellum | AI Software Engineer" property="og:title"/>
+<meta content="AI Software Engineer and veteran. LLM apps, RAG, evals, secure cloud. Ask my AI about my career." property="og:description"/>
+<meta content="https://jayceparabellum.github.io/images/jayce-headshot.jpg" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; background: #FFFFFF; -webkit-text-size-adjust: 100%; }
+  body { background: #FFFFFF; color: #4A5161; font-family: 'Archivo', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: #1A56B0; text-decoration: none; }
+  a:hover { color: #16305E; }
+  ::selection { background: #C6D3E8; color: #16305E; }
+  :focus-visible { outline: 2px solid #1A56B0; outline-offset: 3px; }
+  ul { list-style: none; }
+  img { max-width: 100%; }
+</style>
+<link href="assets/concierge.css" rel="stylesheet"/>
+<link href="assets/flow.css" rel="stylesheet"/>
+<link href="assets/reading.css" rel="stylesheet"/>
+<link href="assets/profile-hero.css" rel="stylesheet"/>
+<link href="assets/jayce.css" rel="stylesheet"/>
+<link href="assets/chat.css" rel="stylesheet"/>
+<script defer src="assets/site.js"></script>
+<script defer src="assets/navigation.js"></script>
+<script defer src="assets/flow.js"></script>
+<script type="module" src="assets/chat.js"></script>
+</head>
+<body class="story-flow">
+<div class="page">
+
+<div id="site-topbar">
+  <div class="bar-track"><div id="progressBar"></div></div>
+  <div class="topbar-inner">
+    <div class="topbar-brand"><a href="#top" class="wordmark">Jayce Parabellum</a></div>
+    <button aria-controls="main-nav" aria-expanded="false" id="menu-toggle">Menu <span aria-hidden="true">☰</span></button>
+    <nav aria-label="Main navigation" id="main-nav">
+      <a href="#summary">Highlights</a>
+      <a href="#service">Story</a>
+      <a href="#teos">Work</a>
+      <a href="#builds">Projects</a>
+      <a href="#credentials">Credentials</a>
+      <a href="#life">Life</a>
+      <a href="#ask" class="nav-ask">Ask my AI</a>
+      <a href="./Jayce-Parabellum-Resume.pdf" class="nav-resume" target="_blank">Résumé</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<header id="top" class="profile-hero">
+  <div class="profile-hero-content">
+    <div class="profile-identity">
+      <div class="profile-photo"><img alt="Jayce Parabellum, smiling, in a navy blazer in an office" width="1600" height="1568" src="images/jayce-headshot.jpg" fetchpriority="high"/></div>
+      <p class="profile-eyebrow"><strong>Jayce Nhan Parabellum</strong><span>AI Software Engineer · Teos Technology</span></p>
+    </div>
+    <h1>Ship the model.<br/>Secure the cloud.<br/><span style="color:#1A56B0">Sign off like it flies.</span></h1>
+    <p class="profile-intro">I build LLM applications that hold up in regulated places — healthcare, federal, compliance — with agent orchestration, retrieval over real source material, and evaluation gates that stop a bad release before a clinician or an auditor ever sees it. Before AI, I spent six years architecting AWS GovCloud for a national security-vetting platform, and sixteen years in uniform as a Marine and an Air Force jet-engine mechanic.</p>
+    <div class="profile-actions">
+      <a class="btn btn-primary" href="#teos">Explore my work</a>
+      <a class="btn btn-ghost-blue" href="#ask">Ask my AI anything</a>
+      <a class="btn btn-ghost" href="./Jayce-Parabellum-Resume.pdf" target="_blank">View résumé</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/jayce-parabellum" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="profile-history">I’m currently an AI Software Engineer at Teos Technology, building HIPAA-aligned clinical documentation and triage AI for 40+ skilled nursing facilities. Previously: Gauntlet AI Fellowship (Cohort 4), Cloud Systems Architect at Peraton on DCSA’s NBIS platform, and network engineering for CACI at the Pentagon.</p>
+    <p class="profile-meta">Denver, CO · LLM apps · RAG · Evals · Secure cloud<br/>USMC &amp; USAF veteran · Top Secret clearance eligible · M.S. CS (AI), CU Boulder</p>
+  </div>
+</header>
+
+<!-- ================= HIGHLIGHTS ================= -->
+<section class="compact-chapter tint" id="summary">
+  <div class="wrap"><p class="eyebrow">A few things this path has led to</p>
+    <div class="impact-strip">
+      <div class="impact-card" data-flow="up"><p class="stat">9 → &lt;3 min</p><h3>Charting time per encounter</h3><p>LLM-drafted clinical notes across 40+ skilled nursing facilities, at p95 under 800 ms.</p></div>
+      <div class="impact-card" data-flow="up"><p class="stat">72% → 94%</p><h3>Clinician acceptance</h3><p>After a golden-dataset regression harness and canary rollouts gated every GenAI change.</p></div>
+      <div class="impact-card" data-flow="up"><p class="stat">$500M</p><h3>Federal program architected</h3><p>Secure multi-cloud for DCSA’s NBIS vetting platform in AWS GovCloud; failed releases down 90%.</p></div>
+      <div class="impact-card" data-flow="up"><p class="stat">446</p><h3>Tests gating one release</h3><p>Plus a RAG eval and a replayed agent eval: 100% correct verdicts on the TTB label tool.</p></div>
+    </div>
+    <div class="story-shortcuts"><a href="#pattern">How I build ↓</a><a href="#teos">Explore the work ↓</a><a href="#ask">Talk to my AI ↓</a></div>
+  </div>
+</section>
+
+<!-- ================= HOW I BUILD + TIMELINE ================= -->
+<section class="compact-chapter" id="pattern"><div class="people-section">
+  <p class="eyebrow">How I build</p>
+  <h2 data-flow="up">Nothing leaves the shop without a sign-off.</h2>
+  <p class="people-intro">On the flight line, a 7-level signs for every job against technical data before an aircraft flies. I build AI systems the same way: measured, traceable, and honest about what they don’t know.</p>
+  <div class="people-examples">
+    <article><h3>Ground every answer</h3><p>Retrieval over the real source — regulations, protocols, patient records — with citations required. If the sources don’t cover it, the system says so instead of guessing.</p><a class="leadership-reference" href="#gauntlet">TTB &amp; co-pilot builds ↓</a></article>
+    <article><h3>Gate every release</h3><p>Versioned prompts, golden datasets, regression replay and canary rollouts with automatic rollback. A change ships when the evals say so, not when the demo looks good.</p><a class="leadership-reference" href="#teos">Release process at Teos ↓</a></article>
+    <article><h3>Secure by default</h3><p>PHI de-identified at ingest, tenant-scoped retrieval, audit logs, auth on every endpoint, STIG-hardened hosts. Six years of NIST/RMF work makes this a habit, not a phase.</p><a class="leadership-reference" href="#peraton">Federal cloud work ↓</a></article>
+  </div>
+  <div class="arc-wrap" id="career-story">
+    <div class="arc-head"><h3>The path, at a glance</h3><p class="mono-note">2008 → today · tap any stop</p></div>
+    <ol class="timeline">
+      <li><a href="#service"><span class="t-year">2008</span><span class="t-what">U.S. Marine Corps</span><span class="t-sub">Metal worker → Sergeant</span></a></li>
+      <li><a href="#service"><span class="t-year">2014</span><span class="t-what">D.C. Air National Guard</span><span class="t-sub">C-40C jet engines</span></a></li>
+      <li><a href="#network"><span class="t-year">2017</span><span class="t-what">CACI · Phacil</span><span class="t-sub">Pentagon networks, MCRC IT</span></a></li>
+      <li><a href="#peraton"><span class="t-year">2019</span><span class="t-what">Perspecta → Peraton</span><span class="t-sub">NBIS cloud architect</span></a></li>
+      <li><a href="#service"><span class="t-year">2021</span><span class="t-what">USAF Reserve</span><span class="t-sub">C-5M Galaxy shop lead</span></a></li>
+      <li><a href="#gauntlet"><span class="t-year">2026</span><span class="t-what">Gauntlet AI</span><span class="t-sub">Fellowship, Cohort 4</span></a></li>
+      <li class="now"><a href="#teos"><span class="t-year">Now</span><span class="t-what">Teos Technology</span><span class="t-sub">AI Software Engineer</span></a></li>
+    </ol>
+  </div>
+</div></section>
+
+<!-- ================= SERVICE (origin) ================= -->
+<section class="compact-chapter tint" id="service">
+  <div class="wrap">
+    <div class="chapter-layout">
+      <div class="chapter-note"><p class="note-kicker">Origin</p><p class="note-meta">Parris Island, SC<br/>→ MCB Quantico, VA<br/>→ Joint Base Andrews, MD<br/>→ San Antonio, TX</p></div>
+      <div class="chapter-content">
+        <h2 data-flow="up" class="h2">A welding torch, then a jet engine.</h2>
+        <p class="serif">I enlisted in the Marine Corps in 2008, the year I finished Annandale High School in Virginia. Boot camp at Parris Island, Marine Combat Training at Camp Lejeune, then the metal worker school at Aberdeen Proving Ground. By 2014 I was a Sergeant at Quantico, running a tactical welding shop and training Marines as an infantry training NCO.</p>
+        <p class="serif">Then I crossed over to the Air Force side to work on jet engines. In the D.C. Air National Guard I was a C-40C propulsion NCO at Andrews, supporting diplomatic and distinguished-visitor missions, including White House missions. In the Air Force Reserve I led a propulsion shop on the C-5M Galaxy, the largest aircraft in the inventory, with 7-level sign-off authority over everything that left the shop.</p>
+        <p class="serif">That’s where my engineering habits come from: follow the technical data, document every step, train the next person to standard, and never sign for work you haven’t verified.</p>
+        <div class="tags">
+          <span class="tag">USMC Sergeant · 2008–2014</span>
+          <span class="tag">USAF SSgt · 7-level propulsion</span>
+          <span class="tag">C-40C · C-5M Galaxy</span>
+          <span class="tag">Golden Bolt Award · 2016</span>
+        </div>
+      </div>
+    </div>
+    <div class="photo-grid">
+      <figure data-flow="left"><div class="photo r45"><img loading="lazy" alt="Jayce Parabellum in Marine Corps dress blues" src="images/jayce-usmc-blues.jpg" style="object-position:center 20%"/></div><figcaption>Marine Corps dress blues</figcaption></figure>
+      <figure data-flow="left"><div class="photo r45"><img loading="lazy" alt="Sergeant Parabellum in Marine Corps service uniform, kneeling" src="images/jayce-usmc-khakis.jpg" style="object-position:center 25%"/></div><figcaption>Sgt Parabellum · USMC</figcaption></figure>
+      <div class="quote-card">
+        <p class="quote">“Held 7-level sign-off authority over work released from the shop.”</p>
+        <p>A line from my C-5M years. It’s also how I think about an eval gate: the release doesn’t go until something qualified has checked it against the spec.</p>
+        <p>Decorations include the Air and Space Achievement Medal (2019) and the Army Commendation Medal (2017).</p>
+      </div>
+    </div>
+    <div class="visible-extra"><h3>In the field</h3>
+      <div class="photo-grid field-grid">
+        <figure data-flow="left"><div class="photo r11"><img loading="lazy" alt="Lance Corporal Parabellum in woodland camouflage and body armor, holding a rifle" src="images/jayce-usmc-field.jpg" style="object-position:center 30%"/></div><figcaption>LCpl Parabellum · in the field</figcaption></figure>
+        <figure data-flow="left" class="wide"><div class="photo wide"><img loading="lazy" alt="Marines on light armored vehicles in an open field" src="images/usmc-lav.jpg"/></div><figcaption>Light armored reconnaissance Marines</figcaption></figure>
+      </div>
+    </div>
+    <div class="visible-extra"><h3>The Air Force years</h3>
+      <div class="photo-grid two">
+        <figure data-flow="left"><div class="photo r45"><img loading="lazy" alt="Staff Sergeant Parabellum in Air Force service dress" src="images/jayce-af-blues.jpg" style="object-position:center 20%"/></div><figcaption>SSgt Parabellum · U.S. Air Force</figcaption></figure>
+        <figure data-flow="left"><div class="photo r45"><img loading="lazy" alt="Jayce Parabellum in OCP uniform in front of the U.S. flag and the Naval Sea Cadet Corps flag" src="images/jayce-sea-cadets.jpg" style="object-position:center 25%"/></div><figcaption>Sea Cadet instructor · San Antonio · 2023</figcaption></figure>
+      </div>
+      <p class="small-note">Training along the way: the 424-hour TF34 jet engine course at Sheppard AFB, GE CFM56-7 line maintenance and borescope inspection, Boeing 737 maintenance and human-factors courses, and Airman Leadership School.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NETWORK ================= -->
+<section class="compact-chapter" id="network">
+  <div class="wrap">
+    <div class="chapter-layout">
+      <div class="chapter-note"><p class="note-kicker">CACI · Phacil</p><p class="note-meta">May 2017 — Nov 2019<br/>The Pentagon, Arlington, VA<br/>MCRC, Quantico, VA</p></div>
+      <div class="chapter-content">
+        <h2 data-flow="up" class="h2">From the flight line to the network closet.</h2>
+        <p class="career-role">Network Engineer II, CACI · Systems Administrator, Phacil</p>
+        <p class="chapter-intro">While still serving in the Guard, I moved into federal IT: network engineering for CACI, including video-teleconference support for the Secretary of the Army’s office at the Pentagon, and systems administration for Marine Corps Recruiting Command at Quantico.</p>
+      </div>
+    </div>
+    <div class="role-highlights">
+      <article class="role-highlight"><span aria-hidden="true" class="highlight-number">01</span><div><h3>Automation over toil</h3><p>Automated network provisioning and compliance auditing with Python and Ansible across 1,200+ managed devices, cutting new-site turn-up from about 6 hours to under 90 minutes.</p></div></article>
+      <article class="role-highlight"><span aria-hidden="true" class="highlight-number">02</span><div><h3>Cutovers with zero unplanned downtime</h3><p>Designed routing and switching for 25+ client environments (Cisco, BGP, OSPF), ran 30+ after-hours cutovers with no unplanned downtime, and led MPLS-to-SD-WAN migrations for 12 multi-site clients with Azure ExpressRoute and AWS Direct Connect.</p></div></article>
+      <article class="role-highlight"><span aria-hidden="true" class="highlight-number">03</span><div><h3>Hardened edges</h3><p>ASA/Firepower, IPSec, 802.1X with ISE and VLAN segmentation; remediated 200+ audit findings. At MCRC, PowerShell automation for Active Directory and Exchange plus SOPs that let staff fix repeat issues themselves.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PERATON ================= -->
+<section class="compact-chapter tint" id="peraton">
+  <div class="wrap">
+    <div class="chapter-layout">
+      <div class="chapter-note"><p class="note-kicker">Peraton<br/>(formerly Perspecta)</p><p class="note-meta">Dec 2019 — Aug 2025<br/>DCSA · NBIS program<br/>AWS GovCloud</p></div>
+      <div class="chapter-content">
+        <h2 data-flow="up" class="h2">Architecting the cloud behind national security vetting.</h2>
+        <p class="career-role">Cloud Systems Architect, Lead Associate<br/><span>Grew from Systems Engineer III (Tier-2 AWS) on the same program</span></p>
+        <p class="chapter-intro">NBIS is the Defense Counterintelligence and Security Agency’s platform for federal background investigations, covering millions of applicants and cleared personnel. For nearly six years I worked on its secure multi-cloud infrastructure under a $500M federal contract.</p>
+      </div>
+    </div>
+    <div class="role-highlights">
+      <article class="role-highlight"><span aria-hidden="true" class="highlight-number">01</span><div><h3>Security architecture that sped up ATO</h3><p>Designed security architecture aligned with NIST, RMF, FedRAMP and Zero Trust, reducing vulnerabilities by 40% and shortening Authority to Operate timelines by 25%.</p></div></article>
+      <article class="role-highlight"><span aria-hidden="true" class="highlight-number">02</span><div><h3>Blue/green in GovCloud</h3><p>Implemented blue/green deployment in AWS GovCloud, cutting failed releases by 90% and bringing mean time to recovery down to 120 minutes.</p></div></article>
+      <article class="role-highlight"><span aria-hidden="true" class="highlight-number">03</span><div><h3>Compliance as routine</h3><p>Ran quarterly STIG implementations with SCAP scanning and wrote the remediation or justification for every open finding. Managed RHEL, Amazon Linux and Ubuntu fleets with hardened network ACLs.</p></div></article>
+    </div>
+    <details class="role-depth"><summary>Earlier on the program (Perspecta)</summary><div class="depth-content"><section class="detail-group"><h3>Systems Engineer III · Tier-2 AWS</h3>
+      <article class="detail-entry"><h4>Keeping GovCloud up</h4><div class="project-copy"><p>Incident and change management for AWS GovCloud environments; patching and health checks across 100+ RHEL 7 servers; monitoring alerts tuned so issues were resolved before Tier-3 involvement; designs and SOPs documented in Jira and Confluence. Tools: Nagios, AppDynamics, PEGA.</p></div></article>
+    </section></div></details>
+  </div>
+</section>
+
+<!-- ================= GAUNTLET (navy) ================= -->
+<section class="compact-chapter navy" id="gauntlet">
+  <div class="wrap">
+    <div class="chapter-layout">
+      <div class="chapter-note"><p class="note-kicker">Gauntlet AI Fellowship</p><p class="note-meta">Apr — Aug 2026<br/>Cohort 4 · Challenger<br/>Austin, TX</p></div>
+      <div class="chapter-content">
+        <h2 data-flow="up" class="h2">Shipping production AI on fellowship deadlines.</h2>
+        <p class="career-role">AI Engineer, Challenger (Cohort 4)</p>
+        <p class="chapter-intro">An intensive AI engineering fellowship built around shipping production-grade AI projects on tight deadlines. These are the ones I’m proudest of.</p>
+      </div>
+    </div>
+    <div class="role-highlights">
+      <article class="role-highlight"><span aria-hidden="true" class="highlight-number">01</span><div><h3>TTB Label Verification Tool</h3><p>Checks alcohol labels against 27 CFR and returns PASS/FLAG verdicts: 100% correct on a 24-case eval set, 211 ms worst case, and unreadable labels go to a human. LangGraph on Claude or local Ollama, hash-chained audit log, and citation-grounded hybrid RAG (BM25 + BGE, reciprocal rank fusion) that refuses when the regulations are silent. 446 tests, a RAG eval and a replayed agent eval gate every release; 21 CVEs fixed before launch.</p></div></article>
+      <article class="role-highlight"><span aria-hidden="true" class="highlight-number">02</span><div><h3>Multi-Agent AI Security Platform</h3><p>Built in 4 days: five agents that continuously red-team a clinical LLM app. The attacker never grades itself; a separate Judge scores against versioned rubrics. Replayable typed handoffs, a cost ledger that kills campaigns at 120% of budget, and threat intel from 8 sources (OWASP LLM Top 10, MITRE ATLAS, NIST AI 600-1, CISA KEV…).</p></div></article>
+      <article class="role-highlight"><span aria-hidden="true" class="highlight-number">03</span><div><h3>AgentForge Clinical Co-Pilot</h3><p>Read-only co-pilot on OpenEMR that writes pre-visit summaries where every item must cite a patient record or it’s removed before display. Permission checks run server-side before any data reaches the model. Plus a Pinecone RAG pipeline for patient intake documents.</p></div></article>
+    </div>
+    <details class="role-depth"><summary>More from the fellowship</summary><div class="depth-content"><section class="detail-group"><h3>FleetGraph &amp; U.S. Treasury platform audit</h3>
+      <article class="detail-entry"><h4>LangGraph · TypeScript · AWS · Terraform</h4><div class="project-copy"><p>LangGraph agent with LangSmith tracing and admin approval for high-severity actions. Scheduled security scanner on AWS via Terraform (EventBridge, Lambda, CodeBuild, S3). Initial JavaScript bundle cut 77%; API p95 latency down over 30%.</p></div></article>
+    </section></div></details>
+  </div>
+</section>
+
+<!-- ================= TEOS (current) ================= -->
+<section class="compact-chapter alpha-section" id="teos">
+  <div class="people-section">
+    <p class="eyebrow">Teos Technology · Aug 2026 – present</p>
+    <h2>Clinical AI that clinicians actually accept.</h2>
+    <p class="alpha-title">AI Software Engineer</p>
+    <p class="people-intro">Teos builds telehealth software for skilled nursing facilities. I build the AI features end to end — LLM services, retrieval, the HIPAA-aligned pipeline under them, and the release process that keeps them trustworthy — and I ship on the .NET, React and SQL Server platform too.</p>
+    <div class="role-highlights">
+      <article class="role-highlight"><span aria-hidden="true" class="highlight-number">01</span><div><h3>Drafted notes and SBAR handoffs</h3><p>Azure OpenAI with LangGraph orchestration and pgvector retrieval over facility protocols and patient history. Charting time fell from about 9 minutes to under 3 across 40+ facilities.</p></div></article>
+      <article class="role-highlight"><span aria-hidden="true" class="highlight-number">02</span><div><h3>A pipeline that protects PHI</h3><p>Python/FastAPI services with PHI de-identification at ingest, tenant-scoped retrieval, prompt and response audit logging and streaming APIs: p95 under 800 ms at ~15K encounters a month, with no PHI exposure incidents.</p></div></article>
+      <article class="role-highlight"><span aria-hidden="true" class="highlight-number">03</span><div><h3>Releases gated on evals</h3><p>Versioned prompt registry, golden-dataset harness scoring grounding and hallucination rate on every change, canary rollout with automatic rollback. Acceptance rose 72% → 94%; model-related incidents fell ~60%.</p></div></article>
+      <article class="role-highlight"><span aria-hidden="true" class="highlight-number">04</span><div><h3>Triage and platform security</h3><p>An AI triage layer ranking after-hours calls by acuity contributed to an 18% drop in avoidable ED transfers. 57 PRs on the core platform, including auth-by-default on every API endpoint and encrypted patient–provider messages at rest.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BUILDS ================= -->
+<section class="compact-chapter live-builds" id="builds"><div class="live-builds-inner">
+  <p class="eyebrow">Built by me · open to explore</p>
+  <h2>Code you can read.</h2>
+  <p class="live-builds-intro">Public repositories from my fellowship work and the assistant on this page. The AI on this site is itself a portfolio piece: hybrid retrieval, reranking and grounded generation behind a hardened edge function.</p>
+  <div class="live-builds-grid">
+    <article><p class="build-type">RAG · this site</p><h3>Ask my AI about my career.</h3><p>Hybrid BM25 + embedding search, reciprocal rank fusion, cross-encoder reranking, and Claude answers with citations, streamed from a Cloudflare Worker.</p><a href="#ask">Try it below ↓</a></article>
+    <article><p class="build-type">Compliance AI · LangGraph</p><h3>TTB Label Verification Tool.</h3><p>27 CFR label checks with grounded RAG, human hand-off and a 446-test release gate.</p><a href="https://github.com/jayceparabellum/TTB_AI_Label_Verification_Tool" target="_blank" rel="noopener">View on GitHub ↗</a></article>
+    <article><p class="build-type">AI security · multi-agent</p><h3>AgentForge AI Security Platform.</h3><p>Five agents red-teaming a clinical LLM app, with an independent judge and a hard cost ceiling.</p><a href="https://github.com/jayceparabellum/agentforge-ai-security-platform" target="_blank" rel="noopener">View on GitHub ↗</a></article>
+    <article><p class="build-type">DevSecOps</p><h3>Secure CI/CD demo.</h3><p>A FastAPI security-header auditor whose real subject is the pipeline: tests, static analysis, dependency audit, CodeQL, Dependabot and GHCR container releases in GitHub Actions.</p><a href="https://github.com/jayceparabellum/secure-cicd-demo" target="_blank" rel="noopener">View on GitHub ↗</a></article>
+  </div>
+</div></section>
+
+<!-- ================= CREDENTIALS ================= -->
+<section class="compact-chapter" id="credentials">
+  <div class="wrap">
+    <div class="chapter-layout">
+      <div class="chapter-note"><p class="note-kicker">Credentials</p><p class="note-small">Degrees, certifications and the toolset, with the receipts on GitHub.</p></div>
+      <div class="chapter-content"><h2 data-flow="up" class="h2">Studied it, certified it, shipped it.</h2></div>
+    </div>
+    <div class="cred-grid">
+      <div class="cred-card"><p class="cred-k">Education</p>
+        <p><b>M.S. Computer Science (AI)</b> · CU Boulder<br/>Expected Jun 2028 · 4.0 GPA · <a href="https://github.com/jayceparabellum/CU-Boulder" target="_blank" rel="noopener">coursework ↗</a></p>
+        <p><b>Gauntlet AI Fellowship</b> · Cohort 4 · 2026</p>
+        <p><b>A.A.S. Aviation Maintenance Technology</b> · Community College of the Air Force · 2021</p>
+        <p><b>B.S. Accounting</b> · University of Maryland Global Campus · 2019</p></div>
+      <div class="cred-card"><p class="cred-k">Certifications</p>
+        <p><b>AWS Solutions Architect – Professional</b> · 2025</p>
+        <p><b>AWS Security – Specialty</b> · 2025</p>
+        <p><b>AWS Solutions Architect – Associate</b> · 2019</p>
+        <p><b>CompTIA SecurityX</b> · <b>Security+</b> (2025)</p>
+        <p><b>Cisco CCNA</b> · 2019 &nbsp;·&nbsp; <b>Lean Six Sigma Black Belt</b></p></div>
+      <div class="cred-card" id="skills"><p class="cred-k">Toolset</p>
+        <p><b>LLM &amp; agents:</b> LangGraph, LangChain, Claude, OpenAI Responses API, structured outputs, LangSmith</p>
+        <p><b>RAG:</b> pgvector, Pinecone, OpenSearch, BM25 + BGE, RRF, reranking</p>
+        <p><b>Inference:</b> Azure OpenAI, Bedrock, Ollama homelab, OpenRouter</p>
+        <p><b>Infra:</b> AWS GovCloud, Terraform, Docker, GitHub Actions, Azure DevOps, Ansible, STIG/SCAP</p>
+        <p><b>Code:</b> Python, TypeScript, React, C#/.NET, SQL, R</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LIFE ================= -->
+<section class="compact-chapter tint" id="life">
+  <div class="wrap">
+    <div class="chapter-layout top">
+      <div class="chapter-note"><p class="note-kicker">Off the clock</p><p class="note-small">Denver · Toastmasters, the Legion, fraternity brothers, trails and a homelab.</p></div>
+      <div class="chapter-content narrow">
+        <h2 data-flow="up" class="h2">The part that isn’t on the résumé.</h2>
+        <p class="serif">These days I’m in Denver. I’m a member of the LoDo Toastmasters club, where I earned my Ice Breaker ribbon, and of American Legion Post 1, and I’m part of Guitars for Veterans. Before Colorado I taught as an instructor with the U.S. Naval Sea Cadet Corps in San Antonio and served as a range safety officer at the Quantico Shooters Club.</p>
+        <p class="serif">Some of my oldest friends are my Lambda Phi Epsilon brothers from Virginia Commonwealth University. When I get time off I head outdoors: a trail in the woods, a drive along the river, or a stop at Griffith Observatory in Los Angeles.</p>
+        <p class="serif">At home there’s a small rack of machines running local language models. If that’s more interesting to you than my architecture diagrams, it’s a perfectly good reason to reach out.</p>
+        <div class="tags">
+          <span class="tag light">LoDo Toastmasters</span>
+          <span class="tag light">American Legion Post 1</span>
+          <span class="tag light">Guitars for Veterans</span>
+          <span class="tag light">Lambda Phi Epsilon · VCU</span>
+          <span class="tag light">Ollama homelab</span>
+        </div>
+      </div>
+    </div>
+    <div class="photo-grid life-grid">
+      <figure data-flow="left"><div class="photo r11"><img loading="lazy" alt="Jayce Parabellum and a fellow member holding Ice Breaker ribbons at LoDo Toastmasters" src="images/jayce-toastmasters.jpg" style="object-position:70% center"/></div><figcaption>LoDo Toastmasters · Ice Breaker ribbon</figcaption></figure>
+      <figure data-flow="left"><div class="photo r11"><img loading="lazy" alt="Lambda Phi Epsilon Theta Class members in suits holding the fraternity letters" src="images/jayce-lambda-phi-epsilon.jpg"/></div><figcaption>Lambda Phi Epsilon · VCU · Theta Class</figcaption></figure>
+      <figure data-flow="left"><div class="photo r11"><img loading="lazy" alt="Jayce Parabellum in a tuxedo at the 2022 JBSA Air Force Ball" src="images/jayce-af-ball.jpg"/></div><figcaption>JBSA Air Force Ball · 2022</figcaption></figure>
+      <figure data-flow="left"><div class="photo r11"><img loading="lazy" alt="Jayce Parabellum in a graduation cap and gown with honor stoles" src="images/jayce-graduation.jpg" style="object-position:center 20%"/></div><figcaption>Graduation day</figcaption></figure>
+      <figure data-flow="left"><div class="photo r11"><img loading="lazy" alt="Jayce Parabellum on the lawn in front of Griffith Observatory" src="images/jayce-griffith-observatory.jpg"/></div><figcaption>Griffith Observatory · Los Angeles</figcaption></figure>
+      <figure data-flow="left"><div class="photo r11"><img loading="lazy" alt="Jayce Parabellum standing on a fallen log on a forest trail" src="images/jayce-trail.jpg" style="object-position:center 35%"/></div><figcaption>On the trail</figcaption></figure>
+      <figure data-flow="left"><div class="photo r11"><img loading="lazy" alt="Jayce Parabellum leaning on his car by a river under a bridge" src="images/jayce-river-drive.jpg" style="object-position:50% 60%"/></div><figcaption>A drive along the river</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ASK MY AI ================= -->
+<section class="compact-chapter" id="ask">
+  <div class="wrap">
+    <div class="chapter-layout">
+      <div class="chapter-note"><p class="note-kicker">Ask my AI</p><p class="note-small">Grounded in my résumé, CV and project notes. Answers cite their sources.</p></div>
+      <div class="chapter-content"><h2 data-flow="up" class="h2">Interview my résumé.</h2>
+        <p class="chapter-intro">Ask about a role, a project, a skill or my service. Follow-up questions work. Open “How this answer was built” under any reply to see the retrieval pipeline at work.</p></div>
+    </div>
+    <div class="ask-layout">
+      <div id="chat-inline" class="chat-host"></div>
+      <aside class="pipeline">
+        <p class="cred-k">How it works</p>
+        <ol>
+          <li><b>Rewrite</b><span>Follow-ups become standalone queries (Claude Haiku).</span></li>
+          <li><b>Hybrid retrieve</b><span>BM25 keywords + BGE embeddings on Workers AI.</span></li>
+          <li><b>Fuse</b><span>Reciprocal rank fusion merges both rankings.</span></li>
+          <li><b>Rerank</b><span>BGE cross-encoder picks the best passages.</span></li>
+          <li><b>Generate</b><span>Claude streams a cited answer, or declines if the sources don’t cover it.</span></li>
+        </ol>
+        <p class="small-note">Rate-limited Cloudflare Worker; the API key never touches your browser. <a href="https://github.com/jayceparabellum/jayceparabellum.github.io/tree/main/chat-worker" target="_blank" rel="noopener">Source ↗</a></p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="compact-chapter tint" id="contact">
+  <div class="wrap wide-pad contact-layout">
+    <figure class="contact-photo"><div class="photo r45"><img loading="lazy" alt="Jayce Parabellum in a dark suit and red tie" src="images/jayce-suit.jpg" style="object-position:center 20%"/></div></figure>
+    <div>
+    <p class="note-kicker">Contact</p>
+    <h2 data-flow="up" class="h2 big">Let’s build something that holds up.</h2>
+    <p class="serif">For AI engineering, cloud and DevSecOps roles, or just to compare notes on RAG and evals, reach me here.</p>
+    <div class="profile-actions">
+      <a class="btn btn-primary" href="mailto:jayce.n.parabellum@gmail.com">jayce.n.parabellum@gmail.com</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/jayce-parabellum" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-ghost" href="https://github.com/jayceparabellum" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn btn-ghost-blue" href="./Jayce-Parabellum-Resume.pdf" target="_blank">Résumé (PDF)</a>
+    </div>
+    <p class="mono-note" style="margin-top:26px">Denver, CO · AI engineering · Secure cloud · Veteran</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <p>© 2026 Jayce Nhan Parabellum · Site design adapted, with permission, from <a href="https://charlieevert.github.io/" target="_blank" rel="noopener">Charlie Evert</a></p>
+    <div class="foot-links">
+      <a href="https://www.linkedin.com/in/jayce-parabellum" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/jayceparabellum" target="_blank" rel="noopener">GitHub</a>
+      <a href="./Jayce-Parabellum-Resume.pdf" target="_blank">Résumé</a>
+    </div>
+  </div>
+</footer>
+
+<div class="altimeter"><span class="alt-bar"></span><span id="altReadout">FL350</span></div>
+</div>
+
+<!-- Floating launcher; opens the same assistant in a panel -->
+<button id="chat-launcher" type="button" aria-controls="chat-dialog" aria-expanded="false"><span class="dot" aria-hidden="true"></span>Ask Jayce’s AI</button>
+<div id="chat-dialog" role="dialog" aria-modal="false" aria-label="Ask Jayce's AI" hidden>
+  <div class="chat-dialog-head"><p>Ask Jayce’s AI</p><button type="button" id="chat-close" aria-label="Close">✕</button></div>
+  <div id="chat-floating" class="chat-host"></div>
+</div>
+
+<script>(function(){var bar=document.getElementById('progressBar'),alt=document.getElementById('altReadout');
+function onScroll(){var h=document.documentElement.scrollHeight-innerHeight;var p=h>0?Math.min(Math.max(scrollY/h,0),1):0;
+if(bar)bar.style.width=(p*100).toFixed(2)+'%';
+if(alt){var fl=Math.round((1-p)*350/10)*10;alt.textContent=fl<=0?'ON THE RAMP':'FL'+String(fl).padStart(3,'0');}}
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();})();</script>
+</body>
+</html>

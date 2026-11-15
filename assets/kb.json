@@ -1,0 +1,356 @@
+{
+ "version": "b8b292ab56c6",
+ "built": "2026-11-15",
+ "chunks": [
+  {
+   "id": "01-profile#0",
+   "title": "Profile and overview",
+   "section": "Who Jayce is",
+   "url": "#top",
+   "text": "Jayce Nhan Parabellum (he/him) is an AI Software Engineer based in Denver, Colorado. Jayce builds LLM applications that run on local or managed models, with agent orchestration, retrieval-augmented generation (RAG) over vector databases, Docker packaging, and CI evaluation gates that stop bad releases. Jayce is a United States Armed Forces veteran (U.S. Marine Corps, D.C. Air National Guard, and U.S. Air Force Reserve) and is Top Secret clearance eligible."
+  },
+  {
+   "id": "01-profile#1",
+   "title": "Profile and overview",
+   "section": "Current role",
+   "url": "#top",
+   "text": "Since August 2026 Jayce has been an AI Software Engineer at Teos Technology, LLC (remote, Colorado Springs, CO), building HIPAA-aligned LLM clinical documentation and triage services for skilled nursing facilities."
+  },
+  {
+   "id": "01-profile#2",
+   "title": "Profile and overview",
+   "section": "Career in one paragraph",
+   "url": "#top",
+   "text": "Jayce spent six years in the U.S. Marine Corps (2008-2014) as a metal worker who made Sergeant, then served as an aerospace propulsion (jet engine) mechanic in the D.C. Air National Guard on the C-40 (2014-2022) and the U.S. Air Force Reserve on the C-5M Galaxy (2021-2024), reaching Staff Sergeant and a 7-level. In parallel Jayce moved into federal IT: network and systems work for CACI at the Pentagon and Phacil at Marine Corps Recruiting Command (2017-2019), then nearly six years at Perspecta/Peraton (December 2019 - August 2025), ending as Cloud Systems Architect, Lead Associate on the NBIS personnel-vetting platform in AWS GovCloud. In 2026 Jayce completed the Gauntlet AI Fellowship (Cohort 4) and joined Teos Technology as an AI Software Engineer. Jayce is pursuing an M.S. in Computer Science (Artificial Intelligence) at CU Boulder, expected June 2028."
+  },
+  {
+   "id": "01-profile#3",
+   "title": "Profile and overview",
+   "section": "What Jayce is looking for",
+   "url": "#top",
+   "text": "Jayce is interested in AI engineer, applied AI, and AI platform roles, especially ones that combine LLM applications with secure cloud infrastructure, regulated environments (healthcare, government, finance), and production evaluation. Jayce also has a strong DevOps / cloud architecture background for senior DevOps and cloud roles. For specifics about availability, compensation, or relocation, contact Jayce directly."
+  },
+  {
+   "id": "01-profile#4",
+   "title": "Profile and overview",
+   "section": "How to contact Jayce",
+   "url": "#top",
+   "text": "Email jayce.n.parabellum@gmail.com, LinkedIn linkedin.com/in/jayce-parabellum, or GitHub github.com/jayceparabellum. Jayce's resume PDF is linked on this site. Phone number and home address are not published on this site."
+  },
+  {
+   "id": "02-teos#0",
+   "title": "Teos Technology - AI Software Engineer (Aug 2026 - present)",
+   "section": "Role summary",
+   "url": "#teos",
+   "text": "AI Software Engineer at Teos Technology, LLC, remote (company in Colorado Springs, CO), August 2026 to present. Teos builds telehealth and clinical software used by skilled nursing facilities. Jayce works on the AI features and on the .NET, React and SQL Server platform."
+  },
+  {
+   "id": "02-teos#1",
+   "title": "Teos Technology - AI Software Engineer (Aug 2026 - present)",
+   "section": "LLM clinical documentation service",
+   "url": "#teos",
+   "text": "Built an LLM clinical documentation service that drafts encounter notes and SBAR handoffs from telehealth sessions, using Azure OpenAI, LangGraph orchestration and pgvector retrieval over facility protocols and patient history. Average charting time fell from about 9 minutes to under 3 minutes across 40+ skilled nursing facilities."
+  },
+  {
+   "id": "02-teos#2",
+   "title": "Teos Technology - AI Software Engineer (Aug 2026 - present)",
+   "section": "HIPAA-aligned pipeline and services",
+   "url": "#teos",
+   "text": "Designed the Python/FastAPI services and HIPAA-aligned pipeline behind the AI features: PHI de-identification at ingest, tenant-scoped retrieval, prompt and response audit logging, and streaming APIs. Held p95 latency under 800 ms at about 15,000 encounters a month with no PHI exposure incidents."
+  },
+  {
+   "id": "02-teos#3",
+   "title": "Teos Technology - AI Software Engineer (Aug 2026 - present)",
+   "section": "GenAI release process and evaluation",
+   "url": "#teos",
+   "text": "Set up the release process for GenAI changes: a versioned prompt registry, a golden-dataset regression harness that scores grounding and hallucination rate on every change, and CI/CD with canary rollout and automatic rollback. Clinician acceptance of drafted notes rose from 72% to 94%, and model-related incidents dropped about 60%."
+  },
+  {
+   "id": "02-teos#4",
+   "title": "Teos Technology - AI Software Engineer (Aug 2026 - present)",
+   "section": "AI triage layer",
+   "url": "#teos",
+   "text": "Worked with clinical leadership on an AI triage layer that ranks after-hours calls by acuity signals pulled from unstructured intake notes, contributing to an 18% reduction in avoidable emergency department (ED) transfers."
+  },
+  {
+   "id": "02-teos#5",
+   "title": "Teos Technology - AI Software Engineer (Aug 2026 - present)",
+   "section": "Platform security work",
+   "url": "#teos",
+   "text": "Shipped 57 pull requests on the .NET, React and SQL Server platform, including security fixes that made authentication the default on every API endpoint, stopped password hashes from being exposed, and encrypted patient-provider messages at rest."
+  },
+  {
+   "id": "03-gauntlet#0",
+   "title": "Gauntlet AI Fellowship - AI Engineer, Challenger, Cohort 4 (Apr - Aug 2026)",
+   "section": "Fellowship summary",
+   "url": "#gauntlet",
+   "text": "Gauntlet AI Fellowship, Austin, TX, April 2026 to August 2026. Jayce was an AI Engineer \"Challenger\" in Cohort 4, an intensive AI software engineering fellowship where fellows build and ship production-grade AI projects on weekly deadlines."
+  },
+  {
+   "id": "03-gauntlet#1",
+   "title": "Gauntlet AI Fellowship - AI Engineer, Challenger, Cohort 4 (Apr - Aug 2026)",
+   "section": "TTB Label Verification Tool",
+   "url": "#gauntlet",
+   "text": "Stack: Python, FastAPI, LangGraph, Claude and Ollama, Postgres, Docker, GitHub Actions. Built and deployed an AI compliance tool that checks alcohol beverage labels against 27 CFR (TTB regulations) and returns PASS/FLAG verdicts. Scored 100% correct decisions on a 24-case eval set with a 211 ms worst-case response, and hands unreadable labels to a human reviewer instead of guessing. The LangGraph assistant runs on Claude in the cloud or Ollama locally, with human confirmation on every write and a hash-chained audit log in Postgres. It uses citation-grounded RAG over 27 CFR with BM25 and BGE embeddings combined by reciprocal rank fusion, and refuses when the regulations don't cover the question. Every release was gated on 446 automated tests, a RAG eval and a replayed agent-behavior eval in GitHub Actions. Jayce fixed 21 CVEs and added upload limits and security headers before launch. Code: github.com/jayceparabellum/TTB_AI_Label_Verification_Tool"
+  },
+  {
+   "id": "03-gauntlet#2",
+   "title": "Gauntlet AI Fellowship - AI Engineer, Challenger, Cohort 4 (Apr - Aug 2026)",
+   "section": "Multi-Agent AI Security Platform",
+   "url": "#gauntlet",
+   "text": "Stack: Python, FastAPI, Pydantic, Docker. Designed and deployed in 4 days a five-agent system that continuously red-teams a clinical LLM app. The attacking agent never grades itself: a separate Judge agent scores results against versioned rubrics. Typed, logged handoffs make every campaign replayable, a per-agent cost ledger shuts campaigns down at 120% of budget, and threat intel from 8 sources (OWASP LLM Top 10, MITRE ATLAS, NIST AI 600-1, CISA KEV and others) generates new test cases. Code: github.com/jayceparabellum/agentforge-ai-security-platform"
+  },
+  {
+   "id": "03-gauntlet#3",
+   "title": "Gauntlet AI Fellowship - AI Engineer, Challenger, Cohort 4 (Apr - Aug 2026)",
+   "section": "AgentForge Clinical Co-Pilot",
+   "url": "#gauntlet",
+   "text": "Stack: OpenEMR, OpenAI Responses API, JSON Schema, Docker. Built a read-only clinical co-pilot that writes source-cited pre-visit summaries. Every item must cite a patient record or it is removed before display, and permission checks run server-side before any data reaches the model. Also built a RAG pipeline on Pinecone to ingest patient intake documents for a medical facility running OpenEMR."
+  },
+  {
+   "id": "03-gauntlet#4",
+   "title": "Gauntlet AI Fellowship - AI Engineer, Challenger, Cohort 4 (Apr - Aug 2026)",
+   "section": "FleetGraph and U.S. Treasury platform audit",
+   "url": "#gauntlet",
+   "text": "Stack: LangGraph, TypeScript, AWS, Terraform. Built a LangGraph agent with LangSmith tracing and admin approval for high-severity actions. Deployed a scheduled security scanner on AWS with Terraform (EventBridge, Lambda, CodeBuild, S3), cut the initial JavaScript bundle by 77%, and reduced API p95 latency by over 30%."
+  },
+  {
+   "id": "03-gauntlet#5",
+   "title": "Gauntlet AI Fellowship - AI Engineer, Challenger, Cohort 4 (Apr - Aug 2026)",
+   "section": "Other public repositories",
+   "url": "#gauntlet",
+   "text": "Jayce's GitHub (github.com/jayceparabellum) also includes CU-Boulder (completed coursework from his AI master's program), and published agent skills such as a Six Sigma verification-stage skill for coding agents."
+  },
+  {
+   "id": "03-gauntlet#6",
+   "title": "Gauntlet AI Fellowship - AI Engineer, Challenger, Cohort 4 (Apr - Aug 2026)",
+   "section": "Secure CI/CD demo",
+   "url": "#gauntlet",
+   "text": "github.com/jayceparabellum/secure-cicd-demo is a small Python FastAPI app with a browser UI that audits HTTP security response headers (HSTS, CSP, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy) and returns a 0-100 score with findings. Its real purpose is demonstrating a secure CI/CD pipeline in GitHub Actions: tests, static analysis, dependency auditing, CodeQL code scanning, Dependabot, and container publishing to GitHub Container Registry. The app deliberately doesn't fetch target URLs, to avoid server-side request forgery risk."
+  },
+  {
+   "id": "04-peraton#0",
+   "title": "Peraton (formerly Perspecta) - Cloud Systems Architect (Dec 2019 - Aug 2025)",
+   "section": "Role summary",
+   "url": "#peraton",
+   "text": "Peraton Inc. (formerly Perspecta), remote / Herndon, VA, December 2019 to August 2025, nearly six years. Jayce started as a Systems Engineer III (Tier-2 AWS systems engineer) under Perspecta and grew into Cloud Systems Architect, Lead Associate after Perspecta became part of Peraton. Jayce worked on NBIS, the National Background Investigation Services platform of the Defense Counterintelligence and Security Agency (DCSA), which consolidates federal personnel vetting and background investigation processing for millions of applicants and cleared personnel."
+  },
+  {
+   "id": "04-peraton#1",
+   "title": "Peraton (formerly Perspecta) - Cloud Systems Architect (Dec 2019 - Aug 2025)",
+   "section": "NBIS cloud architecture",
+   "url": "#peraton",
+   "text": "Architected secure multi-cloud infrastructure for modernization of the NBIS platform under a $500M federal contract, supporting processing for millions of personnel security investigations. Managed RHEL, Amazon Linux and Ubuntu systems in AWS GovCloud, including network ACLs and infrastructure configuration hardening."
+  },
+  {
+   "id": "04-peraton#2",
+   "title": "Peraton (formerly Perspecta) - Cloud Systems Architect (Dec 2019 - Aug 2025)",
+   "section": "Security and compliance",
+   "url": "#peraton",
+   "text": "Designed security architecture aligned with NIST, RMF, FedRAMP and Zero Trust, reducing vulnerabilities by 40% and shortening Authority to Operate (ATO) timelines by 25%. Ran quarterly STIG implementations using SCAP scanning, and wrote up the remediation or justification for every open finding for the cyber team."
+  },
+  {
+   "id": "04-peraton#3",
+   "title": "Peraton (formerly Perspecta) - Cloud Systems Architect (Dec 2019 - Aug 2025)",
+   "section": "Deployment reliability",
+   "url": "#peraton",
+   "text": "Implemented blue/green deployment in AWS GovCloud, cutting failed releases by 90% and bringing mean time to recovery (MTTR) down to 120 minutes."
+  },
+  {
+   "id": "04-peraton#4",
+   "title": "Peraton (formerly Perspecta) - Cloud Systems Architect (Dec 2019 - Aug 2025)",
+   "section": "Early NBIS systems engineering (Perspecta)",
+   "url": "#peraton",
+   "text": "As a Systems Engineer III Jayce handled incident management, change management and scheduling; maintained availability of AWS GovCloud environments and applications; supported compute, network, storage and RDS; patched and health-checked 100+ RHEL 7 servers; configured monitoring alerts for out-of-bound conditions so issues were resolved before Tier-3 involvement; and documented designs and SOPs in Jira and Confluence. Tools included Jira, PEGA, Nagios and AppDynamics."
+  },
+  {
+   "id": "05-network#0",
+   "title": "CACI and Phacil - network and systems engineering (May 2017 - Nov 2019)",
+   "section": "CACI - Network Engineer II",
+   "url": "#network",
+   "text": "CACI Inc., Arlington, VA, May 2017 to November 2019. Automated network provisioning and compliance auditing with Python and Ansible across 1,200+ managed devices, cutting new-site turn-up from about 6 hours to under 90 minutes. Designed and deployed routing and switching for 25+ client environments (Cisco, BGP, OSPF) and ran 30+ after-hours cutovers with zero unplanned downtime. Led MPLS-to-SD-WAN migrations for 12 multi-site clients, integrating Azure ExpressRoute and AWS Direct Connect. Hardened edge security with ASA/Firepower, IPSec, 802.1X with ISE and VLAN segmentation, remediating 200+ audit findings."
+  },
+  {
+   "id": "05-network#1",
+   "title": "CACI and Phacil - network and systems engineering (May 2017 - Nov 2019)",
+   "section": "Pentagon video teleconference support",
+   "url": "#network",
+   "text": "At CACI Jayce also supported the Secretary of the Army's office at the Pentagon as a network technical support specialist on the video teleconference (VTC) team: managing multipoint control units (MCUs) on the Joint Service Provider network, mounting and routing server racks for the SecArmy conference room, troubleshooting routing, DNS, DHCP, ACLs and authentication, and training new staff."
+  },
+  {
+   "id": "05-network#2",
+   "title": "CACI and Phacil - network and systems engineering (May 2017 - Nov 2019)",
+   "section": "Phacil - Systems Administrator",
+   "url": "#network",
+   "text": "Phacil Inc., Marine Corps Recruiting Command (MCRC), Quantico, VA, May 2017 to November 2019. Provided IT support to Marine Corps Recruiting Command nationwide, working with the Information Assurance officer on account creation and privileges. Wrote PowerShell scripts for Active Directory and Exchange administration, implemented group policy updates, managed the HQ VoIP phone system, and wrote SOPs so employees could resolve repeating issues."
+  },
+  {
+   "id": "05-network#3",
+   "title": "CACI and Phacil - network and systems engineering (May 2017 - Nov 2019)",
+   "section": "Earlier civilian work",
+   "url": "#network",
+   "text": "Before IT, Jayce worked from 2014 to 2017 as a police security officer for Paragon Systems at the Department of Homeland Security headquarters (St. Elizabeths campus) in Washington, D.C., including duty as a designated explosive-detection officer. From 2019 to 2021 Jayce was also a licensed life insurance agent (New York Life, then MassMutual) in Northern Virginia, serving the Vietnamese-American community."
+  },
+  {
+   "id": "06-military#0",
+   "title": "Military service - USMC, D.C. Air National Guard, USAF Reserve",
+   "section": "Service overview",
+   "url": "#service",
+   "text": "Jayce served 16 years across three components: the U.S. Marine Corps Reserve (2008-2014, Sergeant), the D.C. Air National Guard (2014-2022, Staff Sergeant), and the U.S. Air Force Reserve (2021-2024, Staff Sergeant). Jayce is a veteran of the United States Armed Forces."
+  },
+  {
+   "id": "06-military#1",
+   "title": "Military service - USMC, D.C. Air National Guard, USAF Reserve",
+   "section": "U.S. Marine Corps (2008-2014)",
+   "url": "#service",
+   "text": "Recruit training with Platoon 3010, Quebec Company, 3rd Recruit Training Battalion, Parris Island, SC; Marine Combat Training at the School of Infantry, Camp Lejeune, NC; then the 1316 Metal Worker MOS course at Aberdeen Proving Ground, MD (welding: oxy-acetylene, stick, flux-cored, GTAW/TIG, MIG). Based at Marine Corps Base Quantico, VA, Jayce was promoted to Lance Corporal (2009), Corporal (2012) and Sergeant (2014), serving as Tactical Welding Shop Chief and Infantry Training NCO. Jayce took part in the \"Shared Accord\" exercise in South Africa (2011) and earned the Rifle Expert badge twice."
+  },
+  {
+   "id": "06-military#2",
+   "title": "Military service - USMC, D.C. Air National Guard, USAF Reserve",
+   "section": "D.C. Air National Guard - C-40 propulsion (2014-2022)",
+   "url": "#service",
+   "text": "Aerospace propulsion (jet engine) mechanic, 7-level, 213th Maintenance Squadron at Joint Base Andrews, MD. As a C-40C propulsion shop maintenance NCO Jayce supported government diplomatic and distinguished-visitor missions out of Andrews, including White House missions, and helped manage mission-essential components for more than $2 billion in Air Force aviation assets. Training included the 424-hour TF34 jet engine course at Sheppard AFB, GE CFM56-7 line maintenance and borescope inspector courses, Boeing 737/7X7 maintenance and human-factors courses, C-40B/C engine and APU operator courses, and Airman Leadership School. Jayce received the Golden Bolt Award (213th MXS, 2016)."
+  },
+  {
+   "id": "06-military#3",
+   "title": "Military service - USMC, D.C. Air National Guard, USAF Reserve",
+   "section": "U.S. Air Force Reserve - C-5M Galaxy propulsion (2021-2024)",
+   "url": "#service",
+   "text": "Aerospace propulsion craftsman (7-level, Staff Sergeant) with the 433rd Airlift Wing in San Antonio, TX, maintaining engines on the C-5M Galaxy, the largest airframe in the Air Force inventory. Jayce led a propulsion shop: inspection, troubleshooting, engine removal and installation, engine run-up, and airworthiness documentation. Jayce held 7-level sign-off authority over work released from the shop, verified technical data compliance, sequenced and assigned jobs across the crew, and trained 3- and 5-level airmen to qualification standard."
+  },
+  {
+   "id": "06-military#4",
+   "title": "Military service - USMC, D.C. Air National Guard, USAF Reserve",
+   "section": "Decorations",
+   "url": "#service",
+   "text": "Air and Space Achievement Medal (2019), Army Commendation Medal (2017), Humanitarian Service Medal (2018), Air and Space Outstanding Unit Award (2018), Global War on Terrorism Service Medal, National Defense Service Medal, Selected Marine Corps Reserve Medal, Air Force Longevity Service Award, NCO Professional Military Education Graduate Ribbon, and Small Arms Expert Marksmanship Ribbon."
+  },
+  {
+   "id": "06-military#5",
+   "title": "Military service - USMC, D.C. Air National Guard, USAF Reserve",
+   "section": "How service shapes Jayce's engineering",
+   "url": "#service",
+   "text": "On the flight line, nothing leaves the shop without a qualified sign-off against technical data. Jayce applies the same discipline to AI systems: eval gates and regression harnesses before release, audit logs, human review when confidence is low, and refusing to guess when the source material doesn't cover a question."
+  },
+  {
+   "id": "07-education-certs#0",
+   "title": "Education and certifications",
+   "section": "Education",
+   "url": "#credentials",
+   "text": "M.S. in Computer Science (Artificial Intelligence), University of Colorado Boulder, expected June 2028, 4.0 GPA; concentrations in artificial intelligence, machine learning and data science. Gauntlet AI Fellowship, Cohort 4 (2026), AI software engineering. Associate in Applied Science, Aviation Maintenance Technology, Community College of the Air Force, 2021. B.S. in Accounting, University of Maryland Global Campus (formerly University of Maryland University College), 2019. High school: Annandale High School, Fairfax County, VA, 2008."
+  },
+  {
+   "id": "07-education-certs#1",
+   "title": "Education and certifications",
+   "section": "Cloud and security certifications",
+   "url": "#credentials",
+   "text": "AWS Certified Solutions Architect - Professional (2025). AWS Certified Security - Specialty (2025). AWS Certified Solutions Architect - Associate (2019). CompTIA SecurityX (formerly CASP+). CompTIA Security+ (2025; first earned 2016). Cisco CCNA Routing and Switching (2019). Microsoft 70-410 Installing and Configuring Windows Server 2012 (2017)."
+  },
+  {
+   "id": "07-education-certs#2",
+   "title": "Education and certifications",
+   "section": "Process certifications",
+   "url": "#credentials",
+   "text": "Lean Six Sigma Black Belt in Information Technology (2020) and Green Belt (2019), Aveta Business Institute."
+  },
+  {
+   "id": "07-education-certs#3",
+   "title": "Education and certifications",
+   "section": "Other credentials",
+   "url": "#credentials",
+   "text": "Life and annuities insurance licensing (Virginia, Maryland, Pennsylvania, Colorado). DHS Federal Protective Service weapons detection training (2013)."
+  },
+  {
+   "id": "07-education-certs#4",
+   "title": "Education and certifications",
+   "section": "Clearance",
+   "url": "#credentials",
+   "text": "Jayce is Top Secret (TS) clearance eligible. For anything more specific about clearance status, contact Jayce directly."
+  },
+  {
+   "id": "08-skills#0",
+   "title": "Technical skills",
+   "section": "LLMs and agents",
+   "url": "#skills",
+   "text": "LangGraph, LangChain, OpenAI Responses API, Claude (Anthropic API), Codex, structured outputs, multi-agent orchestration, human-in-the-loop approvals, LangSmith tracing."
+  },
+  {
+   "id": "08-skills#1",
+   "title": "Technical skills",
+   "section": "Inference",
+   "url": "#skills",
+   "text": "Ollama (including a multi-node homelab running Hermes models), Azure OpenAI, Amazon Bedrock, OpenRouter."
+  },
+  {
+   "id": "08-skills#2",
+   "title": "Technical skills",
+   "section": "RAG and search",
+   "url": "#skills",
+   "text": "Pinecone, pgvector, OpenSearch, hybrid BM25 + BGE embedding retrieval, reciprocal rank fusion, reranking, citation-grounded answers with refusal when sources don't cover a question."
+  },
+  {
+   "id": "08-skills#3",
+   "title": "Technical skills",
+   "section": "Evaluation and testing",
+   "url": "#skills",
+   "text": "Eval harnesses, golden datasets, regression replay, LLM grounding and hallucination scoring, unit and integration testing, Cypress."
+  },
+  {
+   "id": "08-skills#4",
+   "title": "Technical skills",
+   "section": "CI/CD and infrastructure",
+   "url": "#skills",
+   "text": "Docker, GitHub Actions, Azure DevOps, Terraform, Render Blueprints, blue/green and canary deployment, Kubernetes (basic), Ansible, AWS GovCloud, AWS (EventBridge, Lambda, CodeBuild, S3), STIG and SCAP compliance, NIST/RMF/FedRAMP/Zero Trust."
+  },
+  {
+   "id": "08-skills#5",
+   "title": "Technical skills",
+   "section": "Linux and networking",
+   "url": "#skills",
+   "text": "RHEL, Amazon Linux, Ubuntu, Windows Server, Active Directory, PowerShell; Cisco routing and switching, BGP, OSPF, MPLS and SD-WAN, ASA/Firepower, IPSec, 802.1X/ISE, Azure ExpressRoute, AWS Direct Connect."
+  },
+  {
+   "id": "08-skills#6",
+   "title": "Technical skills",
+   "section": "Languages",
+   "url": "#skills",
+   "text": "Python, TypeScript, React, C#/.NET, SQL (Postgres, SQL Server), R, PHP."
+  },
+  {
+   "id": "09-life#0",
+   "title": "Off the clock - community and interests",
+   "section": "Community",
+   "url": "#life",
+   "text": "Jayce lives in Denver, Colorado. Jayce is a member of the LoDo Toastmasters club in Denver, where Jayce earned the Ice Breaker ribbon for a first speech (and was earlier a member of NOVA Toastmasters in Falls Church, VA), a member of American Legion Post 1 in Denver, and a member of Guitars for Veterans. Jayce served as an instructor with the U.S. Naval Sea Cadet Corps (Alamo Battalion, San Antonio, 2023), volunteered with the Phil Grove Big Dog Program in Austin (2022), and was a range safety officer at the Quantico Shooters Club (2020)."
+  },
+  {
+   "id": "09-life#1",
+   "title": "Off the clock - community and interests",
+   "section": "Background and interests",
+   "url": "#life",
+   "text": "Jayce graduated from Annandale High School in Fairfax County, Virginia (2008). Outside work Jayce runs a multi-node Ollama homelab for local LLM experiments. Jayce is an alumnus of Alpha Sigma Lambda (adult-learner academic honor society), the IMA Accounting Honor Society, and Lambda Phi Epsilon fraternity (Virginia Commonwealth University chapter, Theta Class)."
+  },
+  {
+   "id": "09-life#2",
+   "title": "Off the clock - community and interests",
+   "section": "Photos on this website",
+   "url": "#life",
+   "text": "The photos on the site show Jayce in Marine Corps dress blues, as a Sergeant in the Marine Corps service uniform, and as a Lance Corporal in the field; Light Armored Reconnaissance Marines on their vehicles; Jayce as a Staff Sergeant in Air Force service dress; Jayce in OCPs as an instructor with the U.S. Naval Sea Cadet Corps in San Antonio (2023); the 2022 Joint Base San Antonio Air Force Ball; the LoDo Toastmasters Ice Breaker ribbon; the Lambda Phi Epsilon Theta Class at Virginia Commonwealth University; graduation day in cap and gown; and Jayce outdoors on a forest trail, on a drive along a river, and at Griffith Observatory in Los Angeles."
+  },
+  {
+   "id": "10-this-assistant#0",
+   "title": "About this AI assistant",
+   "section": "How this chatbot works",
+   "url": "#ask",
+   "text": "This site's assistant is a retrieval-augmented generation (RAG) system that Jayce built to showcase his AI engineering. The knowledge base is a set of curated markdown files about Jayce's career, chunked by section. For each question, a Cloudflare Worker (1) rewrites follow-up questions into standalone search queries with Claude, (2) runs hybrid retrieval: BM25 keyword search plus dense vector search with BGE embeddings on Cloudflare Workers AI, (3) merges both rankings with reciprocal rank fusion, (4) reranks the candidates with a BGE cross-encoder reranker, and (5) streams a grounded answer from Claude Haiku that cites its sources and declines when the knowledge base doesn't cover the question. Rate limiting, input limits, an origin allowlist and prompt-injection rules protect the endpoint, and the API key never reaches the browser. The code is public in the site's GitHub repository under chat-worker/."
+  },
+  {
+   "id": "10-this-assistant#1",
+   "title": "About this AI assistant",
+   "section": "What it will not do",
+   "url": "#ask",
+   "text": "The assistant only answers questions about Jayce Nhan Parabellum's career, skills, projects, service and public interests. It will not share private details such as phone number, home address, or credential numbers, it won't speculate about salary expectations, and it doesn't make up facts that aren't in its sources."
+  }
+ ]
+}

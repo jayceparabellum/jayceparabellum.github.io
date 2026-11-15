@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jayceparabellum.github.io/sitemap.xml

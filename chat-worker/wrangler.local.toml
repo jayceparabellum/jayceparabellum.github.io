@@ -1,0 +1,9 @@
+# Local-only config: no Workers AI binding, so it runs without a Cloudflare login.
+# Retrieval falls back to BM25-only (no embeddings / reranker). Use `npm run dev` for the full pipeline.
+name = "jayce-chat"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ALLOWED_ORIGINS = "http://localhost:8000,http://127.0.0.1:8000"

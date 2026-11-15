@@ -1,0 +1,19 @@
+name = "jayce-chat"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Workers AI: BGE embeddings + BGE reranker (free tier covers this site's traffic).
+[ai]
+binding = "AI"
+
+# Per-IP limit: 12 questions per minute.
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+simple = { limit = 12, period = 60 }
+
+[vars]
+ALLOWED_ORIGINS = "https://jayceparabellum.github.io,http://localhost:8000,http://127.0.0.1:8000"
+
+# Secret (never committed):  npx wrangler secret put ANTHROPIC_API_KEY
