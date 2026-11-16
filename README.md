@@ -18,6 +18,7 @@ Static HTML/CSS/JS served by GitHub Pages from `main`, plus a RAG chat assistant
 | `scripts/build-kb.mjs` | Rebuilds `assets/kb.json` and `chat-worker/src/kb.generated.json`. Refuses to build if it finds phone numbers, addresses or credential IDs. |
 | `tools/add-photo.py` | Resizes a photo and strips all metadata (iPhone GPS included) before it goes in `images/`. |
 | `Jayce-Parabellum-Resume.pdf` | Web copy of the AI Engineering résumé (phone number removed). |
+| `Jayce-Parabellum-CV.pdf` | Web copy of the full CV, from `Resumes/CV - Public Website - 2026.docx` (no home address, phone, or credential or license IDs). |
 
 ## Common edits
 
