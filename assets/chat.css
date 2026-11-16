@@ -102,3 +102,27 @@
 .chat-vote button{background:none;border:1px solid #D7DBE2;border-radius:999px;padding:1px 8px;cursor:pointer;font-size:.8rem;line-height:1.5}
 .chat-vote button:hover{border-color:#1A56B0}
 .chat-vote.done{font-style:italic}
+/* Dark theme (site is always dark) */
+.chat-host,#chat-dialog,.chat-contact{background:#1c1c1c;border-color:rgba(255,255,255,.1);box-shadow:none}
+#ask .chat-host{border:0;border-radius:16px}
+.msg,.msg strong,.cc-done p,.cc-form label,.cc-types legend{color:#ececec}
+.msg.user{background:#fff;color:#111}
+.msg.bot,.msg.bot.intro{background:#262626;border-color:rgba(255,255,255,.08)}
+.msg-status,.chat-foot,.cc-sub,.cc-opt,.chat-vote,.chat-trace,.cc-form .cc-check{color:#9a9a9a}
+.cite,.cite.web{background:#333;color:#fff}.cite:hover{background:#fff;color:#111}
+.chat-sources,.chat-form,.chat-trace th,.chat-trace td{border-color:rgba(255,255,255,.1)}
+.chat-sources a,.chat-sources.web a{background:#262626;color:#ddd;border-color:rgba(255,255,255,.12)}
+.chat-sources a b,.chat-sources.web a b{background:#fff;color:#111}
+.chat-suggest button,.chat-contact-btn,.cc-types span{background:#262626;color:#ddd;border-color:rgba(255,255,255,.12)}
+.chat-suggest button:hover,.chat-contact-btn:hover,.chat-vote button:hover,.chat-sources a:hover{border-color:rgba(255,255,255,.4);background:#2e2e2e}
+.chat-form,.chat-foot{background:#1c1c1c}
+.chat-form textarea,.cc-form input:not([type=radio]):not([type=checkbox]),.cc-form textarea{background:#121212;color:#fff;border-color:rgba(255,255,255,.12)}
+.chat-form textarea:focus,.cc-form input:focus,.cc-form textarea:focus{outline-color:#fff}
+.chat-send,.cc-send,.open-contact,#chat-launcher,.cc-types input:checked+span{background:#fff;color:#111;border-color:#fff}
+.chat-send:hover,.cc-send:hover,.open-contact:hover,#chat-launcher:hover{background:#ddd}
+.chat-send.stop{background:#c05050;color:#fff}
+.chat-dialog-head{background:#121212;border-bottom:1px solid rgba(255,255,255,.1)}
+.cc-title{color:#fff}.cc-x{color:#aaa}
+.chat-clear,.chat-trace summary{color:#9cc3ff}
+.cc-secondary,.chat-vote button{color:#ddd;border-color:rgba(255,255,255,.2)}
+.cc-error{background:#3a1f1f;border-color:#5a2a2a;color:#f3b4b4}
