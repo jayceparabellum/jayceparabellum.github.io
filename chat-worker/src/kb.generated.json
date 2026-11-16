@@ -1,6 +1,6 @@
 {
- "version": "8f3de4ba5578",
- "built": "2026-11-15",
+ "version": "cf252626f7a0",
+ "built": "2026-11-16",
  "chunks": [
   {
    "id": "01-profile#0",
@@ -15,16 +15,16 @@
    "title": "Profile and overview",
    "section": "Current role",
    "url": "#top",
-   "text": "Since August 2026 Jayce has been an AI Software Engineer at Teos Technology, LLC (remote, Colorado Springs, CO), building HIPAA-aligned LLM clinical documentation and triage services for skilled nursing facilities.",
-   "hash": "f87de975a001"
+   "text": "Since August 2026 Jayce has been an AI Software Engineer at Teos Technology, LLC (remote; Teos is based in Monument, Colorado), working on a Teos healthcare platform with web, mobile and API clients built on .NET, React, SQL Server and Azure DevOps. In 8 weeks Jayce delivered 133 merged pull requests using AI coding agents (Claude Code) inside a reviewed workflow, added about 1,500 unit tests and 200 Cypress end-to-end tests, and shipped about 29 security pull requests.",
+   "hash": "ca9843c1fbf8"
   },
   {
    "id": "01-profile#2",
    "title": "Profile and overview",
    "section": "Jayce at a glance (summary for recruiters)",
    "url": "#top",
-   "text": "- Now: AI Software Engineer at Teos Technology, LLC (since August 2026), building HIPAA-aligned LLM clinical documentation and triage services for skilled nursing facilities. - AI engineering: LLM applications on local or managed models, agent orchestration, retrieval-augmented generation (RAG) over vector databases, and CI evaluation gates; completed the Gauntlet AI Fellowship (Cohort 4) in 2026. - Cloud and federal IT: nearly six years at Perspecta/Peraton (December 2019 - August 2025), ending as Cloud Systems Architect, Lead Associate on the NBIS personnel-vetting platform in AWS GovCloud; earlier network and systems work for CACI at the Pentagon and Phacil (2017-2019). - Service: U.S. Marine Corps Sergeant (2008-2014), then aerospace propulsion 7-level on the C-40 (D.C. Air National Guard) and C-5M Galaxy (U.S. Air Force Reserve), reaching Staff Sergeant; Top Secret clearance eligible. - Education: pursuing an M.S. in Computer Science (Artificial Intelligence) at CU Boulder, expected June 2028. - Open to freelance or contract projects, full-time corporate roles, and consulting.",
-   "hash": "0bb1fcaaa4e4"
+   "text": "- Now: AI Software Engineer at Teos Technology, LLC (since August 2026) on a healthcare platform (.NET, React, SQL Server, Azure DevOps): 133 merged pull requests in 8 weeks, about 1,700 new automated tests, and about 29 security pull requests. - AI engineering: LLM applications on local or managed models, agent orchestration, retrieval-augmented generation (RAG) over vector databases, and CI evaluation gates; completed the Gauntlet AI Fellowship (Cohort 4) in 2026. - Cloud and federal IT: nearly six years at Perspecta/Peraton (December 2019 - August 2025), ending as Cloud Systems Architect, Lead Associate on the NBIS personnel-vetting platform in AWS GovCloud; earlier network and systems work for CACI at the Pentagon and Phacil (2017-2019). - Service: U.S. Marine Corps Sergeant (2008-2014), then aerospace propulsion 7-level on the C-40 (D.C. Air National Guard) and C-5M Galaxy (U.S. Air Force Reserve), reaching Staff Sergeant; Top Secret clearance eligible. - Education: pursuing an M.S. in Computer Science (Artificial Intelligence) at CU Boulder, expected June 2028. - Open to freelance or contract projects, full-time corporate roles, and consulting.",
+   "hash": "380372a896d0"
   },
   {
    "id": "01-profile#3",
@@ -39,8 +39,8 @@
    "title": "Profile and overview",
    "section": "How Jayce builds AI systems",
    "url": "#top",
-   "text": "Jayce's engineering approach comes from the flight line, where a 7-level signs for every job against technical data before an aircraft flies: nothing leaves the shop without a sign-off. Jayce builds AI systems the same way, measured, traceable and honest about what they don't know, around three principles. Ground every answer: retrieval over the real source material (regulations, protocols, patient records) with citations required, and the system says so when the sources don't cover a question instead of guessing; the TTB label verification tool and the clinical co-pilot work this way. Gate every release: versioned prompts, golden datasets, regression replay and canary rollouts with automatic rollback, so a change ships when the evals say so, not when the demo looks good; this is the release process Jayce uses at Teos. Secure by default: PHI de-identified at ingest, tenant-scoped retrieval, audit logs, authentication on every endpoint and STIG-hardened hosts, a habit from six years of NIST and RMF work on federal cloud systems.",
-   "hash": "0b5dde26ebb9"
+   "text": "Jayce's engineering approach comes from the flight line, where a 7-level signs for every job against technical data before an aircraft flies: nothing leaves the shop without a sign-off. Jayce builds AI systems the same way, measured, traceable and honest about what they don't know, around three principles. Ground every answer: retrieval over the real source material (regulations, protocols, patient records) with citations required, and the system says so when the sources don't cover a question instead of guessing; the TTB label verification tool and the clinical co-pilot work this way. Gate every release: versioned prompts, golden datasets, regression replay and eval gates in CI, so a change ships when the evals say so, not when the demo looks good; the TTB tool gated every release on 446 automated tests plus RAG and agent-behavior evals, and at Teos every change goes through required code review, tests and deployment checks. Secure by default: encryption at rest, record-level access control, audit logs, secret scanning in the build and STIG-hardened hosts, a habit from six years of NIST and RMF work on federal cloud systems.",
+   "hash": "78b898237f0d"
   },
   {
    "id": "01-profile#5",
