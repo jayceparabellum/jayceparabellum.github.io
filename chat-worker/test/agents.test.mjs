@@ -102,3 +102,9 @@ test('semantic cache: hits within one visit, never across visits, and drops answ
   const far = Float32Array.from({ length: 768 }, (_, i) => Math.cos(i * 7));
   assert.equal(await cacheLookup(db, { scope: 'visitorA-0000000000', qv: far, chunkHash: hashes }), null);
 });
+
+test('orchestrator: a first question about Jayce skips the model call', async () => {
+  let called = false;
+  const r = await orchestrate({ complete: async () => { called = true; return '{}'; } }, { question: 'What did Jayce do at CACI?', history: [], memory: '' });
+  assert.deepEqual([called, r.needs_web, r.source], [false, false, 'rule']);
+});

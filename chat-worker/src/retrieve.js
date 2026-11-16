@@ -73,7 +73,7 @@ export function createRetriever(kb) {
       try {
         const [pv, qv] = await Promise.all([
           passageVectors(env.AI, env.CHAT_CACHE),
-          opts.qv || embedQuery(env.AI, query),
+          Promise.resolve(opts.qv).then(v => v || embedQuery(env.AI, query)),
         ]);
         trace.qv = qv;
         dense = pv.map((v, index) => ({ index, score: cosine(qv, v) })).sort((a, b) => b.score - a.score).slice(0, 20);
@@ -102,6 +102,20 @@ export function createRetriever(kb) {
       if (pick) { ranked.splice(1, 0, { ...pick, fused: pick.score ?? 0 }); ranked = ranked.slice(0, FINAL_K); trace.pinned = chunks[pick.index].id; }
     }
 
+    // Named entities: when the question names something that heads a section (CACI, Pentagon, Phacil, NBIS...),
+    // that section must be among the sources; the reranker otherwise favors broad summaries that mention it in passing.
+    for (const name of namedTerms(query)) {
+      const re = new RegExp(`\\b${name.replace(/[^A-Za-z0-9]/g, '\\$&')}\\b`, 'i');
+      const owners = chunks.map((c, index) => ({ c, index })).filter(({ c }) => re.test(c.section));
+      if (!owners.length || ranked.some(x => re.test(chunks[x.index].section))) continue;
+      const lexHit = lexical.find(r => owners.some(o => o.index === r.index));
+      const pick = lexHit || { index: owners[0].index, score: 0 };
+      ranked.splice(Math.min(1, ranked.length), 0, { ...pick, fused: pick.score ?? 0 });
+      ranked = ranked.slice(0, FINAL_K);
+      (trace.pinned_entities ||= []).push(chunks[pick.index].id);
+      break; // one entity pin per question
+    }
+
     const lexRank = new Map(lexical.map((r, i) => [r.index, i + 1]));
     const denseRank = new Map(dense.map((r, i) => [r.index, i + 1]));
     const sources = ranked.map(x => {
@@ -120,3 +134,9 @@ export function createRetriever(kb) {
 }
 
 export const embedQuery = (ai, query) => ai.run(EMBED_MODEL, { text: [QUERY_INSTRUCTION + query] }).then(r => r.data[0]);
+
+// Capitalized terms in a question that could name an employer, place or program (not the subject himself).
+const NOT_ENTITIES = new Set(['what', 'who', 'where', 'when', 'which', 'how', 'why', 'does', 'did', 'has', 'have', 'is', 'was', 'can', 'tell', 'give', 'jayce', 'parabellum', 'nhan', 'i', 'the', 'a', 'an']);
+export function namedTerms(query) {
+  return [...new Set((query.match(/\b[A-Z][A-Za-z0-9&-]{2,}\b/g) || []).filter(w => !NOT_ENTITIES.has(w.toLowerCase())))];
+}

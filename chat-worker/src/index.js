@@ -14,7 +14,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { createLLM } from './llm.js';
 import KB from './kb.generated.json';
-import { createRetriever } from './retrieve.js';
+import { createRetriever, embedQuery } from './retrieve.js';
 import { SYSTEM_PROMPT, buildUserTurn } from './prompts.js';
 import { sendContact, ContactError } from './contact.js';
 import { trustedHistory, sign } from './history.js';
@@ -28,6 +28,8 @@ import { THREAD_RE, cacheLookup, cacheStore, memoryLoad, memoryStore, feedbackSt
 const retrieve = createRetriever(KB);
 const CHUNK_HASH = new Map(KB.chunks.map(c => [c.id, c.hash]));
 const PROMPT_VERSION = hash(SYSTEM_PROMPT);
+// Words that make a follow-up depend on earlier turns ("tell me more about it"), so it can't be matched as typed.
+const REFERS_BACK = /\b(he|his|him|it|its|that|this|those|these|they|them|their|more|else|other|another|second|first|last|previous|same|above|earlier)\b/i;
 
 export default {
   async fetch(request, env, ctx) {
@@ -105,10 +107,22 @@ async function answer({ messages, thread, turn, env, llm, send, log, ctx }) {
   const abortWeb = new AbortController();
   const guess = guessRoute(question);
   let webP = guess.needs_web ? webSearch(guess.web_query, env, { signal: abortWeb.signal }) : null;
-  // A standalone first question can be searched as typed; follow-ups wait for the rewritten query.
-  let siteP = history.length ? null : retrieve(question, env);
-  const memory = await time('memory_ms', memoryLoad(env.DB, thread).catch(e => { log.error('memory', e); return ''; }));
-  const route = await time('orchestrator_ms', orchestrate(llm, { question, history, memory }));
+  // A question that stands on its own is embedded once, now: the vector serves the early cache check and,
+  // for a first question, the site search as typed. Follow-ups wait for the orchestrator's rewritten query.
+  const standalone = !history.length || !REFERS_BACK.test(question);
+  const qv0P = standalone && env.AI ? embedQuery(env.AI, question).catch(() => null) : null;
+  let siteP = history.length ? null : retrieve(question, env, qv0P ? { qv: qv0P } : {});
+  const earlyHitP = thread && qv0P && !wantsContact
+    ? qv0P.then(qv0 => qv0 && cacheLookup(env.DB, { scope: thread, qv: qv0, chunkHash: CHUNK_HASH })).catch(e => { log.error('cache', e); return null; }) : null;
+  const memoryP = memoryLoad(env.DB, thread).catch(e => { log.error('memory', e); return ''; });
+  const routeP = memoryP.then(memory => orchestrate(llm, { question, history, memory }));
+
+  // 2a. Semantic cache, checked while the orchestrator runs: a near-identical question earlier in this visit.
+  const early = earlyHitP && await time('cache_ms', earlyHitP);
+  if (early) { abortWeb.abort(); return replay({ send, question, text: early.answer, meta: early.meta, env, llm, started, log, how: 'semantic', sim: early.sim }); }
+
+  const memory = await time('memory_ms', memoryP);
+  const route = await time('orchestrator_ms', routeP);
   const query = route.rewritten_query;
   if (!siteP || query !== question) siteP = retrieve(query, env);
   if (route.needs_web && !webP) webP = webSearch(route.web_query, env, { signal: abortWeb.signal });
@@ -118,8 +132,8 @@ async function answer({ messages, thread, turn, env, llm, send, log, ctx }) {
   const { qv, ...trace } = site.trace;
   Object.assign(trace.timings, timings);
 
-  // 2. Semantic cache: a near-identical question earlier in this visit, citing unchanged chunks.
-  if (thread && qv && !wantsContact) {
+  // 2b. Semantic cache for follow-ups, matched on the rewritten query (standalone questions were checked above).
+  if (thread && qv && !wantsContact && !earlyHitP) {
     const hit = await cacheLookup(env.DB, { scope: thread, qv, chunkHash: CHUNK_HASH }).catch(e => { log.error('cache', e); return null; });
     if (hit) { abortWeb.abort(); return replay({ send, question, text: hit.answer, meta: hit.meta, env, llm, started, log, how: 'semantic', sim: hit.sim }); }
   }

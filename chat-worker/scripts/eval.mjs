@@ -33,7 +33,8 @@ async function chat(messages, { thread_id = thread(), turn = 1, origin = ORIGIN 
   }
   return { status: res.status, text, first, total: Date.now() - t0, meta, done, replaced };
 }
-const ask = (q, opts) => chat([{ role: 'user', content: q }], opts);
+// A dropped connection counts as a failed question instead of ending the run.
+const ask = (q, opts) => chat([{ role: 'user', content: q }], opts).catch(e => ({ status: 0, text: `[NETWORK ${e.cause?.code || e.message}]`, error: String(e) }));
 const pct = (xs, p) => { const s = [...xs].sort((a, b) => a - b); return s[Math.min(s.length - 1, Math.floor(p * s.length))]; };
 const results = [];
 const check = (name, ok, detail = '') => { results.push({ name, ok }); console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}${detail ? '  ' + detail : ''}`); };

@@ -2,7 +2,7 @@
 export const GOLDEN = [
   ['Where does Jayce work now?', '02-teos'],
   ['What did he build at Teos Technology?', '02-teos'],
-  ['How much did charting time drop?', '02-teos'],
+  ['How many pull requests did Jayce merge at Teos?', '02-teos'],
   ['Tell me about the TTB label verification tool', '03-gauntlet'],
   ['What is the Gauntlet AI fellowship?', '03-gauntlet'],
   ['Has Jayce built multi-agent systems or red teaming tools?', '03-gauntlet'],

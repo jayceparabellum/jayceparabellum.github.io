@@ -69,3 +69,13 @@ test('every chunk has a stable content hash and a unique id', () => {
   assert.equal(ids.size, kb.chunks.length);
   assert.ok(kb.chunks.every(c => /^[0-9a-f]{12}$/.test(c.hash)));
 });
+
+test('a section named in the question is always among the sources', async () => {
+  const { namedTerms } = await import('../src/retrieve.js');
+  assert.deepEqual(namedTerms('What network engineering work did Jayce do at CACI?'), ['CACI']);
+  assert.deepEqual(namedTerms('Did Jayce work at the Pentagon?'), ['Pentagon']);
+  for (const q of ['What network engineering work did Jayce do at CACI?', 'Tell me about Phacil']) {
+    const { sources } = await retrieve(q, {});
+    assert.ok(sources.some(s => s.id.startsWith('05-network')), `${q}: ${sources.map(s => s.id).join(', ')}`);
+  }
+});

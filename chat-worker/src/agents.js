@@ -30,6 +30,8 @@ export function parseJson(text) {
 export async function orchestrate(llm, { question, history, memory }) {
   const guess = guessRoute(question);
   const fallback = { rewritten_query: question, ...guess, source: 'heuristic' };
+  // A first question about Jayce has nothing to rewrite and can never use the web: the answer is known, skip the call.
+  if (!history.length && ABOUT_JAYCE_RE.test(question)) return { rewritten_query: question, needs_web: false, web_query: null, source: 'rule' };
   try {
     const transcript = history.slice(-6).map(m => `${m.role === 'user' ? 'Visitor' : 'Assistant'}: ${m.content.slice(0, 400)}`).join('\n');
     const user = `${memory ? `<earlier_summary>\n${memory}\n</earlier_summary>\n` : ''}<conversation>\n${transcript}\nVisitor: ${question}\n</conversation>\nJSON:`;
