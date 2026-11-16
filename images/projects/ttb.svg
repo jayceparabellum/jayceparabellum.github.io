@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400"><defs><radialGradient id="g" cx="100%" cy="0%" r="120%"><stop offset="0" stop-color="#14805a"/><stop offset=".6" stop-color="#0c1d17"/><stop offset="1" stop-color="#0b0b0c"/></radialGradient><linearGradient id="b" x1="0" x2="1"><stop offset="0" stop-color="#1f3b31"/><stop offset=".5" stop-color="#2f5e4c"/><stop offset="1" stop-color="#16302a"/></linearGradient><linearGradient id="s" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#7cf0b8" stop-opacity="0"/><stop offset="1" stop-color="#7cf0b8" stop-opacity=".35"/></linearGradient></defs>
+<rect width="640" height="400" fill="url(#g)"/>
+<path d="M210 70h40v40c0 14 30 26 30 60v190a14 14 0 0 1-14 14h-72a14 14 0 0 1-14-14V170c0-34 30-46 30-60z" fill="url(#b)" stroke="#9fe8c6" stroke-opacity=".35"/>
+<rect x="208" y="52" width="44" height="22" rx="4" fill="#caa66a"/>
+<rect x="186" y="210" width="88" height="110" rx="6" fill="#efe6d2"/><rect x="198" y="226" width="64" height="10" rx="2" fill="#6b4b2a"/><rect x="198" y="246" width="48" height="5" rx="2" fill="#6b4b2a" fill-opacity=".6"/><rect x="198" y="258" width="58" height="5" rx="2" fill="#6b4b2a" fill-opacity=".6"/><rect x="198" y="290" width="40" height="5" rx="2" fill="#6b4b2a" fill-opacity=".6"/><rect x="198" y="300" width="52" height="5" rx="2" fill="#6b4b2a" fill-opacity=".6"/>
+<rect x="150" y="160" width="160" height="70" fill="url(#s)"/><rect x="150" y="229" width="160" height="2" fill="#7cf0b8"/>
+<g transform="translate(360 100)" font-family="monospace" font-size="13" fill="#d9f7ea">
+<rect width="220" height="200" rx="16" fill="#fff" fill-opacity=".06" stroke="#9fe8c6" stroke-opacity=".25"/>
+<text x="20" y="34" fill-opacity=".6">27 CFR CHECKS</text>
+<g transform="translate(20 66)"><circle cx="9" cy="-4" r="9" fill="#2bbf7e"/><path d="M5 -4l3 3 6-6" stroke="#06261a" stroke-width="2" fill="none"/><text x="28" y="0">Brand name</text></g>
+<g transform="translate(20 100)"><circle cx="9" cy="-4" r="9" fill="#2bbf7e"/><path d="M5 -4l3 3 6-6" stroke="#06261a" stroke-width="2" fill="none"/><text x="28" y="0">Alcohol content</text></g>
+<g transform="translate(20 134)"><circle cx="9" cy="-4" r="9" fill="#2bbf7e"/><path d="M5 -4l3 3 6-6" stroke="#06261a" stroke-width="2" fill="none"/><text x="28" y="0">Net contents</text></g>
+<g transform="translate(20 168)"><circle cx="9" cy="-4" r="9" fill="#e0b84a"/><text x="5.5" y="0" fill="#2a1d00" font-weight="700">!</text><text x="28" y="0">Health warning</text></g></g>
+</svg>

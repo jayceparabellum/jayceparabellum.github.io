@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400"><defs><radialGradient id="g" cx="100%" cy="100%" r="120%"><stop offset="0" stop-color="#6b3fb3"/><stop offset=".6" stop-color="#17112a"/><stop offset="1" stop-color="#0b0b0c"/></radialGradient></defs>
+<rect width="640" height="400" fill="url(#g)"/>
+<path d="M80 200H560" stroke="#c4a8ff" stroke-opacity=".35" stroke-width="4"/>
+<path d="M80 200H425" stroke="#b58cff" stroke-width="4"/>
+<g font-family="monospace" font-size="12" fill="#e6dcff" text-anchor="middle">
+<g transform="translate(110 200)"><circle r="26" fill="#2d1f52" stroke="#b58cff" stroke-width="2"/><path d="M-9 0l6 6 12-12" stroke="#c9f7d8" stroke-width="3" fill="none"/><text y="52">test</text></g>
+<g transform="translate(215 200)"><circle r="26" fill="#2d1f52" stroke="#b58cff" stroke-width="2"/><path d="M-9 0l6 6 12-12" stroke="#c9f7d8" stroke-width="3" fill="none"/><text y="52">lint</text></g>
+<g transform="translate(320 200)"><circle r="26" fill="#2d1f52" stroke="#b58cff" stroke-width="2"/><path d="M-9 0l6 6 12-12" stroke="#c9f7d8" stroke-width="3" fill="none"/><text y="52">CodeQL</text></g>
+<g transform="translate(425 200)"><circle r="26" fill="#2d1f52" stroke="#b58cff" stroke-width="2"/><path d="M-9 0l6 6 12-12" stroke="#c9f7d8" stroke-width="3" fill="none"/><text y="52">audit</text></g>
+<g transform="translate(530 200)"><rect x="-30" y="-24" width="60" height="48" rx="6" fill="#3b2a6b" stroke="#c4a8ff" stroke-width="2"/><path d="M-30 -8h60M-30 8h60M-10 -24v48M10 -24v48" stroke="#c4a8ff" stroke-opacity=".5"/><text y="52">GHCR</text></g></g>
+<g transform="translate(330 60)" font-family="monospace" font-size="12"><rect width="230" height="80" rx="12" fill="#000" fill-opacity=".35" stroke="#c4a8ff" stroke-opacity=".3"/><text x="16" y="26" fill="#b58cff">$ git push</text><text x="16" y="46" fill="#e6dcff" fill-opacity=".7">workflow: secure-ci</text><text x="16" y="66" fill="#c9f7d8">all checks passed</text></g>
+</svg>
