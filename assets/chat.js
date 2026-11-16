@@ -368,6 +368,8 @@
     if (open) { render(); dialog.querySelector('textarea')?.focus(); }
   };
   launcher?.addEventListener('click', () => setOpen(true));
+  // Every "Ask my AI" link opens the one chat panel.
+  document.addEventListener('click', e => { const a = e.target.closest?.('a[href="#ask"]'); if (a && dialog) { e.preventDefault(); setOpen(true); } });
   document.getElementById('chat-close')?.addEventListener('click', () => { setOpen(false); launcher.focus(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && dialog && !dialog.hidden) { setOpen(false); launcher.focus(); } });
   // Hide the launcher while the inline assistant is on screen, so there aren't two chat boxes in view.
