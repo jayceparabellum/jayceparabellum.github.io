@@ -1,5 +1,5 @@
 {
- "version": "f8a30fb1597c",
+ "version": "2bb822f00eec",
  "built": "2026-11-18",
  "chunks": [
   {
@@ -311,8 +311,8 @@
    "title": "Education and certifications",
    "section": "Certifications held: AWS, CompTIA, Cisco and Microsoft",
    "url": "#credentials",
-   "text": "AWS Certified Solutions Architect - Professional (2025). AWS Certified Security - Specialty (2025). AWS Certified Solutions Architect - Associate (issued January 2020, expired 2023). CompTIA SecurityX (formerly CASP+). CompTIA Security+ (first earned 2016, kept current through continuing education until 2028). Cisco CCNA Routing and Switching (2019, expired 2023). Cisco \"Understanding of Cisco Network Devices\" training badge (2020). Microsoft 70-410 Installing and Configuring Windows Server 2012 (2017).",
-   "hash": "2ec24ef472ea"
+   "text": "AWS Certified Solutions Architect - Professional (earned 2025, current). AWS Certified Security - Specialty (earned 2025, current). AWS Certified Solutions Architect - Associate (issued January 2020, expired 2023). CompTIA SecurityX (formerly CASP+). CompTIA Security+ (first earned 2016, kept current through continuing education until 2028). Cisco CCNA Routing and Switching (2019, expired 2023). Cisco \"Understanding of Cisco Network Devices\" training badge (2020). Microsoft 70-410 Installing and Configuring Windows Server 2012 (2017).",
+   "hash": "84b830f9cd85"
   },
   {
    "id": "07-education-certs#2",
