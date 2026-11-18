@@ -51,7 +51,7 @@ function workersAI(env) {
     },
     async stream(system, messages, onText) {
       const body = await env.AI.run(chatModel, { messages: [{ role: 'system', content: system }, ...messages], stream: true, max_tokens: 900, temperature: 0.2 });
-      let usage = { input: 0, output: 0, cache_read: 0 }, buf = '', prev = '';
+      let usage = { input: 0, output: 0, cache_read: 0 }, buf = '', prev = '', finish = null;
       const reader = body.pipeThrough(new TextDecoderStream()).getReader();
       for (;;) {
         const { value, done } = await reader.read();
@@ -67,9 +67,12 @@ function workersAI(env) {
           let t = j.response ?? j.choices?.[0]?.delta?.content;
           if (t) { t = fixSpacing(prev, t); prev = t; await onText(t); }
           if (j.usage) usage = { input: j.usage.prompt_tokens || 0, output: j.usage.completion_tokens || 0, cache_read: 0 };
+          finish = j.choices?.[0]?.finish_reason || j.finish_reason || finish;
         }
       }
-      return { stop_reason: 'end', usage };
+      // Workers AI doesn't always report a finish reason; treat output at the token cap as cut off.
+      const cut = finish === 'length' || usage.output >= 900;
+      return { stop_reason: cut ? 'length' : 'end', usage };
     },
   };
 }

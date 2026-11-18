@@ -1,6 +1,6 @@
 {
- "version": "cf252626f7a0",
- "built": "2026-11-16",
+ "version": "f8a30fb1597c",
+ "built": "2026-11-18",
  "chunks": [
   {
    "id": "01-profile#0",
@@ -309,18 +309,18 @@
   {
    "id": "07-education-certs#1",
    "title": "Education and certifications",
-   "section": "Cloud and security certifications",
+   "section": "Certifications held: AWS, CompTIA, Cisco and Microsoft",
    "url": "#credentials",
    "text": "AWS Certified Solutions Architect - Professional (2025). AWS Certified Security - Specialty (2025). AWS Certified Solutions Architect - Associate (issued January 2020, expired 2023). CompTIA SecurityX (formerly CASP+). CompTIA Security+ (first earned 2016, kept current through continuing education until 2028). Cisco CCNA Routing and Switching (2019, expired 2023). Cisco \"Understanding of Cisco Network Devices\" training badge (2020). Microsoft 70-410 Installing and Configuring Windows Server 2012 (2017).",
-   "hash": "101d872205bc"
+   "hash": "2ec24ef472ea"
   },
   {
    "id": "07-education-certs#2",
    "title": "Education and certifications",
-   "section": "Verifying certifications",
+   "section": "How to verify certifications (Credly)",
    "url": "#credentials",
    "text": "Every AWS, CompTIA, Cisco and Microsoft certification on this website links to its public Credly badge, which is the issuer's own proof of the certification. Jayce's full Credly profile is https://www.credly.com/users/jayce-parabellum.3ea32e84. Lean Six Sigma Black Belt and Green Belt (Aveta Business Institute) are not on Credly; employers can email Jayce at jayce.n.parabellum@gmail.com for those certificates.",
-   "hash": "443cc6dfe0e3"
+   "hash": "aa6d9aedf4cc"
   },
   {
    "id": "07-education-certs#3",
@@ -358,7 +358,7 @@
    "id": "08-skills#0",
    "title": "Technical skills",
    "section": "LLMs and agents",
-   "url": "#skills",
+   "url": "#credentials",
    "text": "LangGraph, LangChain, OpenAI Responses API, Claude (Anthropic API), Codex, structured outputs, multi-agent orchestration, human-in-the-loop approvals, LangSmith tracing.",
    "hash": "001cf93bb784"
   },
@@ -366,7 +366,7 @@
    "id": "08-skills#1",
    "title": "Technical skills",
    "section": "Inference",
-   "url": "#skills",
+   "url": "#credentials",
    "text": "Ollama (including a multi-node homelab running Hermes models), Azure OpenAI, Amazon Bedrock, OpenRouter.",
    "hash": "eebece9c2417"
   },
@@ -374,7 +374,7 @@
    "id": "08-skills#2",
    "title": "Technical skills",
    "section": "RAG and search",
-   "url": "#skills",
+   "url": "#credentials",
    "text": "Pinecone, pgvector, OpenSearch, hybrid BM25 + BGE embedding retrieval, reciprocal rank fusion, reranking, citation-grounded answers with refusal when sources don't cover a question.",
    "hash": "029be310f511"
   },
@@ -382,7 +382,7 @@
    "id": "08-skills#3",
    "title": "Technical skills",
    "section": "Evaluation and testing",
-   "url": "#skills",
+   "url": "#credentials",
    "text": "Eval harnesses, golden datasets, regression replay, LLM grounding and hallucination scoring, unit and integration testing, Cypress.",
    "hash": "1d47b8a3d676"
   },
@@ -390,7 +390,7 @@
    "id": "08-skills#4",
    "title": "Technical skills",
    "section": "CI/CD and infrastructure",
-   "url": "#skills",
+   "url": "#credentials",
    "text": "Docker, GitHub Actions, Azure DevOps, Terraform, Render Blueprints, blue/green and canary deployment, Kubernetes (basic), Ansible, AWS GovCloud, AWS (EventBridge, Lambda, CodeBuild, S3), STIG and SCAP compliance, NIST/RMF/FedRAMP/Zero Trust.",
    "hash": "e75086c11a41"
   },
@@ -398,7 +398,7 @@
    "id": "08-skills#5",
    "title": "Technical skills",
    "section": "Linux and networking",
-   "url": "#skills",
+   "url": "#credentials",
    "text": "RHEL, Amazon Linux, Ubuntu, Windows Server, Active Directory, PowerShell; Cisco routing and switching, BGP, OSPF, MPLS and SD-WAN, ASA/Firepower, IPSec, 802.1X/ISE, Azure ExpressRoute, AWS Direct Connect.",
    "hash": "30398d6bac41"
   },
@@ -406,7 +406,7 @@
    "id": "08-skills#6",
    "title": "Technical skills",
    "section": "Languages",
-   "url": "#skills",
+   "url": "#credentials",
    "text": "Python, TypeScript, React, C#/.NET, SQL (Postgres, SQL Server), R, PHP.",
    "hash": "3bf85e06e15d"
   },

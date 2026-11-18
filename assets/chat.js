@@ -22,6 +22,8 @@
   const EMAIL = 'jayce.n.parabellum@gmail.com';
   const TYPES = { freelance: 'Freelance / contract', corporate: 'Full-time / corporate', consulting: 'Consulting' };
   const MARKER = /\s*\[\[contact\]\]\s*/i;
+  // Clear hiring intent only; used when the Worker can't answer, so ordinary questions about roles still get the offline answer.
+  const HIRE_FALLBACK_RE = /\b(hire|hiring|recruit(ing)? (him|jayce)|freelanc|get in touch|reach (out to )?(him|jayce)|contact (him|jayce)|email (him|jayce)|work with (him|jayce)|(talk|speak|meet) (to|with) (him|jayce)|job offer|(we|i)('re| are| am) (looking|hiring)|(my|our) team)/i;
   const HIRE_RE = /\b(hire|hiring|recruiting (for|him|jayce)|recruit (him|jayce)|interview|freelanc|contract(or|ing)?\b|consult|reach (out|him|jayce)|contact|get in touch|email (him|jayce)|work with (him|jayce)|(talk|speak|chat|meet) (to|with) (him|jayce)|connect with|full[- ]time|part[- ]time|opportunit|opening|job offer|position|(a|an|our|my|this) [\w -]{0,40}\b(role|job)\b|role for|(we|i)('re| are| am) looking|my team|our team)/i;
 
   const SUGGESTIONS = [
@@ -50,7 +52,7 @@
     for (const raw of lines) {
       const line = raw.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         // Only allowlisted sites become links, so the model can't hand visitors an arbitrary URL.
-        .replace(/\b(?:https?:\/\/)?((?:www\.)?jayceparabellum\.github\.io(?:\/[^\s<)\]]*)?)/gi, (m, u) => `<a href="https://${u.replace(/[.,;]+$/, '')}" target="_blank" rel="noopener">${u.replace(/[.,;]+$/, '')}</a>${(u.match(/[.,;]+$/) || [''])[0]}`)
+        .replace(/\b(?:https?:\/\/)?((?:www\.)?(?:jayceparabellum\.github\.io|credly\.com\/users\/jayce-parabellum[\w.-]*)(?:\/[^\s<)\]]*)?)/gi, (m, u) => `<a href="https://${u.replace(/[.,;]+$/, '')}" target="_blank" rel="noopener">${u.replace(/[.,;]+$/, '')}</a>${(u.match(/[.,;]+$/) || [''])[0]}`)
         .replace(/\[(\d+)\]/g, (m, n) => {
           const s = sources[n - 1];
           if (!s) return '';
@@ -79,15 +81,19 @@
   function feedbackBar(m) {
     if (!FEEDBACK_ENDPOINT || !m.sig || m.local || m.offline) return '';
     if (m.vote) return `<p class="chat-vote done">${m.vote === 1 ? 'Thanks for the feedback.' : 'Thanks. This helps improve the assistant.'}</p>`;
-    return `<p class="chat-vote" data-id="${esc(m.sig.slice(0, 32))}"><span>Was this helpful?</span><button type="button" data-vote="1" aria-label="Helpful">👍</button><button type="button" data-vote="-1" aria-label="Not helpful">👎</button></p>`;
+    return `<p class="chat-vote" data-id="${esc(voteId(m))}"><span>Was this helpful?</span><button type="button" data-vote="1" aria-label="Helpful">👍</button><button type="button" data-vote="-1" aria-label="Not helpful">👎</button></p>`;
   }
+  // The sig is standard base64; the Worker accepts only URL-safe ids.
+  const voteId = m => (m.sig || '').slice(0, 32).replace(/\+/g, '-').replace(/\//g, '_');
   async function vote(id, rating) {
-    const i = state.messages.findIndex(m => m.role === 'assistant' && m.sig?.slice(0, 32) === id);
+    const i = state.messages.findIndex(m => m.role === 'assistant' && m.sig && voteId(m) === id);
     if (i < 0) return;
     const m = state.messages[i];
     m.vote = rating; m.html = m.html.replace(/<p class="chat-vote"[\s\S]*?<\/p>$/, '') + feedbackBar(m); render();
     fetch(FEEDBACK_ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ thread_id: THREAD_ID, message_id: id, rating, question: rating === -1 ? state.messages[i - 1]?.content : undefined }) }).catch(() => {});
+      body: JSON.stringify({ thread_id: THREAD_ID, message_id: id, rating, question: rating === -1 ? state.messages[i - 1]?.content : undefined }) })
+      .then(r => { if (!r.ok) throw new Error(r.status); })
+      .catch(() => { m.vote = undefined; m.html = m.html.replace(/<p class="chat-vote[^"]*"[\s\S]*?<\/p>$/, '') + feedbackBar(m); render(); });
   }
 
   function traceView(meta, done) {
@@ -125,7 +131,7 @@
     v.suggest.innerHTML = SUGGESTIONS.map(s => `<button type="button">${esc(s)}</button>`).join('');
     v.suggest.addEventListener('click', e => { const b = e.target.closest('button'); if (b) ask(b.textContent); });
     host.querySelector('.chat-form').addEventListener('submit', e => { e.preventDefault(); if (state.busy) return stop(); ask(v.input.value); });
-    v.input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); host.querySelector('.chat-form').requestSubmit(); } });
+    v.input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (!state.busy) host.querySelector('.chat-form').requestSubmit(); } });
     v.input.addEventListener('input', () => { v.input.style.height = 'auto'; v.input.style.height = Math.min(v.input.scrollHeight, 140) + 'px'; });
     host.querySelector('.chat-clear').addEventListener('click', () => { stop(); state.messages = []; Object.assign(state.contact, { sent: false, error: '' }); render(); renderPanels(); });
     views.push(v);
@@ -182,7 +188,7 @@
     } catch (e) {
       bot.pending = false;
       if (e.name === 'AbortError') { bot.status = 'Stopped.'; if (!bot.content) bot.html = '<p>Stopped.</p>'; bot.error = !bot.content; }
-      else if (HIRE_RE.test(q) && !bot.content) {
+      else if (HIRE_FALLBACK_RE.test(q) && !bot.content) {
         bot.local = true;
         bot.html = `<p>Jayce would be glad to hear from you. He’s open to freelance or contract work, full-time corporate roles and consulting. Use the contact form and your message goes straight to his inbox.</p>${contactCta()}`;
         preselect(q); openContact(false);

@@ -7,10 +7,10 @@ const BASE = (process.argv[2] || 'https://jayce-chat.jayce-chat.workers.dev').re
 const ORIGIN = 'https://jayceparabellum.github.io';
 const thread = () => 'eval' + Math.random().toString(36).slice(2).padEnd(16, '0');
 
-// The Worker allows 12 questions per minute per IP, so requests are spaced 5.2 s apart.
+// The Worker allows 12 questions per minute per IP, so requests are spaced 6 s apart.
 let last = 0;
 async function chat(messages, { thread_id = thread(), turn = 1, origin = ORIGIN } = {}) {
-  const wait = last + 5200 - Date.now();
+  const wait = last + 6000 - Date.now();
   if (wait > 0) await new Promise(r => setTimeout(r, wait));
   last = Date.now();
   const t0 = Date.now();
@@ -40,7 +40,7 @@ const results = [];
 const check = (name, ok, detail = '') => { results.push({ name, ok }); console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}${detail ? '  ' + detail : ''}`); };
 
 // 1. Golden set: recall@5, citations, supervisor, latency.
-let hits = 0, cited = 0, supervised = 0, revised = 0;
+let hits = 0, cited = 0, supervised = 0, revised = 0, failedReq = 0;
 const firsts = [];
 for (const [q, expected] of GOLDEN) {
   const r = await ask(q);
@@ -48,10 +48,12 @@ for (const [q, expected] of GOLDEN) {
   const hit = ids.slice(0, 5).some(id => id.startsWith(expected));
   hits += hit; cited += /\[\d+\]/.test(r.text); supervised += !!r.done?.supervisor?.pass; revised += !!r.replaced;
   if (r.first && !r.done?.cached) firsts.push(r.first);
-  if (!hit) console.log(`  miss: ${q} -> ${ids.join(', ')}`);
+  if (r.status !== 200) { failedReq++; console.log(`  request failed (${r.status}): ${q} ${r.error || ''}`); }
+  else if (!hit) console.log(`  miss: ${q} -> ${ids.join(', ')}`);
 }
 const n = GOLDEN.length;
 console.log(`\nrecall@5 ${(hits / n).toFixed(2)} · citation coverage ${(cited / n).toFixed(2)} · supervisor pass ${(supervised / n).toFixed(2)} (${revised} revised) · first token p50 ${pct(firsts, 0.5)} ms, p95 ${pct(firsts, 0.95)} ms\n`);
+check('every golden request succeeded', failedReq === 0, `${failedReq} failed`);
 check('recall@5 >= 0.90', hits / n >= 0.9);
 check('time to first token p50 < 2000 ms', pct(firsts, 0.5) < 2000);
 check('time to first token p95 < 3500 ms', pct(firsts, 0.95) < 3500);
@@ -73,7 +75,7 @@ check('time to first token p95 < 3500 ms', pct(firsts, 0.95) < 3500);
   if (web === 'provided') {
     check('web context is labeled', /General context from the web/i.test(r.text) && /From the site/i.test(r.text));
     check('web sources are cited only in the web section', r.done?.supervisor?.pass === true);
-  } else check('without web context the answer says outside context was unavailable', /unavailable|outside/i.test(r.text), r.text.slice(0, 120));
+  } else check('without web sources the answer uses no web label', !/General context from the web/i.test(r.text), r.text.slice(0, 120));
 }
 {
   const r = await ask('Where did Jayce work in 2018?');

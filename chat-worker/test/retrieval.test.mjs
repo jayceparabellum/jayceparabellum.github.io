@@ -79,3 +79,9 @@ test('a section named in the question is always among the sources', async () => 
     assert.ok(sources.some(s => s.id.startsWith('05-network')), `${q}: ${sources.map(s => s.id).join(', ')}`);
   }
 });
+
+test('the AWS starter finds the certification list ahead of the Credly note', async () => {
+  const { sources } = await retrieve('Which AWS certifications does Jayce hold?', {});
+  const top = sources.slice(0, 2).map(s => s.section);
+  assert.ok(top.some(s => /Certifications held/.test(s)), `top-2 was ${top.join(' | ')}`);
+});

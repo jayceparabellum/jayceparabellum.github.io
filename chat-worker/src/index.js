@@ -45,7 +45,8 @@ export default {
       chat: !!createLLM(env), signed_history: !!env.HISTORY_SECRET || !!env.ANTHROPIC_API_KEY, web: !!env.TAVILY_API_KEY, state: !!env.DB,
       contact: env.CONTACT_TO ? (env.RESEND_API_KEY ? 'resend' : 'formsubmit') : false }, 200, cors);
     if (!['/chat', '/contact', '/feedback'].includes(url.pathname) || request.method !== 'POST') return json({ error: 'Not found' }, 404, cors);
-    if (!cors) return json({ error: 'Origin not allowed' }, 403);
+    // POST routes are for the site's browser widget only: a missing Origin (scripts, curl) is refused too.
+    if (!cors || !request.headers.get('origin')) return json({ error: 'Origin not allowed' }, 403);
     if (url.pathname === '/contact') return contact(request, env, cors);
     if (url.pathname === '/feedback') return feedback(request, env, cors);
 
@@ -187,7 +188,8 @@ async function answer({ messages, thread, turn, env, llm, send, log, ctx }) {
     timings: trace.timings, supervisor: { pass: attempts.at(-1).pass, attempts: attempts.length, by: attempts.at(-1).by, reason: attempts[0].pass ? null : attempts[0].reason } });
 
   // 6. After the reply: caches and memory (best-effort, off the critical path).
-  const passed = attempts.at(-1).pass && full !== FALLBACK_REPLY && !['max_tokens', 'length'].includes(final.stop_reason);
+  // Never cache an empty, rejected or cut-off answer.
+  const passed = attempts.at(-1).pass && full.trim().length > 0 && full !== FALLBACK_REPLY && !['max_tokens', 'length'].includes(final.stop_reason);
   const after = [];
   if (passed && starterKey && trace.mode.includes('rerank'))
     after.push(env.CHAT_CACHE.put(starterKey, JSON.stringify({ meta, text: full }), { expirationTtl: CONFIG.STARTER_TTL_HOURS * 3600 }));
@@ -219,7 +221,7 @@ async function feedback(request, env, cors) {
   }
   const b = await request.json().catch(() => null);
   const thread = b?.thread_id, messageId = b?.message_id, rating = b?.rating;
-  if (typeof thread !== 'string' || !THREAD_RE.test(thread) || typeof messageId !== 'string' || !/^[A-Za-z0-9_-]{8,64}$/.test(messageId) || ![1, -1].includes(rating))
+  if (typeof thread !== 'string' || !THREAD_RE.test(thread) || typeof messageId !== 'string' || !/^[A-Za-z0-9_+/=-]{8,64}$/.test(messageId) || ![1, -1].includes(rating))
     return json({ error: 'Bad request' }, 400, cors);
   if (!env.DB) return json({ error: 'Feedback is not available right now.' }, 503, cors);
   const clean = (s, n) => (typeof s === 'string' && s.trim() ? redact(stripControl(s)).slice(0, n) : null);

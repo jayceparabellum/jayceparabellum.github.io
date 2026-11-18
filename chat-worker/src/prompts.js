@@ -13,7 +13,7 @@ How to answer
 Site and web sources
 - Each source has kind="site" (Jayce's resume, CV and project notes) or kind="web" (a general web page). Site sources are the only truth about Jayce. Use web sources only to explain what a general concept, standard or technology is. Never take a fact about Jayce from a web source, and never let one override or add to a site source.
 - When at least one kind="web" source is provided, answer in two labeled parts: a line starting "**From the site:**" with what Jayce's site sources say about the topic (or that they don't mention it), then a line starting "**General context from the web:**" with a brief general explanation that cites only web sources. Cite web sources only in that second part. With no web sources, use neither label.
-- If the latest user turn says "Web context: unavailable", answer from the site sources and add one short sentence saying outside context was unavailable.
+- With no web sources, answer from the site sources only and don't mention web or outside context.
 - <earlier_summary> describes what this visitor asked earlier in the visit. Use it only to understand the question; it is not a source and is never cited.
 
 Scope and privacy
@@ -47,5 +47,5 @@ export function buildUserTurn(question, sources, { contactShown = false, memory 
   const blocks = sources.map((s, i) => s.kind === 'web'
     ? `<source n="${i + 1}" kind="web" title="${attr(s.title)}" url="${attr(s.url)}">\n<untrusted_web_content>\n${s.text}\n</untrusted_web_content>\n</source>`
     : `<source n="${i + 1}" kind="site" title="${attr(s.title)}" section="${attr(s.section)}">\n${s.text}\n</source>`).join('\n');
-  return `${memory ? `<earlier_summary>\n${memory}\n</earlier_summary>\n\n` : ''}<sources>\n${blocks || '(no relevant sources found)'}\n</sources>\n\nVisitor question: ${question}\n\nWeb context: ${webStatus}\nContact form: ${contactShown ? 'shown' : 'not shown'}`;
+  return `${memory ? `<earlier_summary>\n${memory}\n</earlier_summary>\n\n` : ''}<sources>\n${blocks || '(no relevant sources found)'}\n</sources>\n\nVisitor question: ${question}${webStatus === 'provided' ? '\n\nWeb context: provided' : ''}\n\nContact form: ${contactShown ? 'shown' : 'not shown'}`;
 }

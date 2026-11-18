@@ -18,7 +18,7 @@ test('intent detection', () => {
   assert.ok(CONTACT_INTENT.test('I want to hire Jayce for a consulting project'));
   assert.ok(CONTACT_INTENT.test('How do I get in touch?'));
   assert.ok(!CONTACT_INTENT.test('What does Jayce do at Teos Technology?'));
-  assert.ok(!CONTACT_INTENT.test('How much did charting time drop there?'));
+  assert.ok(!CONTACT_INTENT.test('How many pull requests did Jayce merge there?'));
   for (const q of ["I'd like to talk to Jayce about a full-time AI engineer role.", 'We have an opening on our platform team', 'Is he available for a contract role?', "We're looking for a solutions architect"])
     assert.ok(CONTACT_INTENT.test(q), q);
   for (const q of ["What is Jayce's current role?", 'What did he do in the Marines?', 'Which jobs has Jayce held?', 'Tell me about his AWS certifications', 'How does this chat work?'])

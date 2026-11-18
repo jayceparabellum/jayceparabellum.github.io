@@ -1,6 +1,6 @@
 ---
 title: Technical skills
-url: "#skills"
+url: "#credentials"
 ---
 
 ## LLMs and agents

@@ -108,3 +108,7 @@ test('orchestrator: a first question about Jayce skips the model call', async ()
   const r = await orchestrate({ complete: async () => { called = true; return '{}'; } }, { question: 'What did Jayce do at CACI?', history: [], memory: '' });
   assert.deepEqual([called, r.needs_web, r.source], [false, false, 'rule']);
 });
+
+test('the writer turn only mentions web context when web sources were provided', () => {
+  for (const webStatus of ['not needed', 'unavailable', 'none']) assert.doesNotMatch(buildUserTurn('Q?', [], { webStatus }), /Web context/);
+});

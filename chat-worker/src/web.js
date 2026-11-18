@@ -6,7 +6,7 @@ import { CONFIG, redact } from './config.js';
 import { hash } from './starters.js';
 
 // Names and handles that must never reach a search engine: the web is not asked about Jayce.
-const PERSONAL = /\b(jayce|parabellum|nhan|jayceparabellum|teos|3rdeyehealth|third eye health)\b/gi;
+const PERSONAL = /\b(jayce|parabellum|nhan|jayceparabellum|teos)\b/gi;
 
 // A short, de-personalized concept query, or null when nothing searchable is left.
 export function cleanWebQuery(q) {
