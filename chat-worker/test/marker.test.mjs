@@ -31,3 +31,8 @@ test('a recruiter asking for a summary does not trigger the contact form', () =>
   assert.ok(CONTACT_INTENT.test("I'm recruiting for a platform engineer role"));
   assert.ok(CONTACT_INTENT.test('We want to hire Jayce'));
 });
+
+test('ordinary questions about his jobs are not hiring requests', () => {
+  for (const q of ['What position did Jayce hold at CACI?', 'Was he a contractor at Peraton?', 'Tell me about his full-time role at Peraton', 'What was the size of the NBIS contract?', 'How did he interview patients in the clinical co-pilot?', 'What position did Jayce hold at Google, and what was his salary there?'])
+    assert.ok(!CONTACT_INTENT.test(q), q);
+});

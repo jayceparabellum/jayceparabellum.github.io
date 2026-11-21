@@ -10,10 +10,10 @@ Jayce Nhan Parabellum (he/him) is an AI Software Engineer based in Denver, Color
 Since August 2026 Jayce has been an AI Software Engineer at Teos Technology, LLC (remote; Teos is based in Monument, Colorado), working on a Teos healthcare platform with web, mobile and API clients built on .NET, React, SQL Server and Azure DevOps. In 8 weeks Jayce delivered 133 merged pull requests using AI coding agents (Claude Code) inside a reviewed workflow, added about 1,500 unit tests and 200 Cypress end-to-end tests, and shipped about 29 security pull requests.
 
 ## Jayce at a glance (summary for recruiters)
-- Now: AI Software Engineer at Teos Technology, LLC (since August 2026) on a healthcare platform (.NET, React, SQL Server, Azure DevOps): 133 merged pull requests in 8 weeks, about 1,700 new automated tests, and about 29 security pull requests.
+- Now: AI Software Engineer at Teos Technology, LLC (since August 2026) on a healthcare platform (.NET, React, SQL Server, Azure DevOps): 133 merged pull requests in 8 weeks, about 1,700 new automated tests in total (about 1,500 unit tests and about 200 Cypress end-to-end tests), and about 29 security pull requests.
 - AI engineering: LLM applications on local or managed models, agent orchestration, retrieval-augmented generation (RAG) over vector databases, and CI evaluation gates; completed the Gauntlet AI Fellowship (Cohort 4) in 2026.
 - Cloud and federal IT: nearly six years at Perspecta/Peraton (December 2019 - August 2025), ending as Cloud Systems Architect, Lead Associate on the NBIS personnel-vetting platform in AWS GovCloud; earlier network and systems work for CACI at the Pentagon and Phacil (2017-2019).
-- Service: U.S. Marine Corps Sergeant (2008-2014), then aerospace propulsion 7-level on the C-40 (D.C. Air National Guard) and C-5M Galaxy (U.S. Air Force Reserve), reaching Staff Sergeant; Top Secret clearance eligible.
+- Service: 16 years of military service across three components: U.S. Marine Corps Reserve Sergeant (2008-2014), then aerospace propulsion 7-level on the C-40 (D.C. Air National Guard) and C-5M Galaxy (U.S. Air Force Reserve), reaching Staff Sergeant; Top Secret clearance eligible.
 - Education: pursuing an M.S. in Computer Science (Artificial Intelligence) at CU Boulder, expected June 2028.
 - Open to freelance or contract projects, full-time corporate roles, and consulting.
 

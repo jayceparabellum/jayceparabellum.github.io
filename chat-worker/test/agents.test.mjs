@@ -1,7 +1,8 @@
 // Unit tests for the agentic layer (Build Plan §9): routing, supervisor, sanitizer, web worker, scoped state.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { guessRoute, orchestrate, checkStructure, supervise, WEB_LABEL } from '../src/agents.js';
+import { guessRoute, orchestrate, checkStructure, supervise, parseJson, offSiteLinks, unsupportedNumbers, WEB_LABEL } from '../src/agents.js';
+import { fixSpacing } from '../src/llm.js';
 import { sanitizeExcerpt, cleanWebQuery, webSearch } from '../src/web.js';
 import { buildUserTurn } from '../src/prompts.js';
 import { cacheLookup, cacheStore } from '../src/state.js';
@@ -111,4 +112,45 @@ test('orchestrator: a first question about Jayce skips the model call', async ()
 
 test('the writer turn only mentions web context when web sources were provided', () => {
   for (const webStatus of ['not needed', 'unavailable', 'none']) assert.doesNotMatch(buildUserTurn('Q?', [], { webStatus }), /Web context/);
+});
+
+test('parseJson takes the first balanced object, not everything up to the last brace', () => {
+  assert.deepEqual(parseJson('{"pass": false, "reason": "x"} (based on {source 3})'), { pass: false, reason: 'x' });
+  assert.deepEqual(parseJson({ pass: true }), { pass: true });
+  assert.equal(parseJson('no json'), null);
+});
+
+test('supervisor: a rejection followed by stray braces is still a rejection', async () => {
+  const v = await supervise(fakeLLM('{"pass": false, "reason": "invents a 2019 award"} (based on {source 3})'), { draft: 'Jayce won the Nobel Prize [1].', sources: SITE });
+  assert.equal(v.pass, false);
+  const o = await supervise(fakeLLM({ pass: false, reason: 'object reply' }), { draft: 'Jayce won the Nobel Prize [1].', sources: SITE });
+  assert.equal(o.pass, false);
+});
+
+test('structure: off-site links fail; site, Credly, LinkedIn and GitHub links pass', () => {
+  assert.equal(checkStructure('Certs [1]. [Full verified resume](https://jayce-resume.example.com/download)', SITE).pass, false);
+  assert.deepEqual(offSiteLinks('See https://evil.example/x and www.bad.test.'), ['evil.example/x', 'www.bad.test']);
+  assert.deepEqual(offSiteLinks('See https://www.credly.com/users/jayce-parabellum.3ea32e84, https://linkedin.com/in/jayce-parabellum, https://github.com/jayceparabellum/secure-cicd-demo and https://jayceparabellum.github.io/#peraton.'), []);
+  assert.deepEqual(offSiteLinks('fake https://jayceparabellum.github.io.evil.com/x'), ['jayceparabellum.github.io.evil.com/x']);
+});
+
+test('structure: figures no source states fail; exact figures, years and the question\'s own numbers pass', () => {
+  const src = [{ kind: 'site', text: 'Jayce served 16 years (2008-2024). About 1,700 new automated tests (about 1,500 unit and about 200 Cypress).' }];
+  assert.deepEqual(unsupportedNumbers('He has about 10 years of service [1].', src), ['10']);
+  assert.deepEqual(unsupportedNumbers('About 1,700 tests: 1,500 unit and 200 Cypress, over 16 years from 2008 to 2024 [1].', src), []);
+  assert.deepEqual(unsupportedNumbers('Not 30, but 16 years [1].', src, 'Did he serve 30 years?'), []);
+  assert.equal(checkStructure('He added 3,400 tests [1].', src).pass, false);
+});
+
+test('structure: citation lists and ranges are bounds-checked; empty drafts fail; the web label is matched case-insensitively', () => {
+  assert.equal(checkStructure('Jayce did X [1, 9].', SITE).pass, false);
+  assert.equal(checkStructure('Jayce did X [1-9].', SITE).pass, false);
+  assert.equal(checkStructure('   ', SITE).pass, false);
+  assert.equal(checkStructure('**From the site:** x [1]\n**General Context from the Web:** y [2]', [...SITE, ...WEB]).pass, true);
+  assert.equal(checkStructure('General context from the web was not needed here [1].', SITE).pass, true);
+});
+
+test('number spacing: only after whole words', () => {
+  for (const [p, t] of [['1', ','], [',', '500'], ['10:', '30'], ['p', '95'], ['v', '1.5']]) assert.equal(fixSpacing(p, t), t, p + t);
+  assert.equal(fixSpacing(' in June', '2028'), ' 2028');
 });

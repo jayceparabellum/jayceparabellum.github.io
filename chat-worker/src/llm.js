@@ -11,7 +11,8 @@ export const WORKERS_REWRITE_MODEL = '@cf/meta/llama-3.1-8b-instruct-fast';
 // arrives as "June" + "2028". Re-insert the space when a lowercase word (or , ; : ) ]) is followed by a digit.
 // Uppercase-final chunks are left alone so part numbers like "CFM56" and "TF34" stay intact.
 export function fixSpacing(prev, t) {
-  return /[a-z,;:)\]]$/.test(prev) && /^\d/.test(t) ? ' ' + t : t;
+  // Only after a whole word ("June", "in"): never inside "1,500", "10:30", "p95" or "v1.5".
+  return /(?:^|\s)[A-Za-z][a-z]+$/.test(prev) && /^\d/.test(t) ? ' ' + t : t;
 }
 
 export function createLLM(env) {
@@ -47,7 +48,9 @@ function workersAI(env) {
     // Small, fast model for control decisions (orchestrator, supervisor, summaries); big: true uses the writer model.
     async complete(system, user, { max_tokens = 80, big = false } = {}) {
       const r = await env.AI.run(big ? chatModel : rewriteModel, { messages: [{ role: 'system', content: system }, { role: 'user', content: user }], max_tokens, temperature: 0 });
-      return r?.response ?? r?.choices?.[0]?.message?.content ?? '';
+      const out = r?.response ?? r?.choices?.[0]?.message?.content ?? '';
+      // For JSON-looking replies Workers AI may hand back an already-parsed object; keep the contract a string.
+      return typeof out === 'string' ? out : JSON.stringify(out);
     },
     async stream(system, messages, onText) {
       const body = await env.AI.run(chatModel, { messages: [{ role: 'system', content: system }, ...messages], stream: true, max_tokens: 900, temperature: 0.2 });

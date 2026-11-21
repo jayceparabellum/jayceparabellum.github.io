@@ -115,7 +115,8 @@ async function answer({ messages, thread, turn, env, llm, send, log, ctx }) {
   let siteP = history.length ? null : retrieve(question, env, qv0P ? { qv: qv0P } : {});
   const earlyHitP = thread && qv0P && !wantsContact
     ? qv0P.then(qv0 => qv0 && cacheLookup(env.DB, { scope: thread, qv: qv0, chunkHash: CHUNK_HASH })).catch(e => { log.error('cache', e); return null; }) : null;
-  const memoryP = memoryLoad(env.DB, thread).catch(e => { log.error('memory', e); return ''; });
+  // Starter answers are cached for every visitor, so they must not be steered by this visitor's memory.
+  const memoryP = starterKey ? Promise.resolve('') : memoryLoad(env.DB, thread).catch(e => { log.error('memory', e); return ''; });
   const routeP = memoryP.then(memory => orchestrate(llm, { question, history, memory }));
 
   // 2a. Semantic cache, checked while the orchestrator runs: a near-identical question earlier in this visit.
@@ -149,7 +150,7 @@ async function answer({ messages, thread, turn, env, llm, send, log, ctx }) {
 
   const meta = {
     query, rewritten: query !== question, trace,
-    route: { needs_web: route.needs_web, web_query: route.web_query, by: route.source },
+    route: { needs_web: route.needs_web, web_query: route.web_query, by: route.source, ...(route.error ? { error: route.error } : {}) },
     web: route.needs_web ? { status: webStatus, query: web?.query || null, cached: !!web?.cached, error: web?.error || web?.skipped || null } : null,
     sources: sources.map(({ text, hash: _h, ...s }) => ({ ...s, snippet: text.slice(0, 220) })),
   };
@@ -171,7 +172,8 @@ async function answer({ messages, thread, turn, env, llm, send, log, ctx }) {
 
   // 5. Supervisor: check the finished draft; on a fail, retry once with the reason, then fall back.
   const t5 = Date.now();
-  const check = draft => (wantsContact ? { pass: true, by: 'skipped (contact)' } : supervise(llm, { draft: draft.split(MARKER).join(''), sources }));
+  // Every draft is checked, contact replies included (the supervisor passes plain contact replies).
+  const check = draft => supervise(llm, { draft: draft.split(MARKER).join(''), sources, question });
   let verdict = await check(full);
   const attempts = [verdict];
   for (let i = 0; !verdict.pass && i < CONFIG.MAX_SUPERVISOR_RETRIES; i++) {

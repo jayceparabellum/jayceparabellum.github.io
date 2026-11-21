@@ -52,7 +52,13 @@
     for (const raw of lines) {
       const line = raw.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         // Only allowlisted sites become links, so the model can't hand visitors an arbitrary URL.
-        .replace(/\b(?:https?:\/\/)?((?:www\.)?(?:jayceparabellum\.github\.io|credly\.com\/users\/jayce-parabellum[\w.-]*)(?:\/[^\s<)\]]*)?)/gi, (m, u) => `<a href="https://${u.replace(/[.,;]+$/, '')}" target="_blank" rel="noopener">${u.replace(/[.,;]+$/, '')}</a>${(u.match(/[.,;]+$/) || [''])[0]}`)
+        // The text is already HTML-escaped here, so the path stops at "&" (an entity such as &quot;) and at brackets.
+        .replace(/\b(?:https?:\/\/)?((?:www\.)?(?:jayceparabellum\.github\.io|credly\.com\/users\/jayce-parabellum[\w.-]*)(?:[/?#][^\s<>()\[\]"'&]*)?)/gi, (m, u) => {
+          const tail = (u.match(/[.,;:!?]+$/) || [''])[0], url = u.slice(0, u.length - tail.length);
+          return `<a href="https://${url}" target="_blank" rel="noopener">${url}</a>${tail}`;
+        })
+        // The Workers AI stream sometimes drops the brackets of a second citation ("[3]4"); restore them.
+        .replace(/\](\d{1,2})(?=[\s.,;:!?]|\[|$)/g, (m, n) => (sources[n - 1] ? `][${n}]` : m))
         .replace(/\[(\d+)\]/g, (m, n) => {
           const s = sources[n - 1];
           if (!s) return '';

@@ -1,6 +1,6 @@
 {
- "version": "2bb822f00eec",
- "built": "2026-11-18",
+ "version": "fe0333277c99",
+ "built": "2026-11-21",
  "chunks": [
   {
    "id": "01-profile#0",
@@ -23,8 +23,8 @@
    "title": "Profile and overview",
    "section": "Jayce at a glance (summary for recruiters)",
    "url": "#top",
-   "text": "- Now: AI Software Engineer at Teos Technology, LLC (since August 2026) on a healthcare platform (.NET, React, SQL Server, Azure DevOps): 133 merged pull requests in 8 weeks, about 1,700 new automated tests, and about 29 security pull requests. - AI engineering: LLM applications on local or managed models, agent orchestration, retrieval-augmented generation (RAG) over vector databases, and CI evaluation gates; completed the Gauntlet AI Fellowship (Cohort 4) in 2026. - Cloud and federal IT: nearly six years at Perspecta/Peraton (December 2019 - August 2025), ending as Cloud Systems Architect, Lead Associate on the NBIS personnel-vetting platform in AWS GovCloud; earlier network and systems work for CACI at the Pentagon and Phacil (2017-2019). - Service: U.S. Marine Corps Sergeant (2008-2014), then aerospace propulsion 7-level on the C-40 (D.C. Air National Guard) and C-5M Galaxy (U.S. Air Force Reserve), reaching Staff Sergeant; Top Secret clearance eligible. - Education: pursuing an M.S. in Computer Science (Artificial Intelligence) at CU Boulder, expected June 2028. - Open to freelance or contract projects, full-time corporate roles, and consulting.",
-   "hash": "380372a896d0"
+   "text": "- Now: AI Software Engineer at Teos Technology, LLC (since August 2026) on a healthcare platform (.NET, React, SQL Server, Azure DevOps): 133 merged pull requests in 8 weeks, about 1,700 new automated tests in total (about 1,500 unit tests and about 200 Cypress end-to-end tests), and about 29 security pull requests. - AI engineering: LLM applications on local or managed models, agent orchestration, retrieval-augmented generation (RAG) over vector databases, and CI evaluation gates; completed the Gauntlet AI Fellowship (Cohort 4) in 2026. - Cloud and federal IT: nearly six years at Perspecta/Peraton (December 2019 - August 2025), ending as Cloud Systems Architect, Lead Associate on the NBIS personnel-vetting platform in AWS GovCloud; earlier network and systems work for CACI at the Pentagon and Phacil (2017-2019). - Service: 16 years of military service across three components: U.S. Marine Corps Reserve Sergeant (2008-2014), then aerospace propulsion 7-level on the C-40 (D.C. Air National Guard) and C-5M Galaxy (U.S. Air Force Reserve), reaching Staff Sergeant; Top Secret clearance eligible. - Education: pursuing an M.S. in Computer Science (Artificial Intelligence) at CU Boulder, expected June 2028. - Open to freelance or contract projects, full-time corporate roles, and consulting.",
+   "hash": "698528918393"
   },
   {
    "id": "01-profile#3",
